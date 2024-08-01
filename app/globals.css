@@ -8,12 +8,6 @@
   --text-color: black;
 }
 
-.shadow-neu-inner {
-  box-shadow: inset 6px 6px 10px rgba(0, 0, 0, 0.2), 
-              inset -6px -6px 10px rgba(255, 255, 255, 0.7);
-}
-
-
 .dark {
   --bg-color: #343a40;
   --text-color: white;

@@ -10,11 +10,24 @@ const config: Config = {
     extend: {
       colors: {
         darkBg: '#343a40',
+        lightBg: '#f5f5f5',
+        lightText: '#50B498'
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontSize: {
+        '10xl': '10rem', // Example size, adjust as needed
+        '11xl': '12rem', // Example size, adjust as needed
+      },
+      lineHeight: {
+        'custom-tight': '0.6', // Example custom line height
+      },
+      textColor: {
+        'transparent': 'transparent', // Custom text color for transparency
+      },
+      
     },
   },
   darkMode: 'class', // Enable class-based dark mode

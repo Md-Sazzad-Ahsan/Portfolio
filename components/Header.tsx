@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <>
       {/* Desktop Header */}
-      <header className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 px-40 py-5">
+      <header className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 px-48 py-5">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-xl font-bold">Ahsan</div>
           <nav className="space-x-8 flex items-center">
@@ -40,7 +40,7 @@ const Header = () => {
       </header>
 
       {/* Mobile Header */}
-      <header className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center p-4">
+      <header className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center py-2       px-5">
         <div className="text-xl font-bold">Ahsan</div>
         <button 
           onClick={toggleSidebar}
