@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <>
       {/* Desktop Header */}
-      <header className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 px-48 py-5">
+      <header className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 px-56 py-5">
         <div className="container mx-auto flex justify-between items-center">
           <div className="text-xl font-bold">Ahsan</div>
           <nav className="space-x-8 flex items-center">
