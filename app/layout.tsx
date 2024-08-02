@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { playfair } from "@/public/fonts/fonts";
+//import { playfair } from "@/public/fonts/fonts";
 import { inter } from "@/public/fonts/fonts";
 
 import "./globals.css";
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 {/*Layout Components Rendering starts from here*/}
 export default function RootLayout({
-  children, /*this children props will be replaced by the page.tsx file from app folder */
+  children, /*this children props will be replaced by the page.tsx file as props from app folder */
 }:
 {
   children: React.ReactNode;

@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import ToggleSwitch from './ToggleSwitch';
 
@@ -27,12 +27,12 @@ const Header = () => {
       {/* Desktop Header */}
       <header className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 px-56 py-5">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-xl font-bold">Ahsan</div>
+          <Link href="/" className="text-xl font-bold">Ahsan</Link>
           <nav className="space-x-8 flex items-center">
-            <a href="#" className="hover:underline">Home</a>
-            <a href="#" className="hover:underline">About</a>
-            <a href="#" className="hover:underline">Portfolio</a>
-            <a href="#" className="hover:underline">Blog</a>
+            <Link href="/" className="hover:underline">Home</Link>
+            <Link href="/about" className="hover:underline">About</Link>
+            <Link href="/portfolio" className="hover:underline">Portfolio</Link>
+            <Link href="/blog" className="hover:underline">Blog</Link>
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
             <button className="bg-purple-700 text-white py-1 px-8 rounded-lg">Contact</button>
           </nav>
@@ -41,7 +41,7 @@ const Header = () => {
 
       {/* Mobile Header */}
       <header className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center py-2       px-5">
-        <div className="text-xl font-bold">Ahsan</div>
+        <Link href="/" className="text-xl font-bold">Ahsan</Link>
         <button 
           onClick={toggleSidebar}
           className="text-xl p-2"
@@ -65,10 +65,10 @@ const Header = () => {
           </button>
         </div>
         <nav className="mt-4 px-4">
-          <a href="#" className="block py-2 hover:underline">Home</a>
-          <a href="#" className="block py-2 hover:underline">About</a>
-          <a href="#" className="block py-2 hover:underline">Portfolio</a>
-          <a href="#" className="block py-2 hover:underline">Blog</a>
+          <Link href="/" className="block py-2 hover:underline">Home</Link>
+          <Link href="/about" className="block py-2 hover:underline">About</Link>
+          <Link href="/portfolio" className="block py-2 hover:underline">Portfolio</Link>
+          <Link href="/blog" className="block py-2 hover:underline">Blog</Link>
           <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded">Contact</button>
           <div className="mt-4 px-4">
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
