@@ -1,20 +1,13 @@
 import { FaFigma ,FaCode} from "react-icons/fa6";
 import { BsPencilSquare } from "react-icons/bs";
 import { AiOutlineAndroid } from "react-icons/ai";
-import Link from "next/link";
 
-function PortfolioCards() {
+function SkillsCard() {
   return (
     <main>
-        <section className="px-5 sm:px-16 md:px-56">
+        <section>
   <ul className="bg-gray-50 dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 md:gap-3 pt-20 md:pt-24 pb-10">
-    <li className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-left sm:text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Portfolios</li>
-    <span className="col-span-full flex flex-row gap-1 rounded-md text-gray-50 dark:text-darkBg py-5 items-center justify-center">
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Featured</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Top</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Latest</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >All</Link>
-    </span>
+    <li className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-left sm:text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Skills I have</li>
     <li className="h-80 flex flex-col p-5 sm:p-6 md:p-8 ring-white shadow-lg hover:shawod-xl rounded-md">
       <div className="font-bold text-4xl px-4 pt-8 pb-5 pl-8 sm:pl-4 md:py-4">
       <BsPencilSquare className="text-darkBg dark:text-gray-50 h-7 w-7" />
@@ -58,4 +51,4 @@ function PortfolioCards() {
   )
 }
 
-export default PortfolioCards;
+export default SkillsCard;

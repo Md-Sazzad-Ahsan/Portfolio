@@ -34,13 +34,13 @@ const Header = () => {
             <Link href="/portfolio" className="hover:underline">Portfolio</Link>
             <Link href="/blog" className="hover:underline">Blog</Link>
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
-            <button className="bg-purple-700 text-white py-1 px-8 rounded-lg">Contact</button>
+            <button className="bg-cyan-700 text-white py-1 px-8 rounded-lg  hover:bg-cyan-900 dark:hover:bg-cyan-900">Contact</button>
           </nav>
         </div>
       </header>
 
       {/* Mobile Header */}
-      <header className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center py-2       px-5">
+      <header className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center py-2 px-5">
         <Link href="/" className="text-xl font-bold">Ahsan</Link>
         <button 
           onClick={toggleSidebar}
@@ -55,7 +55,7 @@ const Header = () => {
       <aside 
         className={`fixed top-0 right-0 w-64 h-full bg-[var(--bg-color)] text-[var(--text-color)] transition-transform transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} shadow-lg z-20 lg:hidden`}
       >
-        <div className="flex justify-end items-center p-4">
+        <div className="flex justify-start items-center p-4">
           <button
             onClick={toggleSidebar}
             className="text-xl"
@@ -64,12 +64,12 @@ const Header = () => {
             &times;
           </button>
         </div>
-        <nav className="mt-4 px-4">
+        <nav className="mt-4 px-4 flex flex-col">
           <Link href="/" className="block py-2 hover:underline">Home</Link>
           <Link href="/about" className="block py-2 hover:underline">About</Link>
           <Link href="/portfolio" className="block py-2 hover:underline">Portfolio</Link>
           <Link href="/blog" className="block py-2 hover:underline">Blog</Link>
-          <button className="mt-4 w-full bg-blue-500 text-white py-2 rounded">Contact</button>
+          <Link href="/contact" className="mt-4 w-full bg-yellow-500 text-white py-2 px-5 rounded">Contact</Link>
           <div className="mt-4 px-4">
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
           </div>
