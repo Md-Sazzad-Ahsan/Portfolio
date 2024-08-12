@@ -3,12 +3,12 @@ import { BsPencilSquare } from "react-icons/bs";
 import { AiOutlineAndroid } from "react-icons/ai";
 import Cards from "./Cards"
 
-function SkillsCard() {
+function AboutSkillsCard() {
   return (
     <main>
-        <section>
-  <ul className="bg-gray-50 dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 md:gap-3 pt-20 md:pt-24 pb-10">
-    <li className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-left sm:text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Skills I have</li>
+<section>
+  <article className="bg-gray-50 dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 mt-20 md:mt-24 pb-10">
+    <div className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Experienced in</div>
     <Cards
         icon={BsPencilSquare}
         title="Content Writing"
@@ -21,7 +21,7 @@ function SkillsCard() {
         title="UI/UX Design"
         subtitle="Wireframe & Prototype"
         description={[
-          "Design in Figma,Canva",
+          "Design and Sketch",
           "Responsive Layout",
           "Application Prototype"
         ]}
@@ -32,23 +32,23 @@ function SkillsCard() {
         title="Web Development"
         subtitle="HTML CSS & Tailwind"
         description={[
-          "JavaScript & DOM Interaction",
+          "JavaScript & DOM Interaction","React Js and Next Js"
         ]}
       />
     
       <Cards
         icon={AiOutlineAndroid}
         title="App Development"
-        subtitle="React Native"
+        subtitle="React Native (In Progress)"
         description={[
           "NodeJs and NextJs","MySQL Database"
         ]}
       />
-    <li className="col-span-full text-center pt-5 sm:pt-8 md:pt-10"><a href="#" className="bg-cyan-700 px-8 py-1 text-base sm:text-md md:text-lg text-darkBg dark:text-gray-50 font-semibold rounded-md shadow-md hover:shadow-lg hover:bg-cyan-900">View all</a></li>
-  </ul>
+    <div className="col-span-full text-center pt-5 sm:pt-8 md:pt-10"><a href="#" className="bg-cyan-700 px-8 py-1 text-base sm:text-md md:text-lg text-darkBg dark:text-gray-50 font-semibold rounded-md shadow-md hover:shadow-lg hover:bg-cyan-900">View all</a></div>
+  </article>
 </section>
 </main>
   )
 }
 
-export default SkillsCard;
+export default AboutSkillsCard;

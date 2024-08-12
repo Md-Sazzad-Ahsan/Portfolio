@@ -8,15 +8,15 @@ function PortfolioCards() {
   return (
 <main>
 <section className="px-5 sm:px-16 md:px-56">
-  <ul className="bg-gray-50 dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 md:gap-3 pt-20 md:pt-24 pb-10">
-     
-    <li className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-left sm:text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Portfolios</li>
-    <span className="col-span-full flex flex-row gap-1 rounded-md text-gray-50 dark:text-gray-300 py-5 items-center justify-center">
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Featured</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Top</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >Latest</Link>
-      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:text-gray-50 px-5 md:px-8" >All</Link>
+  <ul className="bg-gray-50 dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 md:gap-3 pt-20 md:pt-24 pb-10">
+    <li className="text-3xl text-yellow-500 dark:text-gray-50 font-bold text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Portfolio</li>
+    <span className="col-span-full flex flex-row text-gray-50 dark:text-gray-300 pb-5 items-center justify-center space-x-1 ">
+      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 sm:px-8 md:px-10 py-1 sm:py-2 rounded-sm" >All</Link>
+      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 sm:px-8 md:px-10 py-1 sm:py-2 rounded-sm" >Top</Link>
+      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 sm:px-8 md:px-10 py-1 sm:py-2 rounded-sm" >Latest</Link>
+      <Link href="#" className="bg-cyan-700 dark:bg-cyan-700 hover:bg-cyan-900 dark:hover:bg-cyan-900 dark:hover:text-gray-50 px-5 sm:px-8 md:px-10 py-1 sm:py-2 rounded-sm" >Featured</Link>
     </span>
+    
       <Cards
         icon={BsPencilSquare}
         title="Content Writing"
