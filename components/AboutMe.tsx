@@ -47,11 +47,11 @@ export default function AboutMe() {
           <section className="space-x-5 flex sm:pl-12 pt-12 text-xs text-center items-center sm:items-start sm:justify-start">
             <Link
               href="/about"
-              className="ring-1 px-8 py-2 bg-cyan-800 dark:bg-gray-50 text-gray-50 dark:hover:text-gray-50 dark:text-darkBg rounded-md font-semibold hover:bg-cyan-700 dark:hover:bg-cyan-900"
+              className="ring-1 px-8 py-2 bg-cyan-600 text-gray-50 hover:bg-cyan-700 rounded-md font-semibold"
             >
               Read more
             </Link>
-            <Link href="#" className="rounded-md ring-1 px-8 py-2">
+            <Link href="#" className="rounded-md ring-1 px-8 py-2 hover:bg-gray-50 hover:text-darkBg font-semibold">
               Download CV
             </Link>
           </section>

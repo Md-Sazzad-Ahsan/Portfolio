@@ -13,7 +13,7 @@ const Cards: React.FC<CardProps> = ({ icon: Icon, title, subtitle, description }
       <div className="font-bold text-4xl px-4 pt-8 pb-5 pl-8 sm:pl-4 md:py-4">
         <Icon className="text-darkBg dark:text-gray-50 h-7 w-7" />
       </div>
-      <div className="text-2xl text-yellow-500 dark:text-cyan-700 font-bold pb-2 md:pb-3 pl-14 sm:pl-4">
+      <div className="text-2xl text-cyan-600 dark:text-cyan-700 font-bold pb-2 md:pb-3 pl-14 sm:pl-4">
         {title}
       </div>
       <div className="text-sm sm:text-md text-gray-700 dark:text-gray-50 pl-14 sm:pl-4">
