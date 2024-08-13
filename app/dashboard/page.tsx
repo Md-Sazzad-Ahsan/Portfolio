@@ -1,9 +1,11 @@
+import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
+
 export default function Dashboard()
 {
     return (
 
         <>
-        <h1>Welcome to my Dashboard!</h1>
+        <UnderConstruction />
         </>
 
     );

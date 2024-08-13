@@ -1,9 +1,11 @@
+import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
+
 export default function Blog()
 {
     return (
 
         <>
-        <h1>Hello from Blog!</h1>
+        <UnderConstruction />
         </>
 
     );

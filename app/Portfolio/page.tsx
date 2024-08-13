@@ -1,7 +1,12 @@
-function Portfolio() {
-  return (
-    <div>Portfolio</div>
-  )
-}
+import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
 
-export default Portfolio;
+export default function Portfolio()
+{
+    return (
+
+        <>
+       <UnderConstruction />
+        </>
+
+    );
+}

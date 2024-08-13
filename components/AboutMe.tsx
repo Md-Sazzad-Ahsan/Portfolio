@@ -7,7 +7,7 @@ import AboutSkillsCard from "./AboutSkillsCard";
 
 export default function AboutMe() {
   return (
-    <main className="bg-gray-100 dark:bg-darkBg px-5 sm:px-24 md:px-48 lg:px-56 py-28 sm:py-32 md:py-36 items-center">
+    <main className="dark:bg-darkBg px-5 sm:px-24 md:px-48 lg:px-56 py-28 sm:py-32 md:py-36 items-center">
       <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-8 lg:p-10 shadow-xl">
         <figure className="col-span-1 relative w-full h-0 pb-[140%]"> {/* Adjust height ratio as needed */}
           <Image

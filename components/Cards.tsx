@@ -16,7 +16,7 @@ const Cards: React.FC<CardProps> = ({ icon: Icon, title, subtitle, description }
       <div className="text-2xl text-cyan-600 dark:text-cyan-700 font-bold pb-2 md:pb-3 pl-14 sm:pl-4">
         {title}
       </div>
-      <div className="text-sm sm:text-md text-gray-700 dark:text-gray-50 pl-14 sm:pl-4">
+      <div className="text-sm sm:text-md text-gray-700 dark:text-gray-50 pl-14 sm:pl-4 overflow-hidden">
         {subtitle}
         <br />
         {description.map((line, index) => (

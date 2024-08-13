@@ -34,7 +34,9 @@ const Header = () => {
             <Link href="/portfolio" className="hover:underline">Portfolio</Link>
             <Link href="/blog" className="hover:underline">Blog</Link>
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
+            <Link href="/contact">
             <button className="bg-cyan-600 text-gray-50 py-1 px-8 rounded-lg  hover:bg-cyan-500 font-semibold">Contact</button>
+            </Link>
           </nav>
         </div>
       </header>
