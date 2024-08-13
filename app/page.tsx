@@ -3,7 +3,7 @@ import Image from "next/image";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/AboutMe";
 import PortfolioSectionDivider from "@/components/PortfolioSectionDivider";
-import PortfolioCards from "@/components/PortfolioCard";
+import PortfolioCard from "@/components/PortfolioCard";
 export default function Home() {
 
 
@@ -12,7 +12,7 @@ export default function Home() {
       <section className="flex flex-col sm:flex-row justify-between gap-20 sm:gap-5 sm:px-16 md:px-48 lg:px-56 py-28 sm:py-36 md:py-40 items-left text-left sm:text-left">
         <span className="px-8 sm:px-0 sm:pr-10 md:pr-16 lg:pr-20">
           <div className="text-darkBg dark:text-gray-50">
-          <p className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning your vision into <br/><div className="text-cyan-600">a Virtual Wonderland</div> </p>
+          <div className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning your vision into <br/><p className="text-cyan-600">a Virtual Wonderland</p> </div>
           <h1 className="text-sm pt-2">A skilled web developer and designer, crafting user-friendly websites and apps <br className="hidden sm:static"/> that deliver engaging digital experiences.</h1>
           <p className={` text-xl pt-16 font-semibold cursor-pointer text-cyan-500`}>Read more_</p>
           </div>
@@ -24,7 +24,7 @@ export default function Home() {
       <SectionDivider/>
       <AboutMe/>
       <PortfolioSectionDivider />
-      <PortfolioCards />
+      <PortfolioCard />
     </main>
   );
 }
