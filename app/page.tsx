@@ -3,7 +3,7 @@ import Image from "next/image";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/AboutMe";
 import PortfolioSectionDivider from "@/components/PortfolioSectionDivider";
-import PortfolioCards from "@/app/portfolio/page";
+import PortfolioCards from "@/components/PortfolioCard";
 export default function Home() {
 
 
