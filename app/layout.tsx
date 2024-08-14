@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Md. Sazzad Ahsan",
-  description: "Programmer Developer Software-Engineer Computer Engineer",
+  description: "Developer Computer-Engineer Programmer Content-Writer",
 };
 
 
