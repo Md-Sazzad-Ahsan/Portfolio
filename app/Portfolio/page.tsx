@@ -1,12 +1,9 @@
-import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
+import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage"; 
 
-export default function Portfolio()
-{
+export default function Portfolio() {
     return (
-
-        <>
-       <UnderConstruction />
-        </>
-
+        <main>
+            <UnderConstruction />
+        </main>
     );
 }

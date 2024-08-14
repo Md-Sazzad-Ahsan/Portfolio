@@ -14,6 +14,8 @@ export default function AboutMe() {
             src={MyPhoto}
             alt="Author's photo"
             fill // This replaces layout="responsive"
+            // sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            priority
             className="shadow-xl p-1 bg-gray-50 object-cover"
           />
         </figure>

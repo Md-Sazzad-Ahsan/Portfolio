@@ -2,13 +2,13 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="px-8 sm:px-24 md:px-48 lg:px-56 pt-5 sm:pt-8 md:pt-10 lg:pt-12 mt-10 md:mt-20 bg-gray-500 dark:bg-darkBg border-gray-500 border-t-2">
+    <footer className="px-8 sm:px-24 md:px-48 lg:px-56 pt-5 sm:pt-8 md:pt-10 lg:pt-12 mt-10 md:mt-20 bg-gray-600 dark:bg-darkBg border-gray-500 border-t-2">
       <div>
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
            
-            <span className="text-2xl font-semibold text-gray-50 whitespace-nowrap">Ahsan</span>
-            <p className='pt-5 text-gray-200'>Thanks for visiting my website.<br/>For more info,please look into About or Contact.<br/>Also Call me through Whatsapp or Send me an Email.</p>
+    <span className="text-2xl font-bold text-gray-50 whitespace-nowrap">Ahsan</span>
+         <p className='pt-5 text-gray-100'>Thanks for visiting my website.<br/>For more info,please look into About or Contact.</p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3">
             <div>
