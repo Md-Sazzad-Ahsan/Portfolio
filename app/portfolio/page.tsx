@@ -1,5 +1,5 @@
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage"
-export default function Portfolio() {
+export default function portfolio() {
     return (
       <main>
         <UnderConstruction />
