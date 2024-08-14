@@ -5,12 +5,12 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/AboutMe";
 import PortfolioSectionDivider from "@/components/PortfolioSectionDivider";
-import PortfolioCard from "@/components/PortfolioCard";
+import CardList from "@/components/PortfolioProjects/CardList";
 
 export default function Home() {
   return (
     <main className=" flex flex-col">
-      <section className="flex flex-col sm:flex-row justify-between gap-20 sm:gap-5 sm:px-16 md:px-48 lg:px-56 py-28 sm:py-36 md:py-40 items-left text-left sm:text-left">
+      <section className="flex flex-col sm:flex-row justify-between gap-20 sm:gap-5 sm:px-16 md:px-48 lg:px-56 py-28 sm:py-36 md:py-40 items-left text-left">
         <span className="px-8 sm:px-0 sm:pr-10 md:pr-16 lg:pr-20">
           <div className="text-darkBg dark:text-gray-50">
           <div className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning <span className="text-cyan-600">ideas </span>into a<br/>remarkable <a className="text-cyan-600">Website</a> </div>
@@ -25,7 +25,8 @@ export default function Home() {
       <SectionDivider/>
       <AboutMe/>
       <PortfolioSectionDivider />
-      <PortfolioCard />
+      <CardList maxCards={2} buttonShow={true} /> 
+      {/* maxCards is the limit of how many cards will be in section ALL */}
     </main>
   );
 }
