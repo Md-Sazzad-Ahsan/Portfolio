@@ -24,6 +24,17 @@ export const topCardsData = [
     ],
   },
 
+  {
+    icon: FaReact,
+    title: "React Basics",
+    subtitle: "Introduction to React",
+    description: [
+      "Learn the fundamentals of React.",
+      "Understand JSX, components, and state management.",
+      "Build your first React application."
+    ],
+  },
+
   // Add more top cards data...
 ];
 
