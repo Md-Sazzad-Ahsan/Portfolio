@@ -4,10 +4,12 @@ import { FaSquareGithub } from "react-icons/fa6";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
 import Link from "next/link";
 import AboutSkillsCard from "./AboutSkillsCard";
+import Button from "./buttons/Button";
+import DoubleButton from "./buttons/DoubleButton";
 
 export default function AboutMe() {
   return (
-    <main className="dark:bg-darkBg px-5 sm:px-24 md:px-48 lg:px-56 py-28 sm:py-32 md:py-36 items-center">
+    <main className="dark:bg-darkBg px-5 sm:px-24 md:px-48 lg:px-56 py-28 sm:py-32 md:py-36 items-left sm:items-center">
       <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-8 lg:p-10 shadow-lg dark:shadow-xl">
         <figure className="col-span-1 relative w-full h-0 pb-[140%]"> {/* Adjust height ratio as needed */}
           <Image
@@ -46,17 +48,8 @@ export default function AboutMe() {
             </div>
           </div>
 
-          <section className="space-x-5 flex sm:pl-12 pt-12 text-xs text-center items-left sm:items-start sm:justify-start">
-            <Link
-              href="/about"
-              className="ring-1 px-5 md:px-8 py-2 bg-cyan-600 text-gray-50 hover:bg-cyan-700 rounded-md font-semibold"
-            >
-              Read more
-            </Link>
-            <Link href="#" className="rounded-md ring-1 px-5 md:px-8 py-2 hover:bg-gray-50 hover:text-darkBg font-semibold">
-              Download CV
-            </Link>
-          </section>
+         <Button href="/about" buttonText="Read more" className="self-start px-0 font-bold sm:hidden text-left cursor-pointer" />
+         <DoubleButton href1="/about" href2="#" buttonOneText="Read more" buttonTwoText="Download CV" className="hidden sm:block px-12 pt-10" />
         </figure>
       </section>
       <AboutSkillsCard />
