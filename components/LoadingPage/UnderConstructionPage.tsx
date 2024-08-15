@@ -16,7 +16,7 @@ const UnderConstruction: React.FC = () => {
           className="mx-auto"
         />
       </div>
-      <h1 className="text-5xl font-bold mb-4">Building Something Awesome!</h1>
+      <h1 className="text-5xl font-bold mb-4 text-center">Building Something Awesome!</h1>
       <p className="text-lg text-center mb-6">
         Working hard to get it up and running. Please check back soon!
       </p>
