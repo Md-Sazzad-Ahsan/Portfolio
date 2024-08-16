@@ -1,4 +1,6 @@
 "use client";
+import { CiLight } from "react-icons/ci";
+import { MdDarkMode } from "react-icons/md";
 
 const ToggleSwitch = ({ checked, onChange }) => {
   return (
@@ -8,14 +10,21 @@ const ToggleSwitch = ({ checked, onChange }) => {
           type="checkbox" 
           checked={checked} 
           onChange={(e) => onChange(e.target.checked)}
-          className="sr-only"
+          className="sr-only mt-1"
         />
         <div 
-          className={`w-14 h-5 bg-gray-300 rounded-full shadow-inner transition-colors duration-300 ${checked ? 'bg-gray-300' : 'bg-gray-700'}`}
+          className={`w-12 h-5 rounded-full bg-gray-600 dark:bg-gray-100 shadow-inner transition-all duration-300 ${checked ? 'bg-gray-50' :''}`}
         >
           <div 
-            className={`absolute top-0 left-0 w-5 h-5 bg-white rounded-full shadow-inner stroke-white transition-transform duration-300 ${checked ? 'translate-x-8' : 'translate-x-0'}`}
-          />
+            className={`absolute top-0 left-0 w-5 h-5 bg-gray-100 dark:bg-gray-600 rounded-full shadow-inner transition-transform duration-300 ${checked ? 'translate-x-7' : 'translate-x-0'}`}
+          >
+            {/* Add icons to the toggle switch */}
+            {checked ? (
+              <MdDarkMode className="absolute inset-0 m-auto text-gray-800 dark:text-gray-200" />
+            ) : (
+              <CiLight className="absolute inset-0 m-auto text-gray-800 dark:text-gray-200" />
+            )}
+          </div>
         </div>
       </div>
     </label>

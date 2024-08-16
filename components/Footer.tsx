@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0">
            
-    <span className="text-2xl font-bold text-gray-50 whitespace-nowrap">Ahsan</span>
+    <span className="text-2xl font-bold text-cyan-600 dark:text-gray-50 whitespace-nowrap">Ahsan</span>
          <p className='pt-5 text-gray-100'>Thanks for visiting my website.<br/>For more info,please look into About or Contact.</p>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3">

@@ -28,7 +28,7 @@ export default function Home() {
       <SeparatePages dividerText="Projects_" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <CardList maxCards={2} buttonShow={true} /> 
       {/* CardList is a template to show projects maxCards is the limit of how many cards will be in section ALL */}
-      <SeparatePages dividerText="Blogs_" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="My Blog_" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <UnderConstruction />
     </main>
   );

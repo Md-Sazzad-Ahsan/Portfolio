@@ -1,3 +1,4 @@
+import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
 import CardList from "@/components/PortfolioProjects/CardList";
 import SeparatePages from "@/components/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
@@ -9,6 +10,7 @@ export default function portfolio() {
         <p className="text-sm px-8 sm:px-16 md:px-48 lg:px-56 hidden">I could teach you a thousand lines of code, all neat, following a structure ... but who are we going to fool? Here you have come to see websites, to discover what those projects are like that somehow “ I have given my life ”.</p>
         <CardList maxCards={2} buttonShow={false} />
          {/* maxCards is the limit of how many cards will be in section ALL*/}
+         <UnderConstruction />
       </main>
     );
   }
