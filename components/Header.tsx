@@ -1,8 +1,7 @@
 "use client";
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Use next/navigation for client components
-import { usePathname } from 'next/navigation';
+import { useRouter,usePathname } from 'next/navigation'; // Use next/navigation for client components
 
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import ToggleSwitch from './ToggleSwitch';
@@ -50,7 +49,7 @@ const Header = () => {
 
   // Function to determine the active link class
   const getActiveClass = (path: string) => {
-    return pathname === path ? 'text-cyan-400 dark:text-cyan-600' : '';
+    return pathname === path ? 'text-cyan-400 dark:text-cyan-400 underline' : '';
   };
 
   return (
@@ -74,7 +73,7 @@ const Header = () => {
             <Link href="/blog" className={`hover:underline ${getActiveClass('/blog')}`}>Blog</Link>
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
             <Link href="/contact">
-              <button className="bg-cyan-600 text-gray-50 py-1 px-8 rounded-lg hover:bg-cyan-500 font-semibold hover:underline">Contact</button>
+              <button className={`bg-cyan-600 text-gray-50 py-1 px-8 rounded-lg hover:bg-cyan-500 font-semibold${getActiveClass('/contact')}`}>Contact</button>
             </Link>
           </nav>
         </div>

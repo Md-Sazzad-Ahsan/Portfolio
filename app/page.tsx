@@ -7,6 +7,7 @@ import CardList from "@/components/PortfolioProjects/CardList";
 import SeparatePages from "@/components/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
+import {motion} from "framer-motion";
 
 export default function Home() {
   return (
@@ -20,15 +21,15 @@ export default function Home() {
           </div>
         </span>
         <span>
-            <Image src={VectorImage} alt="vector image related to my profile" height={400} width={400} className="p-5" />
+            <Image src={VectorImage} alt="vector image related to my profile" priority height={400} width={400} className="p-5" />
         </span>
       </section>
-      <SeparatePages dividerText="About me_" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="About me_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <AboutMe/>
-      <SeparatePages dividerText="Projects_" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="Projects_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <CardList maxCards={2} buttonShow={true} /> 
       {/* CardList is a template to show projects maxCards is the limit of how many cards will be in section ALL */}
-      <SeparatePages dividerText="My Blog_" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="My Blog_" dividerTextColor="dark:text-darkBg text-gray-50" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <UnderConstruction />
     </main>
   );

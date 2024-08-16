@@ -1,6 +1,6 @@
 "use client";
-import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
+import { TbSunLow } from "react-icons/tb";
 
 const ToggleSwitch = ({ checked, onChange }) => {
   return (
@@ -22,7 +22,7 @@ const ToggleSwitch = ({ checked, onChange }) => {
             {checked ? (
               <MdDarkMode className="absolute inset-0 m-auto text-gray-800 dark:text-gray-200" />
             ) : (
-              <CiLight className="absolute inset-0 m-auto text-gray-800 dark:text-gray-200" />
+              <TbSunLow className="absolute inset-0 m-auto text-gray-800 dark:text-gray-200" />
             )}
           </div>
         </div>

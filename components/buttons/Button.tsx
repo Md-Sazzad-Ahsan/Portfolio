@@ -1,3 +1,4 @@
+"use client";
 // components/Button.tsx
 import Link from "next/link";
 
