@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter,usePathname } from 'next/navigation'; // Use next/navigation for client components
 
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import ToggleSwitch from './ToggleSwitch';
+import ToggleSwitch from '../ToggleSwitch';
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
