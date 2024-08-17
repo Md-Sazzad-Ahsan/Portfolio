@@ -26,8 +26,8 @@ export default function AboutMe() {
 
         <figure className="col-span-2 flex flex-col pt-10 sm:pt-0 md:pt-8 lg:pt-10 sm:px-10 sm:items-start">
           <div className="pt-10 sm:pt-8 md:pt-12 font-semibold sm:pl-8 md:pl-12 text-left">
-            <span className="text-3xl text-left">
-              Hello I am, <br />
+            <span className="text-3xl text-left text-cyan-600">
+              Hello. I am, <br />
               Md. Sazzad Ahsan
             </span>
             <p className="font-normal pt-5 sm:pt-8">

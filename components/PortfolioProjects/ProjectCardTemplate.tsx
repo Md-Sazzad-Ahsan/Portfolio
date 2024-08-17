@@ -11,7 +11,7 @@ interface ProjectCardTemplateProps {
 
 const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, category, headline, description, link }) => {
   return (
-    <li className="flex flex-col p-5 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+    <li className="flex flex-col p-2 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
       <div className="relative w-full h-52">
         <Image src={imageSrc} alt={headline} priority fill />
       </div>
