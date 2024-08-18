@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
-import Buttons from "@/components/Buttons/Button"; // Assuming this is the correct path
+import Buttons from "@/components/Buttons/Button"; 
 
 interface ButtonProps {
-  href1: string; // URL or link for the first button
-  href2: string; // URL or link for the second button
-  buttonOneText: string; // Text to display on the first button
-  buttonTwoText: string; // Text to display on the second button
-  className?: string; // Optional className for additional styles
+  href1: string;
+  href2: string; 
+  buttonOneText: string;
+  buttonTwoText: string;
+  className?: string; 
 }
 
 const Button: React.FC<ButtonProps> = ({ href1, href2, buttonOneText, buttonTwoText, className }) => {

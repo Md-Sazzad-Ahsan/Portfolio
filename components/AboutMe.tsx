@@ -1,8 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
-import { FaSquareGithub } from "react-icons/fa6";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
 import AboutSkillsCard from "./AboutSkillsCard";
 import Button from "./Buttons/Button";
