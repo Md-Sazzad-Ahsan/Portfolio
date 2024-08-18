@@ -13,10 +13,10 @@ return(
   <FaSquareGithub className="text-xl" />
 </a>
 <a href="#">
-  <FaFacebookSquare className="text-xl" />
+  <FaLinkedin className="text-xl" />
 </a>
 <a href="#">
-  <FaLinkedin className="text-xl" />
+  <FaFacebookSquare className="text-xl" />
 </a>
 <a href="#">
   <FaTwitterSquare className="text-xl" />

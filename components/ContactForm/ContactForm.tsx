@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import SocialLinks from './SocialLinks';
+import { FaEnvelope, FaGlobe, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
 
 const ContactMe = () => {
   const [formData, setFormData] = useState({
@@ -100,30 +101,52 @@ const ContactMe = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-gray-50 dark:bg-darkBg p-5 rounded-lg flex flex-col justify-center"
+          className="bg-gray-50 dark:bg-darkBg p-5 rounded-lg flex flex-col justify-center items-start"
         >
-          <h2 className="text-2xl text-cyan-600 font-semibold mb-2">Contact Me</h2>
+          <h2 className="text-2xl text-cyan-600 font-semibold mb-2">Let’s Work Together</h2>
           <p className="text-gray-700 dark:text-gray-100 mb-4">
-            Nullam fermentum ullamcorper diam sit amet porta. Etiam ex ex, vehicula sit amet risus eu, ultricies sagittis ex eu magna. Etiam in ex felis.
+          Great ideas deserve a great partnership. Contact me today and let’s transform your ideas into results.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 pt-2">
-            <div className="flex flex-col items-start pt-4">
-              <span className="text-gray-700 dark:text-gray-100"> Call Us:</span>
-              <span className=" text-gray-500 dark:text-gray-300">+880 1407890001 </span>
-            </div>
-            <div className="flex flex-col items-start pt-4">
-              <span className="text-gray-700 dark:text-gray-100"> Email Us:</span>
-              <span className=" text-gray-500 dark:text-gray-300">ahsanhimuofficial@gmail.com</span>
-            </div>
-            <div className="flex flex-col items-start pt-4">
-              <span className="text-gray-700 dark:text-gray-100"> Website:</span>
-              <span className=" text-gray-500 dark:text-gray-300">ahsans-portfolio.vercel.app</span>
-            </div>
-            <div className="flex flex-col items-start pt-4">
-              <span className="text-gray-700 dark:text-gray-100"> Address:</span>
-              <span className=" text-gray-500 dark:text-gray-300">Paterbag, Shonir-Akhra, Dhaka, 1236</span>
-            </div>
-          </div>
+
+   <div className="grid grid-cols-1 sm:grid-cols-2 pt-2">
+      <div className="flex items-center p-4">
+        <FaPhone className="m-4" />
+        <div className='flex flex-col'>
+        <span className="text-gray-700 dark:text-gray-100 flex items-center">
+          Call
+        </span>
+        <span className="text-gray-500 dark:text-gray-300">+880 1407890001</span>
+        </div>
+      </div>
+      <div className="flex items-center p-4">
+       <div className='m-4'><FaEnvelope /></div> 
+        <div className='flex flex-col'>
+        <span className="text-gray-700 dark:text-gray-100 flex items-center">
+          Email
+        </span>
+        <span className="text-gray-500 dark:text-gray-300 ">himu200037@diit.edu.bd</span>
+        </div>
+      </div>
+      <div className="flex items-center p-4">
+      <div className='m-4'><FaGlobe /></div> 
+        <div className='flex flex-col'>
+        <span className="text-gray-700 dark:text-gray-100 flex items-center">
+          Website
+        </span>
+        <span className="text-gray-500 dark:text-gray-300"><a href="https://ahsans-portfolio.vercel.app">ahsans-portfolio.vercel.app</a></span>
+        </div>
+      </div>
+      <div className="flex items-center p-4 ">
+         <div className='m-4'><FaMapMarkerAlt /></div> 
+        <div className='flex flex-col'>
+        <span className="text-gray-700 dark:text-gray-100 flex items-center">
+          Address
+        </span>
+        <span className="text-gray-500 dark:text-gray-300">Paterbag, Shonir-Akhra, Dhaka, 1236</span>
+        </div>
+      </div>
+
+    </div>
           <div className="mt-4">
             <h3 className=" mb-2">Follow Me On</h3>
            <SocialLinks className='flex space-x-2' />

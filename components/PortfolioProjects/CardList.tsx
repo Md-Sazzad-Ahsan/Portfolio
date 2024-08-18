@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useState } from "react";
 import Link from "next/link";
 import ProjectCardTemplate from "@/components/PortfolioProjects/ProjectCardTemplate";
-import { topCardsData, latestCardsData, featuredCardsData } from "@/components/PortfolioProjects/ProjectData";
+import { allProjectsData } from "@/components/PortfolioProjects/ProjectData";
 import CategoryButtons from "@/components/PortfolioProjects/CategoryButtons";
 
 interface CardListProps {
@@ -18,39 +19,14 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
     setSelectedCategory(category);
   };
 
-  const renderCards = () => {
-    let cardsData;
-    switch (selectedCategory) {
-      case "Top":
-        cardsData = topCardsData;
-        break;
-      case "Latest":
-        cardsData = latestCardsData;
-        break;
-      case "Featured":
-        cardsData = featuredCardsData;
-        break;
-      default:
-        const topCards = topCardsData.slice(0, maxCards);
-        const latestCards = latestCardsData.slice(0, maxCards);
-        const featuredCards = featuredCardsData.slice(0, maxCards);
-        cardsData = [...topCards, ...latestCards, ...featuredCards];
-    }
+  // Filter and display the projects based on `displayInto` property
+  const filteredProjects = allProjectsData.filter(project => 
+    (project.displayInto || []).includes(selectedCategory) || selectedCategory === "All"
+  );
 
-    return cardsData.map((card, index) => (
-      <ProjectCardTemplate
-        key={index}
-        imageSrc={card.imageSrc}
-        category={card.category}
-        headline={card.headline}
-        description={card.description}
-        link={card.link}
-      />
-    ));
-  };
+  const cardsToDisplay = filteredProjects.slice(0, maxCards);
 
-  const shouldShowViewMore = buttonShow && selectedCategory === "All" && 
-    (topCardsData.length + latestCardsData.length + featuredCardsData.length > maxCards * 3);
+  const shouldShowViewMore = buttonShow && selectedCategory === "All" && filteredProjects.length > maxCards;
 
   return (
     <div className="px-5 sm:px-24 md:px-48 lg:px-56">
@@ -60,7 +36,16 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
       />
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {renderCards()}
+        {cardsToDisplay.map((card, index) => (
+          <ProjectCardTemplate
+            key={index}
+            imageSrc={card.imageSrc}
+            category={card.category}
+            headline={card.headline}
+            description={card.description}
+            link={card.link}
+          />
+        ))}
       </ul>
 
       {shouldShowViewMore && (
