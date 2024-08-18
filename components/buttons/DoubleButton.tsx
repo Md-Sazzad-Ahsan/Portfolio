@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Buttons from "@/components/buttons/Button"; // Assuming this is the correct path
+import Buttons from "@/components/Buttons/Button"; // Assuming this is the correct path
 
 interface ButtonProps {
   href1: string; // URL or link for the first button

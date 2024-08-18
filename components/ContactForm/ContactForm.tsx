@@ -1,13 +1,14 @@
 // components/ContactMe.tsx
 "use client";
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import { useState } from 'react';
+import SocialLinks from './SocialLinks';
 
 const ContactMe = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
     message: ''
   });
 
@@ -21,44 +22,24 @@ const ContactMe = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you should add your form submission logic, such as sending data to an API endpoint.
-    // For demonstration, we'll just log the data to the console.
     console.log('Form submitted:', formData);
-    alert('Message sent!'); 
+    alert('Message sent!');
   };
 
   return (
-    <section className="px-5 sm:px-16 md:px-48 lg:px-56 py-8 md:py-16 bg-gray-50 dark:bg-darkBg">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 shadow-md">
-        {/* Map Image */}
-        <motion.div
-          initial={{ opacity: 0, y: -50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="relative w-full h-64 md:col-span-3 md:h-48 lg:h-auto sm:order-2"
-        >
-          <Image
-            src="/images/TempMap.jpg"
-            alt="Map"
-            fill
-            priority
-            style={{objectFit:"cover"}}
-            className="rounded-t-lg sm:rounded-lg p-5"
-          />
-        </motion.div>
-
+    <section className="px-5 sm:px-16 md:px-48 lg:px-56 dark:bg-darkBg">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 shadow-lg bg-gray-50 dark:bg-darkBg p-2 sm:p-8 rounded-lg">
         {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-gray-50 dark:bg-darkBg p-5 rounded-b-lg sm:rounded-l-lg lg:col-span-2 md:col-span-2"
+          className="bg-gray-50 dark:bg-darkBg p-5 rounded-lg"
         >
-          <h2 className="text-2xl text-gray-700 dark:text-gray-100 font-semibold mb-4 sm:pt-5">Lets work together</h2>
-          <p className="text-gray-700 dark:text-gray-100 mb-8">Feel free to reach out with any questions or feedback!</p>
+          <h2 className="text-2xl text-cyan-600 font-semibold mb-4">Leave a Message</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="name" className="block text-gray-700 dark:text-gray-50">Name</label>
+              <label htmlFor="name" className="block text-gray-700 dark:text-gray-50">Your Name</label>
               <input
                 type="text"
                 id="name"
@@ -70,7 +51,7 @@ const ContactMe = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-gray-700 dark:text-gray-50">Email</label>
+              <label htmlFor="email" className="block text-gray-700 dark:text-gray-50">Your Email</label>
               <input
                 type="email"
                 id="email"
@@ -82,7 +63,19 @@ const ContactMe = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="message" className="block text-gray-700 dark:text-gray-50">Message</label>
+              <label htmlFor="subject" className="block text-gray-700 dark:text-gray-50">Subject</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 bg-gray-50 dark:bg-darkBg rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="message" className="block text-gray-700 dark:text-gray-50">Your Message</label>
               <textarea
                 id="message"
                 name="message"
@@ -100,6 +93,41 @@ const ContactMe = () => {
               Send Message
             </button>
           </form>
+        </motion.div>
+
+        {/* Contact Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-gray-50 dark:bg-darkBg p-5 rounded-lg flex flex-col justify-center"
+        >
+          <h2 className="text-2xl text-cyan-600 font-semibold mb-2">Contact Me</h2>
+          <p className="text-gray-700 dark:text-gray-100 mb-4">
+            Nullam fermentum ullamcorper diam sit amet porta. Etiam ex ex, vehicula sit amet risus eu, ultricies sagittis ex eu magna. Etiam in ex felis.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 pt-2">
+            <div className="flex flex-col items-start pt-4">
+              <span className="text-gray-700 dark:text-gray-100"> Call Us:</span>
+              <span className=" text-gray-500 dark:text-gray-300">+880 1407890001 </span>
+            </div>
+            <div className="flex flex-col items-start pt-4">
+              <span className="text-gray-700 dark:text-gray-100"> Email Us:</span>
+              <span className=" text-gray-500 dark:text-gray-300">ahsanhimuofficial@gmail.com</span>
+            </div>
+            <div className="flex flex-col items-start pt-4">
+              <span className="text-gray-700 dark:text-gray-100"> Website:</span>
+              <span className=" text-gray-500 dark:text-gray-300">ahsans-portfolio.vercel.app</span>
+            </div>
+            <div className="flex flex-col items-start pt-4">
+              <span className="text-gray-700 dark:text-gray-100"> Address:</span>
+              <span className=" text-gray-500 dark:text-gray-300">Paterbag, Shonir-Akhra, Dhaka, 1236</span>
+            </div>
+          </div>
+          <div className="mt-4">
+            <h3 className=" mb-2">Follow Me On</h3>
+           <SocialLinks className='flex space-x-2' />
+          </div>
         </motion.div>
       </div>
     </section>

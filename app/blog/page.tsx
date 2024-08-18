@@ -9,7 +9,7 @@ export default function Blog()
 
         <main className="pt-20">
         <SeparatePages dividerText="My Blogs_" dividerTextColor="text-cyan-600" subText="Story | Content | Programming | ICT | GK" className={`py-10  sm:py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 text-center sm:text-start ${playfair.className}`} />
-        <CardList maxCards={6} />
+        <CardList maxCards={2} />
         <UnderConstruction />
         </main>
 

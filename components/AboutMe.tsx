@@ -5,8 +5,9 @@ import { FaFacebookSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 import { FaSquareGithub } from "react-icons/fa6";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
 import AboutSkillsCard from "./AboutSkillsCard";
-import Button from "./buttons/Button";
-import DoubleButton from "./buttons/DoubleButton";
+import Button from "./Buttons/Button";
+import DoubleButton from "./Buttons/DoubleButton";
+import SocialLinks from "./ContactForm/SocialLinks";
 
 export default function AboutMe() {
   const pathname = usePathname();
@@ -33,20 +34,7 @@ export default function AboutMe() {
             <p className="font-normal pt-5 sm:pt-8">
               A recent graduate with a B.Sc. in Software Engineering from Daffodil Institute of IT (DIIT), Dhaka. Passionate about programming, web, app, software development, and cybersecurity. Eager to evolve as a skilled Software Engineer. Lets connect and explore the tech world together!
             </p>
-            <div className="justify-start pt-4 gap-2 pr-5 hidden sm:flex">
-              <a href="#">
-                <FaSquareGithub className="text-xl" />
-              </a>
-              <a href="#">
-                <FaFacebookSquare className="text-xl" />
-              </a>
-              <a href="#">
-                <FaLinkedin className="text-xl" />
-              </a>
-              <a href="#">
-                <FaTwitterSquare className="text-xl" />
-              </a>
-            </div>
+           <SocialLinks className="hidden sm:flex" />
           </div>
 
           {pathname === "/about" ? (
