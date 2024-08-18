@@ -3,13 +3,12 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
 import AboutSkillsCard from "./AboutSkillsCard";
-import Button from "./Buttons/Button";
-import DoubleButton from "./Buttons/DoubleButton";
+import Button from "./buttons/Button";
+import DoubleButton from "./buttons/DoubleButton";
 import SocialLinks from "./ContactForm/SocialLinks";
 
 export default function AboutMe() {
   const pathname = usePathname();
-  console.log("Current Pathname:", pathname); // Debugging line
 
   return (
     <main className="dark:bg-darkBg px-5 sm:px-16 md:px-48 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
