@@ -2,9 +2,9 @@
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
-import AboutSkillsCard from "./AboutSkillsCard";
-import Button from "./buttons/Button";
-import DoubleButton from "./buttons/DoubleButton";
+import AboutSkillsCard from "@/components/AboutSkillsCard";
+import Button from "@/components/Buttons/Button";
+import DoubleButton from "@/components/Buttons/DoubleButton";
 import SocialLinks from "./ContactForm/SocialLinks";
 
 export default function AboutMe() {
