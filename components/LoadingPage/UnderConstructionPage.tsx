@@ -6,7 +6,7 @@ import UnderConstructionImage from "@/public/images/UnderConstruction.svg"
 
 const UnderConstruction: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-darkBg text-darkBg dark:text-gray-50 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-darkBg text-darkBg dark:text-gray-50 p-4 sm:p-10 mt-5">
       <div className="max-w-md w-full mx-auto mb-8">
         <Image
           src={UnderConstructionImage}

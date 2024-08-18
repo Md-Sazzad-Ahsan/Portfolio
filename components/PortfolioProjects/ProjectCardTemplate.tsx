@@ -13,7 +13,7 @@ const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, cat
   return (
     <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-4 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
       <div className="relative w-full h-52">
-        <Image src={imageSrc} alt={headline} priority fill />
+        <Image src={imageSrc} alt={headline} priority fill sizes="cover" />
       </div>
       <div className="mt-4">
         <p className="text-sm text-gray-500">{category}</p>
