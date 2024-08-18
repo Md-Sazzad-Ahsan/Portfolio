@@ -7,7 +7,7 @@ interface ButtonProps {
   className?: string; // Optional className for additional styles
 }
 
-const Button: React.FC<ButtonProps> = ({ href, buttonText, className }) => {
+const Buttons: React.FC<ButtonProps> = ({ href, buttonText, className }) => {
   return (
     <Link href={href} className={className ? className : ""}>
       {buttonText}
@@ -15,4 +15,4 @@ const Button: React.FC<ButtonProps> = ({ href, buttonText, className }) => {
   );
 };
 
-export default Button;
+export default Buttons;

@@ -3,8 +3,8 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
 import AboutSkillsCard from "@/components/AboutSkillsCard";
-import Button from "@/components/Buttons/Button";
-import DoubleButton from "@/components/Buttons/DoubleButton";
+import Button from "@/components/Button/Buttons";
+import DoubleButton from "@/components/Button/DoubleButton";
 import SocialLinks from "./ContactForm/SocialLinks";
 
 export default function AboutMe() {
