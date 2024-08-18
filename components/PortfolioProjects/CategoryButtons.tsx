@@ -1,4 +1,4 @@
-"use client";
+// File: CategoryButtons.tsx
 
 import React from "react";
 
