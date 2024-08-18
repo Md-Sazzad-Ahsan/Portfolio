@@ -1,16 +1,16 @@
 "use client";
 import React from "react";
-import Buttons from "@/components/Buttons/Button"; 
+import Buttons from "@/components/Buttons/Button"; // Assuming this is the correct path
 
-interface ButtonProps {
-  href1: string;
-  href2: string; 
-  buttonOneText: string;
-  buttonTwoText: string;
-  className?: string; 
+interface DoubleButtonProps { // Renamed to DoubleButtonProps
+  href1: string; // URL or link for the first button
+  href2: string; // URL or link for the second button
+  buttonOneText: string; // Text to display on the first button
+  buttonTwoText: string; // Text to display on the second button
+  className?: string; // Optional className for additional styles
 }
 
-const Button: React.FC<ButtonProps> = ({ href1, href2, buttonOneText, buttonTwoText, className }) => {
+const DoubleButton: React.FC<DoubleButtonProps> = ({ href1, href2, buttonOneText, buttonTwoText, className }) => {
   return (
     <div className={`flex flex-row text-sm sm:text-md ${className}`}>
       <Buttons buttonText={buttonOneText} href={href1} className="ring-1 mr-5 hover:bg-cyan-500 bg-cyan-600 text-gray-50 cursor-pointer px-8 md:px-10 py-2" />
@@ -19,4 +19,4 @@ const Button: React.FC<ButtonProps> = ({ href1, href2, buttonOneText, buttonTwoT
   );
 };
 
-export default Button;
+export default DoubleButton;

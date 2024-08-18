@@ -9,6 +9,7 @@ import SocialLinks from "./ContactForm/SocialLinks";
 
 export default function AboutMe() {
   const pathname = usePathname();
+  console.log("Current Pathname:", pathname); // Debugging line
 
   return (
     <main className="dark:bg-darkBg px-5 sm:px-16 md:px-48 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
@@ -32,13 +33,23 @@ export default function AboutMe() {
             <p className="font-normal pt-5 sm:pt-8">
               A recent graduate with a B.Sc. in Software Engineering from Daffodil Institute of IT (DIIT), Dhaka. Passionate about programming, web, app, software development, and cybersecurity. Eager to evolve as a skilled Software Engineer. Lets connect and explore the tech world together!
             </p>
-           <SocialLinks className="hidden sm:flex" />
+            <SocialLinks className="hidden sm:flex" />
           </div>
 
           {pathname === "/about" ? (
-            <Button href="#" buttonText="Download CV" className="self-start mx-0 sm:mx-8 md:mx-12 mt-4 py-2 hover:underline hover:text-cyan-600 font-bold text-left cursor-pointer" />
+            <Button
+              href="#"
+              buttonText="Download CV"
+              className="self-start mx-0 sm:mx-8 md:mx-12 mt-4 py-2 hover:underline hover:text-cyan-600 font-bold text-left cursor-pointer"
+            />
           ) : (
-            <DoubleButton href1="/about" href2="#" buttonOneText="Read more" buttonTwoText="Download CV" className="pt-5 md:pt-10 md:pl-12" />
+            <DoubleButton
+              href1="/about"
+              href2="#"
+              buttonOneText="Read more"
+              buttonTwoText="Download CV"
+              className="pt-5 md:pt-10 md:pl-12"
+            />
           )}
         </figure>
       </section>

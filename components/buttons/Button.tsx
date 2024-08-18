@@ -1,5 +1,4 @@
 "use client";
-// components/Button.tsx
 import Link from "next/link";
 
 interface ButtonProps {
@@ -8,9 +7,9 @@ interface ButtonProps {
   className?: string; // Optional className for additional styles
 }
 
-const Button: React.FC<ButtonProps> = ({ href, buttonText, className}) => {
+const Button: React.FC<ButtonProps> = ({ href, buttonText, className }) => {
   return (
-    <Link href={href} className={`${className}`}>
+    <Link href={href} className={className ? className : ""}>
       {buttonText}
     </Link>
   );
