@@ -13,7 +13,7 @@ export const allProjectsData = [
     imageSrc: "/projectImages/EcommerceImage.jpg",
     category: "E-commerce",
     headline: "Online Store Platform",
-    description: "An e-commerce platform built with React and Node.js, featuring product listings, shopping cart, and checkout.",
+    description: "An e-commerce platform built with React and Node.js, featuring product listings,product searching, shopping cart, and checkout.",
     link: "/projects/online-store",
     displayInto: ["All"], // Show in All category
   },
@@ -45,7 +45,7 @@ export const allProjectsData = [
     imageSrc: "/projectImages/MachineImage.jpg",
     category: "Machine Learning",
     headline: "Image Classification System",
-    description: "A machine learning project that classifies images into categories using TensorFlow and Python.",
+    description: "A machine learning project that classifies images into multiple categories using TensorFlow and Python.",
     link: "/projects/image-classification-system",
     displayInto: ["Featured"], // Show in Featured category
   },
