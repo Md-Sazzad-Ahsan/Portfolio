@@ -15,9 +15,9 @@ interface CardListProps {
 
 const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [activeIndex, setActiveIndex] = useState<number>(0);
   const [showButtons, setShowButtons] = useState<boolean>(true);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const [cardScales, setCardScales] = useState<number[]>(Array(maxCards).fill(1));
+  const carouselRef = useRef<HTMLDivElement | null>(null);
   const hideButtonsTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const filteredProjects = allProjectsData.filter(project =>
@@ -25,7 +25,6 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
   );
 
   const cardsToDisplay = filteredProjects.slice(0, maxCards);
-  const totalCards = cardsToDisplay.length;
 
   const handleCategoryChange = (category: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -36,13 +35,12 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
   const scrollCarousel = (direction: "left" | "right") => {
     if (carouselRef.current) {
       const scrollAmount = carouselRef.current.clientWidth * 0.8;
-      const newIndex = direction === "right"
-        ? Math.min(activeIndex + 1, totalCards - 1)
-        : Math.max(activeIndex - 1, 0);
+      const newScrollLeft = direction === "right"
+        ? Math.min(carouselRef.current.scrollLeft + scrollAmount, carouselRef.current.scrollWidth - carouselRef.current.clientWidth)
+        : Math.max(carouselRef.current.scrollLeft - scrollAmount, 0);
 
-      setActiveIndex(newIndex);
       carouselRef.current.scrollTo({
-        left: scrollAmount * newIndex,
+        left: newScrollLeft,
         behavior: "smooth"
       });
 
@@ -50,29 +48,34 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
     }
   };
 
-  const updateActiveIndex = () => {
-    if (carouselRef.current) {
-      const scrollPosition = carouselRef.current.scrollLeft;
-      const cardWidth = carouselRef.current.clientWidth * 0.8;
-      const newIndex = Math.round(scrollPosition / cardWidth);
-      setActiveIndex(newIndex);
-    }
-  };
-
   useEffect(() => {
-    const currentCarouselRef = carouselRef.current;
+    const updateCardScales = () => {
+      if (carouselRef.current) {
+        const cards = Array.from(carouselRef.current.children) as HTMLElement[];
+        const scrollLeft = carouselRef.current.scrollLeft;
+        const viewportCenter = scrollLeft + carouselRef.current.clientWidth / 2;
+        const maxDistance = carouselRef.current.clientWidth / 2;
 
-    if (currentCarouselRef) {
-      currentCarouselRef.addEventListener('scroll', updateActiveIndex);
-    }
+        const newScales = cards.map(card => {
+          const cardCenter = card.offsetLeft + card.clientWidth / 2;
+          const distance = Math.abs(cardCenter - viewportCenter);
+          const scale = 1 - (distance / maxDistance) * 0.2;
+          return Math.max(scale, 0.8);
+        });
 
-    return () => {
-      currentCarouselRef?.removeEventListener('scroll', updateActiveIndex);
+        setCardScales(newScales);
+      }
     };
-  }, [cardsToDisplay]);
+
+    updateCardScales();
+    const currentCarouselRef = carouselRef.current;
+    currentCarouselRef?.addEventListener("scroll", updateCardScales);
+    return () => {
+      currentCarouselRef?.removeEventListener("scroll", updateCardScales);
+    };
+  }, [cardsToDisplay.length]); // Use length as dependency to avoid infinite loops
 
   const resetCarousel = () => {
-    setActiveIndex(0);
     carouselRef.current?.scrollTo({ left: 0, behavior: "smooth" });
   };
 
@@ -83,7 +86,7 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
   };
 
   return (
-    <div className="relative px-5 sm:px-24 md:px-48 lg:px-56">
+    <div className="relative px-5 sm:px-16 md:px-48 lg:px-56">
       <CategoryButtons
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
@@ -102,7 +105,7 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
             <motion.div
               key={index}
               className="flex-shrink-0 snap-start"
-              style={{ width: '90vw', maxWidth: '600px' }}
+              style={{ width: '87vw', maxWidth: '600px', transform: `scale(${cardScales[index]})` }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               initial={{ opacity: 0 }}
@@ -125,29 +128,16 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
           <>
             <button 
               onClick={() => scrollCarousel("left")} 
-              className={`absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1 ${activeIndex === 0 ? 'opacity-0 pointer-events-none' : ''}`}>
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
               <RiArrowLeftWideFill size={28} />
             </button>
             <button 
               onClick={() => scrollCarousel("right")} 
-              className={`absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1 ${activeIndex >= totalCards - 1 ? 'opacity-0 pointer-events-none' : ''}`}>
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
               <RiArrowRightWideFill size={28} />
             </button>
           </>
         )}
-
-        {/* Carousel Navigation Dots */}
-        <div className="flex justify-center mt-4">
-          {cardsToDisplay.map((_, index) => (
-            <motion.div 
-              key={index}
-              className={`h-2 w-2 mx-1 rounded-full ${index === activeIndex ? 'bg-blue-500' : 'bg-gray-300'}`}
-              initial={{ scale: 1 }}
-              animate={{ scale: index === activeIndex ? 1.2 : 1 }}
-              transition={{ duration: 0.3 }}
-            ></motion.div>
-          ))}
-        </div>
       </div>
 
       {/* Grid layout for larger screens */}

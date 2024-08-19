@@ -36,7 +36,7 @@ export const allProjectsData = [
   {
     imageSrc: "/projectImages/APIImage.jpg",
     category: "API Development",
-    headline: "RESTful API for Social Network",
+    headline: "API for Social Network",
     description: "A RESTful API developed with Node.js and Express, powering the backend of a social networking platform.",
     link: "/projects/social-network-api",
     displayInto: ["Featured"], // Show in Featured category
@@ -45,7 +45,7 @@ export const allProjectsData = [
     imageSrc: "/projectImages/MachineImage.jpg",
     category: "Machine Learning",
     headline: "Image Classification System",
-    description: "A machine learning project that classifies images into different categories using TensorFlow and Python.",
+    description: "A machine learning project that classifies images into categories using TensorFlow and Python.",
     link: "/projects/image-classification-system",
     displayInto: ["Featured"], // Show in Featured category
   },
