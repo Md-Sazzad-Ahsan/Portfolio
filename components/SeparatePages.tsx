@@ -13,7 +13,7 @@ const SeparatePages: React.FC<SeparatePagesProps> = ({
 }) => {
   return (
     <div className={` ${className}`}>
-      <h1 className={`text-6xl sm:text-7xl md:text-9xl ${dividerTextColor}`}>
+      <h1 className={`text-6xl sm:text-6xl md:text-8xl lg:text-9xl ${dividerTextColor}`}>
         {dividerText}
       </h1>
       <span className="pt-1 sm:pt-2 md:pt-0 text-darkBg dark:text-gray-50 text-sm sm:text-md font-semibold sm:font-bold uppercase">

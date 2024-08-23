@@ -1,0 +1,6 @@
+This favicon was generated using the following font:
+
+- Font Title: Afacad
+- Font Author: Copyright 2023 The Afacad Project Authors (https://github.com/Dicotype/Afacad)
+- Font Source: https://fonts.gstatic.com/s/afacad/v1/6NUK8FKMIQOGaw6wjYT7ZHG_zsBBfhXtWmA08mCgdfM.ttf
+- Font License: SIL Open Font License, 1.1 (http://scripts.sil.org/OFL))

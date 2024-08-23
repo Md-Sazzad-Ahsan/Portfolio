@@ -12,7 +12,7 @@ import {motion} from "framer-motion";
 export default function Home() {
   return (
     <main className=" flex flex-col pt-20">
-      <section className="flex flex-col sm:flex-row justify-between gap-20 sm:gap-5 sm:px-16 md:px-48 lg:px-56 py-10 sm:py-20 md:py-28 items-left text-left">
+      <section className="flex flex-col sm:flex-row justify-between gap-20 sm:gap-5 sm:px-16 md:px-28 lg:px-56 py-10 sm:py-20 md:py-28 items-left text-left">
         <span className="px-8 sm:px-0 sm:pr-10 md:pr-16 lg:pr-20">
           <div className="text-darkBg dark:text-gray-50">
           <div className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning <span className="text-cyan-600">ideas </span>into a<br/>remarkable <a className="text-cyan-600">Website</a> </div>

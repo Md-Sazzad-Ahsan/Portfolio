@@ -27,7 +27,7 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
   };
 
   return (
-    <div className="relative px-5 sm:px-16 md:px-48 lg:px-56">
+    <div className="relative px-5 sm:px-16 md:px-28 lg:px-56">
       <CategoryButtons selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
 
       <div className="sm:hidden">

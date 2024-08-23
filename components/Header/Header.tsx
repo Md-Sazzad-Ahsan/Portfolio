@@ -62,7 +62,7 @@ const Header = () => {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-10 sm:px-16 md:px-48 lg:px-56 py-4"
+        className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-50 sm:px-16 md:px-48 lg:px-56 py-4"
       >
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-cyan-600 dark:text-gray-50">Ahsan</Link>
@@ -88,7 +88,7 @@ const Header = () => {
       animate={hidden ? "hidden" : "visible"}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       
-      className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-10 flex justify-between items-center py-1 px-5">
+      className="lg:hidden bg-[var(--bg-color)] text-[var(--text-color)] shadow-md fixed w-full top-0 z-50 flex justify-between items-center py-1 px-5">
         <Link href="/" className="text-xl font-bold">Ahsan</Link>
         <section className='flex'>
           <div className="mt-4 px-4">
@@ -109,7 +109,7 @@ const Header = () => {
         initial={{ x: "100%" }}
         animate={{ x: sidebarOpen ? 0 : "100%" }}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
-        className={`fixed top-0 right-0 w-64 h-full bg-[var(--bg-color)] text-[var(--text-color)] shadow-lg z-20 lg:hidden`}
+        className={`fixed top-0 right-0 w-64 h-full bg-[var(--bg-color)] text-[var(--text-color)] shadow-lg z-40 lg:hidden`}
       >
         <div className="flex justify-start items-center p-4">
           <button

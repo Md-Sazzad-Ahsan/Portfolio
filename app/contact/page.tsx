@@ -8,7 +8,7 @@ export default function Contact()
     return (
 
         <main className="pt-20">
-        <SeparatePages dividerText="Contact_" dividerTextColor="text-cyan-600" subText="Prototype | Website | Application | SEO" className={`px-5 sm:px-16 md:px-48 lg:px-56 py-10 sm:py-20 md:py-28 text-center sm:text-start ${playfair.className}`} />
+        <SeparatePages dividerText="Contact_" dividerTextColor="text-cyan-600" subText="Prototype | Website | Application | SEO" className={`px-5 sm:px-16 md:px-28 lg:px-56 py-10 sm:py-20 md:py-28 text-center sm:text-start ${playfair.className}`} />
         <ContactForm />
         <MapImage />
         <UnderConstruction />

@@ -1,0 +1,29 @@
+{
+    "id":"2",
+    "name": "AHSAN",
+    "short_name": "AHSAN",
+    "description": "A portfolio web-app about Md. Sazzad Ahsan",
+    "icons": [
+      {
+        "src": "/android-chrome-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+        "purpose": "any maskable"
+      },
+      {
+        "src": "/android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "/apple-touch-icon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#333a3f",
+    "background_color": "#f5f5f5",
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait"
+  }

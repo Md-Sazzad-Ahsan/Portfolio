@@ -19,6 +19,7 @@ export default function AboutMe() {
             alt="Author's photo"
             fill
             priority
+            sizes="cover"
             className="shadow-xl p-1 bg-gray-50 object-cover"
           />
         </figure>
