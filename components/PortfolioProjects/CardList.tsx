@@ -3,10 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { allProjectsData } from "@/components/PortfolioProjects/ProjectData";
-import CategoryButtons from "./CategoryButtons";
-import Carousel from "./Carousel";
+import CategoryButtons from "../CategoryButtons";
+import Carousel from "../Carousel";
 import CardGrid from "./CardGrid";
-
 interface CardListProps {
   maxCards?: number;
   buttonShow?: boolean;
@@ -25,10 +24,11 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
     event.preventDefault();
     setSelectedCategory(category);
   };
+  const categories = ["All", "Top", "Latest", "Featured"];
 
   return (
     <div className="relative px-5 sm:px-16 md:px-28 lg:px-56">
-      <CategoryButtons selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} />
+      <CategoryButtons selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} categories={categories} />
 
       <div className="sm:hidden">
         <Carousel cardsToDisplay={cardsToDisplay} />

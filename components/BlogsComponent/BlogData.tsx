@@ -1,0 +1,69 @@
+// File: ProjectData.ts
+
+export const allBlogsData = [
+    {
+      imageSrc: "/projectImages/PortfolioImage.jpg",
+      category: "Social",
+      headline: "Personal Portfolio Website",
+      description: "A responsive personal portfolio website built using Next.js and TailwindCSS, showcasing projects and skills.",
+      link: "/projects/personal-portfolio",
+      displayInto: ["All", "Social"],
+    },
+    {
+      imageSrc: "/projectImages/EcommerceImage.jpg",
+      category: "Technology",
+      headline: "Online Store Platform",
+      description: "An e-commerce platform built with React and Node.js, featuring product listings,product searching, shopping cart, and checkout.",
+      link: "/projects/online-store",
+      displayInto: ["All","Technology"],
+    },
+    {
+      imageSrc: "/projectImages/FitnessTrackerImage.jpg",
+      category: "Social",
+      headline: "Fitness Management App",
+      description: "A fitness management web application that allows users to create, manage, and track their fitness efficiently.",
+      link: "/projects/task-management-app",
+      displayInto: ["Social"], 
+    },
+    {
+      imageSrc: "/projectImages/MobileImage.jpg",
+      category: "LifeStyle",
+      headline: "Music Player App",
+      description: "An android music player app built with React Native, enabling users to play melodious music during workout.",
+      link: "/projects/fitness-tracker-app",
+      displayInto: ["LifeStyle","All"], 
+    },
+    {
+      imageSrc: "/projectImages/APIImage.jpg",
+      category: "Technology",
+      headline: "API for Social Network",
+      description: "A RESTful API developed with Node.js and Express, powering the backend of a social networking platform.",
+      link: "/projects/social-network-api",
+      displayInto: ["Technology"],
+    },
+    {
+      imageSrc: "/projectImages/MachineImage.jpg",
+      category: "Technology",
+      headline: "Image Classification System",
+      description: "A machine learning project that classifies images into multiple categories using TensorFlow and Python.",
+      link: "/projects/image-classification-system",
+      displayInto: ["Technology"], 
+    },
+    {
+      imageSrc: "/images/TempImage.jpg",
+      category: "Education",
+      headline: "Content Management System",
+      description: "A custom CMS developed with PHP and Laravel, allowing users to create and manage website content.",
+      link: "/projects/content-management-system",
+      displayInto: ["Education","All"],
+    },
+    {
+      imageSrc: "/images/TempImage.jpg",
+      category: "Education",
+      headline: "Content Management System",
+      description: "A custom CMS developed with PHP and Laravel, allowing users to create and manage website content.",
+      link: "/projects/content-management-system",
+      displayInto: ["Education"],
+    },
+  ];
+  

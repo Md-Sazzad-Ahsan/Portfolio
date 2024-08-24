@@ -8,9 +8,9 @@ interface ProjectCardTemplateProps {
   link: string;
 }
 
-const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, category, headline, description, link }) => {
+const BlogCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, category, headline, description, link }) => {
   return (
-    <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-4 m-2 sm:m-0 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+    <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-4 m-2 sm:m-0 ring-white shadow-xl sm:shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md sm:rounded-none">
       <div className="relative w-full h-52">
         <Image src={imageSrc} alt={headline} priority fill sizes="cover" />
       </div>
@@ -26,4 +26,4 @@ const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, cat
   );
 };
 
-export default ProjectCardTemplate;
+export default BlogCardTemplate;
