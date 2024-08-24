@@ -1,4 +1,3 @@
-// File: ProjectData.ts
 
 export const allBlogsData = [
     {
@@ -11,11 +10,11 @@ export const allBlogsData = [
     },
     {
       imageSrc: "/projectImages/EcommerceImage.jpg",
-      category: "Technology",
+      category: "Tech",
       headline: "Online Store Platform",
       description: "An e-commerce platform built with React and Node.js, featuring product listings,product searching, shopping cart, and checkout.",
       link: "/projects/online-store",
-      displayInto: ["All","Technology"],
+      displayInto: ["All","Tech"],
     },
     {
       imageSrc: "/projectImages/FitnessTrackerImage.jpg",
@@ -35,19 +34,19 @@ export const allBlogsData = [
     },
     {
       imageSrc: "/projectImages/APIImage.jpg",
-      category: "Technology",
+      category: "Tech",
       headline: "API for Social Network",
       description: "A RESTful API developed with Node.js and Express, powering the backend of a social networking platform.",
       link: "/projects/social-network-api",
-      displayInto: ["Technology"],
+      displayInto: ["Tech"],
     },
     {
       imageSrc: "/projectImages/MachineImage.jpg",
-      category: "Technology",
+      category: "Tech",
       headline: "Image Classification System",
       description: "A machine learning project that classifies images into multiple categories using TensorFlow and Python.",
       link: "/projects/image-classification-system",
-      displayInto: ["Technology"], 
+      displayInto: ["Tech"], 
     },
     {
       imageSrc: "/images/TempImage.jpg",

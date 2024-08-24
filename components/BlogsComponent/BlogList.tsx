@@ -24,7 +24,7 @@ const BlogList: React.FC<BlogListProps> = ({ maxBlogs = 3, buttonShow = true }) 
     event.preventDefault();
     setSelectedCategory(category);
   };
-  const categories = ["All", "LifeStyle", "Technology","Education","Social"];
+  const categories = ["All", "LifeStyle", "Tech","Education","Social"];
 
   return (
     <div className="relative px-5 sm:px-16 md:px-28 lg:px-56">
