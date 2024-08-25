@@ -6,6 +6,7 @@ import { allProjectsData } from "@/components/PortfolioProjects/ProjectData";
 import CategoryButtons from "../CategoryButtons";
 import Carousel from "../Carousel";
 import CardGrid from "./CardGrid";
+import ProjectCardTemplate from "./ProjectCardTemplate";
 interface CardListProps {
   maxCards?: number;
   buttonShow?: boolean;
@@ -31,7 +32,7 @@ const CardList: React.FC<CardListProps> = ({ maxCards = 3, buttonShow = true }) 
       <CategoryButtons selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} categories={categories} />
 
       <div className="sm:hidden">
-        <Carousel cardsToDisplay={cardsToDisplay} />
+        <Carousel cardsToDisplay={cardsToDisplay} CardTemplate={ProjectCardTemplate} />
       </div>
 
       <CardGrid cardsToDisplay={cardsToDisplay} />

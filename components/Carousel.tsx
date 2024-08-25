@@ -3,17 +3,30 @@
 import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { RiArrowRightWideFill, RiArrowLeftWideFill } from "react-icons/ri";
-import ProjectCardTemplate from "@/components/PortfolioProjects/ProjectCardTemplate";
 
 interface CarouselProps {
   cardsToDisplay: any[];
+  CardTemplate: React.FC<any>; // Accepts any card template component
 }
 
-const Carousel: React.FC<CarouselProps> = ({ cardsToDisplay }) => {
-  const [showButtons, setShowButtons] = useState<boolean>(true);
+const Carousel: React.FC<CarouselProps> = ({ cardsToDisplay, CardTemplate }) => {
+  const [showButtons, setShowButtons] = useState<boolean>(false);
+  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+  const [canScrollRight, setCanScrollRight] = useState<boolean>(false);
   const [cardScales, setCardScales] = useState<number[]>(Array(cardsToDisplay.length).fill(1));
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const hideButtonsTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  const updateScrollButtons = () => {
+    if (carouselRef.current) {
+      const scrollLeft = carouselRef.current.scrollLeft;
+      const scrollWidth = carouselRef.current.scrollWidth;
+      const clientWidth = carouselRef.current.clientWidth;
+
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+    }
+  };
 
   const scrollCarousel = (direction: "left" | "right") => {
     if (carouselRef.current) {
@@ -27,6 +40,7 @@ const Carousel: React.FC<CarouselProps> = ({ cardsToDisplay }) => {
         behavior: "smooth",
       });
 
+      updateScrollButtons();
       resetHideButtonsTimer();
     }
   };
@@ -68,32 +82,39 @@ const Carousel: React.FC<CarouselProps> = ({ cardsToDisplay }) => {
   }, [cardsToDisplay]);
 
   const resetHideButtonsTimer = () => {
-    setShowButtons(true);
-    if (hideButtonsTimeout.current) clearTimeout(hideButtonsTimeout.current);
-    hideButtonsTimeout.current = setTimeout(() => setShowButtons(false), 3000);
+    if (window.innerWidth <= 768) { // Only for mobile view
+      setShowButtons(true);
+      if (hideButtonsTimeout.current) clearTimeout(hideButtonsTimeout.current);
+      hideButtonsTimeout.current = setTimeout(() => setShowButtons(false), 3000);
+    }
   };
+
+  useEffect(() => {
+    updateScrollButtons();
+  }, [cardsToDisplay.length]);
 
   return (
     <div className="relative">
       <motion.div
         ref={carouselRef}
-        className="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory"
+        className="flex space-x-4 overflow-x-auto no-scrollbar snap-x snap-mandatory w-full"
         whileTap={{ cursor: "grabbing" }}
         onMouseEnter={() => setShowButtons(true)}
         onMouseLeave={resetHideButtonsTimer}
+        onScroll={updateScrollButtons}
       >
         {cardsToDisplay.map((card, index) => (
           <motion.div
             key={index}
             className="flex-shrink-0 snap-start"
-            style={{ width: '92vw', maxWidth: '600px', transform: `scale(${cardScales[index]})` }}
+            style={{ width: '87vw', maxWidth: '600px', transform: `scale(${cardScales[index]})` }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <ProjectCardTemplate
+            <CardTemplate
               imageSrc={card.imageSrc}
               category={card.category}
               headline={card.headline}
@@ -105,18 +126,22 @@ const Carousel: React.FC<CarouselProps> = ({ cardsToDisplay }) => {
       </motion.div>
 
       {/* Scroll Buttons */}
-      {showButtons && (
+      {showButtons && window.innerWidth <= 768 && (
         <>
-          <button 
-            onClick={() => scrollCarousel("left")} 
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
-            <RiArrowLeftWideFill size={28} />
-          </button>
-          <button 
-            onClick={() => scrollCarousel("right")} 
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
-            <RiArrowRightWideFill size={28} />
-          </button>
+          {canScrollLeft && (
+            <button 
+              onClick={() => scrollCarousel("left")} 
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
+              <RiArrowLeftWideFill size={28} />
+            </button>
+          )}
+          {canScrollRight && (
+            <button 
+              onClick={() => scrollCarousel("right")} 
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-800 bg-opacity-30 text-white hover:bg-opacity-50 p-1">
+              <RiArrowRightWideFill size={28} />
+            </button>
+          )}
         </>
       )}
     </div>

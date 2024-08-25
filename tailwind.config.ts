@@ -1,6 +1,6 @@
 // tailwind.config.js
 import type { Config } from "tailwindcss";
-
+import plugin from "tailwindcss/plugin";
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -31,7 +31,20 @@ const config: Config = {
     },
   },
   darkMode: 'class', // Enable class-based dark mode
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      const newUtilities = {
+        '.scrollbar-hide': {
+          '-ms-overflow-style': 'none', /* IE and Edge */
+          'scrollbar-width': 'none', /* Firefox */
+        },
+        '.scrollbar-hide::-webkit-scrollbar': {
+          display: 'none', /* Chrome, Safari, and Opera */
+        },
+      };
+      addUtilities(newUtilities);
+    })
+  ],
 };
 
 export default config;

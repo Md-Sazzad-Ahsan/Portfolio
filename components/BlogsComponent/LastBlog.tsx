@@ -11,7 +11,7 @@ const LastBlog: React.FC = () => {
     <main className="px-5 sm:px-16 md:px-28 lg:px-56 mt-2 md:mt-5">
       <section className="shadow-lg rounded-md bg-gray-50 dark:bg-darkBg">
         <figure className="grid grid-cols-1 md:grid-cols-7 gap-4 sm:gap-2">
-          <div className="relative col-span-full sm:col-span-5 p-2 bg-gray-50 bg-opacity-10 ring ring-gray-100 dark:ring-gray-600">
+          <div className="relative col-span-full sm:col-span-5 p-2 ring ring-gray-100 dark:ring-gray-600">
             <div className="text-darkBg dark:text-gray-50 flex justify-between text-xs sm:text-sm md:text-md pb-2">
             <div className="flex gap-1 sm:gap-2">
                 {Array.isArray(mainBlog.category) ? (
@@ -52,7 +52,7 @@ const LastBlog: React.FC = () => {
             <div className="text-darkBg dark:text-gray-50">
               {mainBlog.description}
             </div>
-            <Link href={mainBlog.link}>
+            <Link href={mainBlog.link} className="mt-auto">
               <button className="font-bold text-cyan-500 hover:underline hover:cursor-pointer pt-4">
                 Read Article
               </button>
@@ -85,7 +85,7 @@ const LastBlog: React.FC = () => {
                   <p className="text-sm">{blog.description}</p>
                   <Link
                     href={blog.link}
-                    className="text-cyan-500 underline cursor-pointer pt-4"
+                    className="text-cyan-500 hover:underline cursor-pointer pt-5 sm:pt-4"
                   >
                     Read Article
                   </Link>

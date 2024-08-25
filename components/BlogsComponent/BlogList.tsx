@@ -6,6 +6,7 @@ import { allBlogsData } from "@/components/BlogsComponent/BlogData";
 import CategoryButtons from "@/components/CategoryButtons";
 import Carousel from "@/components/Carousel";
 import BlogGrid from "@/components/BlogsComponent/BlogGrid";
+import BlogCardTemplate from "./BlogCardTemplate";
 interface BlogListProps {
   maxBlogs?: number;
   buttonShow?: boolean;
@@ -24,14 +25,14 @@ const BlogList: React.FC<BlogListProps> = ({ maxBlogs = 3, buttonShow = true }) 
     event.preventDefault();
     setSelectedCategory(category);
   };
-  const categories = ["All", "LifeStyle", "Tech","Education","Social"];
+  const categories = ["All","Tech","News","Programming","LifeStyle","Design","Social","Education","Others"];
 
   return (
     <div className="relative px-5 sm:px-16 md:px-28 lg:px-56">
       <CategoryButtons selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} categories={categories} />
 
       <div className="sm:hidden">
-        <Carousel cardsToDisplay={BlogsToDisplay} />
+        <Carousel cardsToDisplay={BlogsToDisplay} CardTemplate={BlogCardTemplate} />
       </div>
 
       <BlogGrid blogsToDisplay={BlogsToDisplay} />

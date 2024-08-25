@@ -23,7 +23,7 @@ export const allBlogsData = [
       imageSrc: "/LastBlogImages/Ecommerce.jpg",
       category: "Technology",
       date: "25 AUG 2024",
-      headline: "Building Next-Gen E-commerce Platforms with AI and Machine Learning",
+      headline: "Building Next-Level E-commerce platforms with Machine Learning and AI",
       description:
         "Dive into how AI and machine learning are revolutionizing e-commerce platforms.",
       link: "/blog/#",
