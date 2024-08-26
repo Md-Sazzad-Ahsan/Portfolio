@@ -1,0 +1,180 @@
+// File: ProjectData.ts
+
+export const ProjectData = [
+  {
+    imageSrc: "/projectImages/PortfolioImage.jpg",
+    category: "Website",
+    headline: "My Personal Portfolio Website",
+    description: "A modern and responsive personal portfolio website built using Next.js and TailwindCSS to showcase projects and skills.",
+    link: "/projects/personal-portfolio",
+    displayInto: ["Website"], // Display in All and Website categories
+  },
+  {
+    imageSrc: "/projectImages/EcommerceImage.jpg",
+    category: "E-commerce",
+    headline: "Online Store Platform",
+    description: "An advanced e-commerce platform built with React and Node.js, featuring product listings, searching, shopping cart, and checkout functionalities.",
+    link: "/projects/online-store",
+    displayInto: ["E-commerce"], // Display in All and E-commerce categories
+  },
+  {
+    imageSrc: "/projectImages/FitnessTrackerImage.jpg",
+    category: "App",
+    headline: "Fitness Management App",
+    description: "A comprehensive fitness management app that helps users track their workouts, diet, and progress with personalized insights.",
+    link: "/projects/fitness-management-app",
+    displayInto: ["App"], // Display in All and App categories
+  },
+  {
+    imageSrc: "/projectImages/MobileImage.jpg",
+    category: "App",
+    headline: "Music Player App",
+    description: "A sleek music player app for Android, built with React Native, providing users with a seamless music experience during their workouts.",
+    link: "/projects/music-player-app",
+    displayInto: ["App"], // Display in All and App categories
+  },
+  {
+    imageSrc: "/projectImages/APIImage.jpg",
+    category: "Software",
+    headline: "Social Network API",
+    description: "A robust RESTful API developed with Node.js and Express for powering the backend of a social networking platform with scalable features.",
+    link: "/projects/social-network-api",
+    displayInto: ["Software"], // Display in All and Software categories
+  },
+  {
+    imageSrc: "/projectImages/MachineImage.jpg",
+    category: "AI",
+    headline: "Image Classification System",
+    description: "An AI project that utilizes TensorFlow and Python to classify images into various categories, improving automation and accuracy.",
+    link: "/projects/image-classification-system",
+    displayInto: ["AI"], // Display in All and AI categories
+  },
+  {
+    imageSrc: "/projectImages/AppImage.jpg",
+    category: "Games",
+    headline: "3D Adventure Game",
+    description: "A thrilling 3D adventure game developed with Unity, featuring immersive gameplay, stunning graphics, and engaging storylines.",
+    link: "/projects/3d-adventure-game",
+    displayInto: ["Games"], // Display in All and Games categories
+  },
+  {
+    imageSrc: "/projectImages/UIUX.jpg",
+    category: "Personal",
+    headline: "Custom Blog Platform",
+    description: "A personal blogging platform built with Django, enabling users to write, manage, and share their blogs with a custom-designed interface.",
+    link: "/projects/custom-blog-platform",
+    displayInto: [ "Personal"], // Display in All and Personal categories
+  },
+  {
+    imageSrc: "/projectImages/PortfolioImage.jpg",
+    category: "Website",
+    headline: "A Portfolio Website",
+    description: "A modern and responsive personal portfolio website built using Next.js and TailwindCSS to showcase projects and skills.",
+    link: "/projects/personal-portfolio",
+    displayInto: [ "Website"],
+  },
+  {
+    imageSrc: "/projectImages/EcommerceImage.jpg",
+    category: "E-commerce",
+    headline: "Online E-commerce Platform",
+    description: "An advanced e-commerce platform built with React and Node.js, featuring product listings, searching, shopping cart, and checkout functionalities.",
+    link: "/projects/online-store",
+    displayInto: [ "E-commerce"],
+  },
+  {
+    imageSrc: "/projectImages/FitnessTrackerImage.jpg",
+    category: "App",
+    headline: "Fitness Tracking App",
+    description: "A comprehensive fitness management app that helps users track their workouts, diet, and progress with personalized insights.",
+    link: "/projects/fitness-management-app",
+    displayInto: [ "App"],
+  },
+  {
+    imageSrc: "/projectImages/MobileImage.jpg",
+    category: "App",
+    headline: "Video Player App",
+    description: "A sleek music player app for Android, built with React Native, providing users with a seamless music experience during their workouts.",
+    link: "/projects/music-player-app",
+    displayInto: [ "App"],
+  },
+  {
+    imageSrc: "/projectImages/APIImage.jpg",
+    category: "Software",
+    headline: "Social Networking API",
+    description: "A robust RESTful API developed with Node.js and Express for powering the backend of a social networking platform with scalable features.",
+    link: "/projects/social-network-api",
+    displayInto: [ "Software"],
+  },
+  {
+    imageSrc: "/projectImages/MachineImage.jpg",
+    category: "AI",
+    headline: "Image Classification System with AI",
+    description: "An AI project that utilizes TensorFlow and Python to classify images into various categories, improving automation and accuracy.",
+    link: "/projects/image-classification-system",
+    displayInto: [ "AI"],
+  },
+  {
+    imageSrc: "/projectImages/UIUX.jpg",
+    category: "Games",
+    headline: "Adventure Game",
+    description: "A thrilling 3D adventure game developed with Unity, featuring immersive gameplay, stunning graphics, and engaging storylines.",
+    link: "/projects/3d-adventure-game",
+    displayInto: [ "Games"],
+  },
+  {
+    imageSrc: "/projectImages/MachineImage.jpg",
+    category: "Personal",
+    headline: "A Blog Writing Platform",
+    description: "A personal blogging platform built with Django, enabling users to write, manage, and share their blogs with a custom-designed interface.",
+    link: "/projects/custom-blog-platform",
+    displayInto: [ "Personal"],
+  },
+  {
+    imageSrc: "/projectImages/UIUX1.jpg",
+    category: "UI/UX",
+    headline: "UI/UX Design for Portfolio",
+    description: "A complete UI/UX design for an e-commerce platform, focusing on user flow, wireframes, and high-fidelity mockups.",
+    link: "/projects/e-commerce-ui-ux-design",
+    displayInto: [ "UI/UX"],
+  },
+  {
+    imageSrc: "/projectImages/Website.jpg",
+    category: "Software",
+    headline: "An Inventory Management System",
+    description: "An inventory management system developed using Java and Spring Boot, designed to streamline inventory tracking and reporting.",
+    link: "/projects/inventory-management-system",
+    displayInto: [ "Software"],
+  },
+  {
+    imageSrc: "/projectImages/Website.jpg",
+    category: "Website",
+    headline: "Corporate Website Redesign",
+    description: "A full redesign of a corporate website using React and TailwindCSS, focusing on improving user engagement and accessibility.",
+    link: "/projects/corporate-website-redesign",
+    displayInto: [ "Website"],
+  },
+  {
+    imageSrc: "/projectImages/UIUX1.jpg",
+    category: "AI",
+    headline: "Chatbot for Customer Support",
+    description: "An AI-powered chatbot developed with Python and NLP techniques to handle customer inquiries and provide instant support.",
+    link: "/projects/ai-chatbot-customer-support",
+    displayInto: [ "AI"],
+  },
+  {
+    imageSrc: "/projectImages/AppImage.jpg",
+    category: "Games",
+    headline: "A Multiplayer Online Game",
+    description: "A multiplayer online game built with Unreal Engine, featuring real-time interactions, dynamic environments, and competitive gameplay.",
+    link: "/projects/multiplayer-online-game",
+    displayInto: [ "Games"],
+  },
+  {
+    imageSrc: "/projectImages/PortfolioImage.jpg",
+    category: "Personal",
+    headline: "Personal Finance Tracker Software",
+    description: "A personal finance tracking app developed with Flutter, helping users manage their expenses, budget, and financial goals.",
+    link: "/projects/personal-finance-tracker",
+    displayInto: [ "Personal"],
+  }
+];

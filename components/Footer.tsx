@@ -10,54 +10,54 @@ const Footer: React.FC = () => {
     <span className="text-2xl font-bold text-cyan-600 dark:text-gray-50 whitespace-nowrap">Ahsan</span>
          <p className='pt-5 text-gray-100'>Thanks for visiting my website.<br/>For more info,please look into About or Contact.</p>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-8 sm:gap-10 sm:grid-cols-3 justify-center">
             <div>
-              <h2 className="mb-6 text-sm font-bold text-gray-100 uppercase">Home</h2>
+              <h2 className="mb-2 sm:mb-3 text-sm font-bold text-gray-100 uppercase">Home</h2>
               <ul className="text-gray-300 font-semibold">
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Hero</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">About</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Skills</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Portfolio</a>
                 </li>
               </ul>
             </div>
-            <div>
-              <h2 className="mb-6 text-sm font-bold text-gray-100 uppercase">Social</h2>
+            <div className='hidden sm:block'>
+              <h2 className="mb-2 sm:mb-3 text-sm font-bold text-gray-100 uppercase">Social</h2>
               <ul className="text-gray-300 font-semibold">
-                <li className="pb-1">
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Facebook</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Twitter</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Instagram</a>
                 </li>
-                <li className='pb-1'>
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">GitHub</a>
                 </li>
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-sm font-bold text-gray-100 uppercase">Contact</h2>
+              <h2 className="mb-2 sm:mb-3 text-sm font-bold text-gray-100 uppercase">Contact</h2>
               <ul className="text-gray-300 font-semibold">
-                <li className="pb-1">
+                <li>
                   <a href="#" className="hover:underline hover:text-gray-200">Phone</a>
                 </li>
-                <li className="pb-1">
+                <li >
                   <a href="#" className="hover:underline hover:text-gray-200">Whatsapp</a>
                 </li>
-                <li className='pb-1'>
+                <li >
                   <a href="#" className="hover:underline hover:text-gray-200">Linkedin</a>
                 </li>
-                <li className='pb-1'>
+                <li >
                   <a href="#" className="hover:underline hover:text-gray-200">Email</a>
                 </li>
               </ul>

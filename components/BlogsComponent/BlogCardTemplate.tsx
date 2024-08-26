@@ -10,7 +10,7 @@ interface ProjectCardTemplateProps {
 
 const BlogCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, category, headline, description, link }) => {
   return (
-    <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-2 sm:p-4 m-2 sm:m-0 ring-white shadow-xl sm:shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md sm:rounded-none sm:h-[28rem] sm:w-full">
+    <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-4 ring-white shadow-xl sm:shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md sm:rounded-none sm:h-[28rem] sm:w-full">
       <div className="relative w-full h-52">
         <Image src={imageSrc} alt={headline} priority fill sizes="cover" />
       </div>

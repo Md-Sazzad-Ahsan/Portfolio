@@ -1,4 +1,4 @@
-import SeparatePages from "@/components/SeparatePages";
+import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
 import { playfair } from "@/public/fonts/fonts";
 import ContactForm from "@/components/ContactForm/ContactForm";

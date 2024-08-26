@@ -2,12 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import VectorImage from "@/public/images/programmingImage.svg"
-import AboutMe from "@/components/AboutMe";
-import CardList from "@/components/PortfolioProjects/CardList";
-import SeparatePages from "@/components/SeparatePages";
+import AboutMe from "@/components/GlobalComponents/AboutMe";
+import CardList from "@/components/Unnecessary/PortfolioProjects/CardList";
+import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
 import BlogList from "@/components/BlogsComponent/BlogList";
+import BlogGrid from "@/components/BlogComponent/BlogGrid";
+import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
 
 export default function Home() {
   return (
@@ -27,9 +29,11 @@ export default function Home() {
       <SeparatePages dividerText="About me_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
       <AboutMe/>
       <SeparatePages dividerText="Projects_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
-      <CardList maxCards={6} buttonShow={true} /> 
+      {/* <CardList maxCards={6} buttonShow={true} />  */}
+      <ProjectGrid buttonType="viewMore" initialCardCount={3} />
       <SeparatePages dividerText="My Blog_" dividerTextColor="dark:text-darkBg text-gray-50" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
-      <BlogList maxBlogs={6} buttonShow={true} /> 
+      {/* <BlogList maxBlogs={6} buttonShow={true} />  */}
+      <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
       <UnderConstruction />
     </main>
   );

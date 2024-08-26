@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { allBlogsData } from "@/components/BlogsComponent/BlogData";
-import CategoryButtons from "@/components/CategoryButtons";
-import Carousel from "@/components/Carousel";
+import CategoryButtons from "@/components/Unnecessary/CategoryButtons";
+import Carousel from "@/components/Unnecessary/Carousel";
 import BlogGrid from "@/components/BlogsComponent/BlogGrid";
 import BlogCardTemplate from "./BlogCardTemplate";
 interface BlogListProps {

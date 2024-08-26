@@ -9,7 +9,7 @@ interface BlogGridProps {
 
 const BlogGrid: React.FC<BlogGridProps> = ({ blogsToDisplay }) => {
   return (
-    <ul className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <ul className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
       {blogsToDisplay.map((blog, index) => (
         <BlogCardTemplate
           key={index}

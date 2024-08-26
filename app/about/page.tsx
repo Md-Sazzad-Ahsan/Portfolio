@@ -1,6 +1,6 @@
-import AboutMe from "@/components/AboutMe";
+import AboutMe from "@/components/GlobalComponents/AboutMe";
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
-import SeparatePages from "@/components/SeparatePages";
+import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 
 export default function About()
