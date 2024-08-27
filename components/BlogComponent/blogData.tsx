@@ -34,7 +34,7 @@ export const BlogsData = [
       displayInto: ["Social"],
     },
     {
-      imageSrc: "/LastBlogImages/ArtificialIntillegence.jpg",
+      imageSrc: "/LatestBlogImages/ArtificialIntillegence.jpg",
       category: "Programming",
       headline: "Code Snippet Library",
       description: "A platform designed for developers to organize, and share code snippets and programming solutions.",

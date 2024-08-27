@@ -1,6 +1,6 @@
 export const LatestBlogData = [
     {
-      imageSrc: "/LastBlogImages/ArtificialIntillegence.jpg",
+      imageSrc: "/LatestBlogImages/ArtificialIntillegence.jpg",
       category: ["Education", "Social", "Tech"],
       date: "25 AUG 2024",
       headline: "The Rise of AI-Powered Learning Platforms",
@@ -10,7 +10,7 @@ export const LatestBlogData = [
       author: "Md. Sazzad Ahsan",
     },
     {
-        imageSrc: "/LastBlogImages/LifeStyle.jpg",
+        imageSrc: "/LatestBlogImages/LifeStyle.jpg",
         category: "LifeStyle",
         date: "25 AUG 2024",
         headline: "Top 10 Lifestyle Trends in 2024",
@@ -20,7 +20,7 @@ export const LatestBlogData = [
         author: "Md. Sazzad Ahsan",
       },
     {
-      imageSrc: "/LastBlogImages/Ecommerce.jpg",
+      imageSrc: "/LatestBlogImages/Ecommerce.jpg",
       category: "Technology",
       date: "25 AUG 2024",
       headline: "Building Next-Level E-commerce platforms with Machine Learning and AI",
