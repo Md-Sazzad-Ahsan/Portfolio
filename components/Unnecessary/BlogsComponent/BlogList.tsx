@@ -2,10 +2,10 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { allBlogsData } from "@/components/BlogsComponent/BlogData";
+import { allBlogsData } from "@/components/Unnecessary/BlogsComponent/BlogData";
 import CategoryButtons from "@/components/Unnecessary/CategoryButtons";
 import Carousel from "@/components/Unnecessary/Carousel";
-import BlogGrid from "@/components/BlogsComponent/BlogGrid";
+import BlogGrid from "@/components/Unnecessary/BlogsComponent/BlogGrid";
 import BlogCardTemplate from "./BlogCardTemplate";
 interface BlogListProps {
   maxBlogs?: number;

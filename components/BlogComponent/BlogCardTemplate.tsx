@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProjectCardTemplateProps {
   imageSrc: string;
@@ -8,25 +9,40 @@ interface ProjectCardTemplateProps {
   link: string;
 }
 
-const BlogCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, category, headline, description, link }) => {
+const BlogCardTemplate: React.FC<ProjectCardTemplateProps> = ({
+  imageSrc,
+  category,
+  headline,
+  description,
+  link,
+}) => {
   return (
-    <li className="bg-gray-50 dark:bg-darkBg flex flex-col p-2 sm:p-4 m-2 sm:m-0 ring-white shadow-xl sm:shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md sm:rounded-none sm:h-[28rem] sm:w-full">
-      <div className="relative w-full h-52">
-        <Image src={imageSrc} alt={headline} priority fill sizes="cover" />
-      </div>
-      <div className="flex flex-col justify-between flex-grow mt-2">
-       <div>
-         <p className="text-sm text-gray-500">{category}</p>
-        <h2 className="text-2xl py-1 font-bold text-cyan-600">{headline}</h2>
-        <p className=" text-gray-700 dark:text-gray-50 pb-3">{description}</p>
-       </div>
-         <div className="mt-auto">
-          <a href={link} className="text-cyan-600 hover:underline">
-           Read Article
-          </a>
+    <Link href={link} className="block"> {/* Added <a> tag to wrap the entire card */}
+      <div className="bg-gray-50 dark:bg-darkBg flex flex-col ring-white shadow-xl sm:shadow-md hover:bg-gray-200 dark:hover:bg-gray-700 rounded-sm sm:h-[22rem] w-full">
+        <div className="relative w-full h-52">
+          <Image src={imageSrc} alt={headline} priority fill sizes="cover" />
+          <div className="absolute inset-0">
+            <button className="text-sm font-semibold text-gray-50 bg-darkBg bg-opacity-50 px-4 py-1">
+              {category}
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col justify-between flex-grow p-2">
+          <div>
+            <p className="text-xs text-gray-500">27 AUG 2024</p>
+            <h2 className="text-xl py-1 font-bold text-cyan-600">{headline}</h2>
+            <p className="text-sm text-gray-700 dark:text-gray-50 pb-1">
+              {description}
+            </p>
+          </div>
+          <div className="mt-auto">
+            <span className="text-cyan-600 hover:underline"> {/* Changed <a> to <span> to avoid nested <a> tags */}
+              Read Article
+            </span>
+          </div>
         </div>
       </div>
-    </li>
+    </Link>
   );
 };
 

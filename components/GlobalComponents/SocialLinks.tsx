@@ -1,4 +1,4 @@
-import { FaFacebookSquare, FaLinkedin,FaInstagramSquare} from "react-icons/fa";
+import { FaFacebookSquare, FaInstagramSquare, FaLinkedin, FaTwitterSquare } from "react-icons/fa";
 import { FaSquareGithub,FaSquareXTwitter } from "react-icons/fa6";
 
 interface styleProps {

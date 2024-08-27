@@ -7,7 +7,7 @@ import CardList from "@/components/Unnecessary/PortfolioProjects/CardList";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
-import BlogList from "@/components/BlogsComponent/BlogList";
+import BlogList from "@/components/Unnecessary/BlogsComponent/BlogList";
 import BlogGrid from "@/components/BlogComponent/BlogGrid";
 import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
 

@@ -45,7 +45,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
       />
 
       {/* Grid of Cards - show only visibleCardCount cards */}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 sm:gap-5">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {filteredProjects.slice(0, visibleCardCount).map((project) => (
           <ProjectCardTemplate
             key={project.headline}
@@ -63,7 +63,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
         {buttonType === 'viewMore' ? (
           filteredProjects.length > visibleCardCount && ( // Show "View More" if there are more cards to show
             <Link href="/portfolio">
-              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded hover:bg-cyan-700 transition">View more</div>
+              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded hover:bg-cyan-700 transition">View more</div>
             </Link>
           )
         ) : (

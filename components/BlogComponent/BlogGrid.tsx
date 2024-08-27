@@ -45,7 +45,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
       />
 
       {/* Grid of Cards - show only visibleCardCount cards */}
-      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {filteredBlogs.slice(0, visibleCardCount).map((Blog) => (
           <BlogCardTemplate
             key={Blog.headline}
@@ -70,7 +70,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
           filteredBlogs.length > visibleCardCount && ( // Show "Load More" if there are more cards to load
             <button
               onClick={loadMoreCards}
-              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded hover:bg-cyan-700 transition"
+              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded hover:bg-cyan-700 transition"
             >
               Show more
             </button>

@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { inter } from "@/public/fonts/fonts";
 import "./globals.css";
 import Header from "@/components/Header/Header";
@@ -7,45 +7,51 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   manifest: "/manifest.json",
   title: "Md. Sazzad Ahsan - Software Developer",
-  description: "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design,web development,prototyping and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+  description:
+    "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
   openGraph: {
     title: "Md. Sazzad Ahsan - Software Developer",
-    description: "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design,web development,prototyping and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+    description:
+      "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
     type: "website",
-    locale:"en_US",
-    url:"https://ahsans-portfolio.vercel.app",
-    siteName:"Ahsan's Portfolio Web App"
+    locale: "en_US",
+    url: "https://ahsans-portfolio.vercel.app",
+    images: [
+      {
+        url: "https://ahsans-portfolio.vercel.app/images/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Md. Sazzad Ahsan's Portfolio Open Graph Image",
+      },
+    ],
+    siteName: "Ahsan's Portfolio Web App",
   },
   twitter: {
     title: "Md. Sazzad Ahsan - Software Developer",
-    description: "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+    description:
+      "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
     card: "summary_large_image",
-    site: "Ahsan's Portfolio",
+    site: "@Md_Sazzad_Ahsan", // Replace with your Twitter handle or remove if not applicable
   },
-  metadataBase: new URL("https://ahsans-portfolio.vercel.app")
+  metadataBase: new URL("https://ahsans-portfolio.vercel.app"),
 };
-
-export const viewport: Viewport ={
-  themeColor:"#333a3f",
-};
-
 
 export default function RootLayout({
   children,
-}:
-{
+}: {
   children: React.ReactNode;
 }) {
   return (
     <html lang="en">
+      <head>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#333a3f" />
+      </head>
       <body className={`${inter.className}`}>
-       
-        <Header/>
-
-        <main>{children}</main> 
-       
+        <Header />
+        <main>{children}</main>
         <Footer />
-
       </body>
     </html>
   );

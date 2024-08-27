@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import BlogCardTemplate from "@/components/BlogsComponent/BlogCardTemplate";
+import BlogCardTemplate from "@/components/Unnecessary/BlogsComponent/BlogCardTemplate";
 
 interface BlogGridProps {
   blogsToDisplay: any[];

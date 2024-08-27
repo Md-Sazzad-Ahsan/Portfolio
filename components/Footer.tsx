@@ -32,16 +32,16 @@ const Footer: React.FC = () => {
               <h2 className="mb-2 sm:mb-3 text-sm font-bold text-gray-100 uppercase">Social</h2>
               <ul className="text-gray-300 font-semibold">
                 <li>
-                  <a href="#" className="hover:underline hover:text-gray-200">Facebook</a>
+                  <a href="https://facebook.com/Ahsan.Himu.Star/" className="hover:underline hover:text-gray-200">Facebook</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline hover:text-gray-200">Twitter</a>
+                  <a href="https://x.com/Md_Sazzad_Ahsan/" className="hover:underline hover:text-gray-200">X.com</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline hover:text-gray-200">Instagram</a>
+                  <a href="https://instagram.com/Ahsan.Himu_Star/" className="hover:underline hover:text-gray-200">Instagram</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:underline hover:text-gray-200">GitHub</a>
+                  <a href="https://github.com/Md-Sazzad-Ahsan/" className="hover:underline hover:text-gray-200">GitHub</a>
                 </li>
               </ul>
             </div>
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
                   <a href="#" className="hover:underline hover:text-gray-200">Whatsapp</a>
                 </li>
                 <li >
-                  <a href="#" className="hover:underline hover:text-gray-200">Linkedin</a>
+                  <a href="https://linkedin.com/in/md-sazzad-ahsan/" className="hover:underline hover:text-gray-200">Linkedin</a>
                 </li>
                 <li >
                   <a href="#" className="hover:underline hover:text-gray-200">Email</a>
