@@ -1,8 +1,10 @@
 "use client";
+
 import { useEffect, useState } from 'react';
 import BlogCardTemplate from '@/components/BlogComponent/BlogCardTemplate';
 
-const BlogCategory = ({ category }) => {
+const BlogCategory = ({ params }) => {
+  const { category } = params; // Destructure category from params
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
