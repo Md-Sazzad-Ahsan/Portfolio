@@ -2,14 +2,16 @@
 import { useEffect, useState } from 'react';
 import BlogCardTemplate from '@/components/BlogComponent/BlogCardTemplate';
 
-const BlogCategory = ({ category }) => {
+const BlogCategory = ({ params }) => {
+  const { category } = params; // Extract category from params
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     // Fetch blogs based on the category
     fetch(`/api/blog/${category}`)
       .then((res) => res.json())
-      .then((data) => setBlogs(data));
+      .then((data) => setBlogs(data))
+      .catch((error) => console.error('Error fetching blogs:', error));
   }, [category]);
 
   return (

@@ -1,9 +1,12 @@
 "use client";
 import { useEffect, useState } from 'react';
 import BlogCardTemplate from '@/components/BlogComponent/BlogCardTemplate';
+import { useSearchParams } from 'next/navigation';
 
-const BlogCategory = ({ category }) => {
+const BlogCategory = () => {
   const [blogs, setBlogs] = useState([]);
+  const searchParams = useSearchParams();
+  const category = searchParams.get('category') || 'All';
 
   useEffect(() => {
     // Fetch blogs based on the category
