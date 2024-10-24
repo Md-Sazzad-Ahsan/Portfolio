@@ -2,7 +2,8 @@
 import { useEffect, useState } from 'react';
 import BlogCardTemplate from '@/components/BlogComponent/BlogCardTemplate';
 
-const BlogCategory = ({ category }) => {
+const BlogCategory = ({ params }) => {
+  const { category } = params; // Assuming category comes from URL parameters
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
