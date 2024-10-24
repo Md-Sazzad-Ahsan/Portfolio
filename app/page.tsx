@@ -26,12 +26,12 @@ export default function Home() {
             <Image src={VectorImage} alt="vector image related to my profile" priority height={400} width={400} className="p-5" />
         </span>
       </section>
-      <SeparatePages dividerText="About me_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="About me_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 sm:text-left ${playfair.className}`} />
       <AboutMe/>
-      <SeparatePages dividerText="Projects_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="Projects_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 sm:text-left ${playfair.className}`} />
       {/* <CardList maxCards={6} buttonShow={true} />  */}
       <ProjectGrid buttonType="viewMore" initialCardCount={3} />
-      <SeparatePages dividerText="My Blog_" dividerTextColor="dark:text-darkBg text-gray-50" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-48 lg:px-56 sm:text-left ${playfair.className}`} />
+      <SeparatePages dividerText="My Blog_" dividerTextColor="dark:text-darkBg text-gray-50" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 sm:text-left ${playfair.className}`} />
       {/* <BlogList maxBlogs={6} buttonShow={true} />  */}
       <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
       <UnderConstruction />

@@ -7,7 +7,7 @@ function AboutSkillsCard() {
   return (
     <main>
 <section>
-  <article className="dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 mt-20 md:mt-24 pb-10">
+  <article className="dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 mt-20 md:mt-24 pb-10">
     <div className="text-3xl text-cyan-600 dark:text-gray-50 font-bold text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5">Experience</div>
     <Cards
         icon={BsPencilSquare}
