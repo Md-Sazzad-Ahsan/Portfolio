@@ -5,11 +5,12 @@ interface ButtonProps {
   href: string; // URL or link for the button
   buttonText: string; // Text to display on the button
   className?: string; // Optional className for additional styles
+  download?: string;
 }
 
-const Buttons: React.FC<ButtonProps> = ({ href, buttonText, className }) => {
+const Buttons: React.FC<ButtonProps> = ({ href, buttonText, className,download }) => {
   return (
-    <Link href={href} className={className ? className : ""}>
+    <Link href={href} download={download} className={className ? className : ""}>
       {buttonText}
     </Link>
   );
