@@ -36,7 +36,7 @@ const BlogCardTemplate: React.FC<ProjectCardTemplateProps> = ({
             </p>
           </div>
           <div className="mt-auto">
-            <span className="text-cyan-600 hover:underline"> {/* Changed <a> to <span> to avoid nested <a> tags */}
+            <span className="text-cyan-600 hover:underline"> 
               Read Article
             </span>
           </div>

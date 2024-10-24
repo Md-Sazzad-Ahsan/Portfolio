@@ -11,7 +11,7 @@ export default function AboutMe() {
   const pathname = usePathname();
 
   return (
-    <main className="dark:bg-darkBg px-5 sm:px-16 md:px-48 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
+    <main className="dark:bg-darkBg px-5 sm:px-16 md:px-28 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
       <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-8 lg:p-10 shadow-lg dark:shadow-xl">
        <figure className="col-span-1 relative w-full h-0 pb-[140%]"> {/* Adjust height ratio as needed */}
   <Image
@@ -23,7 +23,7 @@ export default function AboutMe() {
     className="shadow-xl p-1 bg-gray-50 object-cover"
   />
   {/* Position SocialLinks in front of the image, centered at the bottom */}
-  <div className=" absolute inset-x-0 bottom-0 mb-2"> {/* Center horizontally and position at the bottom */}
+  <div className=" absolute inset-x-0 bottom-0 mb-2 bg-gray-900 bg-opacity-30 shadow-sm"> {/* Center horizontally and position at the bottom */}
     <SocialLinks className="flex justify-center" />
   </div>
 </figure>
@@ -45,7 +45,7 @@ export default function AboutMe() {
             <Button
               href="#"
               buttonText="Download CV"
-              className="self-start mx-0 sm:mx-8 md:mx-12 mt-4 py-2 hover:underline hover:text-cyan-600 font-bold text-left cursor-pointer"
+              className="self-start mx-0 sm:mx-5 md:mx-12 mt-4 py-2 hover:underline hover:text-cyan-600 font-bold text-left cursor-pointer"
             />
           ) : (
             <DoubleButton

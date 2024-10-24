@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import React, { Suspense } from "react";
 import { inter } from "@/public/fonts/fonts";
+import AuthProvider from "@/SessionProvider"
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
@@ -49,9 +51,13 @@ export default function RootLayout({
         <meta name="theme-color" content="#333a3f" />
       </head>
       <body className={`${inter.className}`}>
+      <AuthProvider>
         <Header />
+        <Suspense fallback={<div>Loading...</div>}>
         <main>{children}</main>
+        </Suspense>
         <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
