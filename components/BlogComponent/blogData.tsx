@@ -6,7 +6,7 @@ export const BlogsData = [
       category: "Tech",
       headline: "Online Store Platform",
       description: "An e-commerce platform built with React and Node.js, featuring product listings,product searching, shopping cart, and checkout.",
-      link: "/projects/online-store",
+      link: "/blogs/design/bn",
       displayInto: ["Tech"],
     },
     {
