@@ -49,18 +49,18 @@ export default function AboutMe() {
 
           {pathname === "/about" ? (
             <Button
-              href="/CV_Md_SazzadAhsan.pdf" // Update with the correct path to your CV file
-              download="CV_Md_SazzadAhsan.pdf"
+              href="/ResumeMDSazzadAhsan.pdf" // Update with the correct path to your CV file
+              download="CV_MDSazzadAhsan.pdf"
               buttonText="Download CV"
               className="self-start mx-0 sm:mx-5 md:mx-12 mt-4 py-1 md:py-2 hover:underline ring-1 px-4 ring-gray-50 dark:ring-gray-700 hover:ring-cyan-700 text-gray-50 bg-cyan-700 hover:bg-cyan-900 text-sm rounded-sm text-left cursor-pointer"
             />
           ) : (
             <DoubleButton
               href1="/about"
-              href2="/CV_Md_SazzadAhsan.pdf" // Update with the correct path to your CV file
+              href2="/ResumeMDSazzadAhsan.pdf" // Update with the correct path to your CV file
               buttonOneText="Read more"
               buttonTwoText="Download CV"
-              download="CV_Md_SazzadAhsan.pdf"
+              download="CV_MDSazzadAhsan.pdf"
               className="pt-5 md:pt-10 md:pl-12 space-x-5"
             />
           )}

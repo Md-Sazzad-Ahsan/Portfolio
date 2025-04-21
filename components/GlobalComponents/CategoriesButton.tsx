@@ -62,11 +62,15 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
       {/* Left Arrow Button */}
       {showLeftArrow && showArrows && (
         <button
-          className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
-          onClick={() => scrollContainer("left")}
-        >
-          <IoIosArrowBack className="text-lg" />
-        </button>
+        type="button"
+        title="Scroll Left"
+        aria-label="Scroll Left"
+        className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
+        onClick={() => scrollContainer("left")}
+      >
+        <IoIosArrowBack className="text-lg" aria-hidden="true" />
+      </button>
+      
       )}
 
       {/* Scrollable Container */}
@@ -97,11 +101,15 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
       {/* Right Arrow Button */}
       {showRightArrow && showArrows && (
         <button
-          className="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
-          onClick={() => scrollContainer("right")}
-        >
-         <IoIosArrowForward className="text-lg" />
-        </button>
+        type="button"
+        title="Scroll Right"
+        aria-label="Scroll Right"
+        className="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
+        onClick={() => scrollContainer("right")}
+      >
+        <IoIosArrowForward className="text-lg" aria-hidden="true" />
+      </button>
+      
       )}
     </div>
   );
