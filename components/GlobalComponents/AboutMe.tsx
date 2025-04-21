@@ -39,7 +39,7 @@ export default function AboutMe() {
               Md. Sazzad Ahsan
             </span>
             <p className="font-normal pt-5 sm:pt-8">
-              To be graduate with a B.Sc. in Software Engineering from
+              To be graduate with a B.Sc. in Computer Science and Engineering from
               Daffodil Institute of IT (DIIT), Dhaka. Passionate about
               programming, web, app, software development, and cybersecurity.
               Eager to evolve as a skilled Software Engineer. Lets connect and
