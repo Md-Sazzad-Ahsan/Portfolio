@@ -1,3 +1,4 @@
+//app/blog/page.tsx
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import HorizontalRow from "@/components/GlobalComponents/HorizontalRow"
 import { playfair } from "@/public/fonts/fonts";

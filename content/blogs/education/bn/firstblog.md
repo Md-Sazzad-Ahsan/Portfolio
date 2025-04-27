@@ -1,12 +1,12 @@
 ---
-title: "Online Store Platform"
+title: "Online Education Platform"
 imageSrc: "/projectImages/EcommerceImage.jpg"
-category: "Tech"
+category: "Education"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blogs/design/bn"
-displayInto: ["Tech"]
+displayInto: ["Education"]
 ---
 
-## Online Store Platform
+## Online Education Platform
 
-This is the content of the blog post...
+This is the content of the Education blog post...

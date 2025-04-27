@@ -1,12 +1,12 @@
 ---
-title: "Online Store Platform"
+title: "Online Social Platform"
 imageSrc: "/projectImages/EcommerceImage.jpg"
-category: "Tech"
+category: "Social"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
-link: "/blogs/design/bn"
-displayInto: ["Tech"]
+link: "/blog/social/bn"
+displayInto: ["Social"]
 ---
 
-## Online Store Platform
+## Online Social Platform
 
-This is the content of the blog post...
+This is the content of the Social blog post...
