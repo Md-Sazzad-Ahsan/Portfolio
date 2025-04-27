@@ -1,12 +1,12 @@
 ---
-title: "Online Store Platform"
+title: "Online Programming Platform"
 imageSrc: "/projectImages/EcommerceImage.jpg"
-category: "Tech"
+category: "Programming"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
-link: "/blogs/design/bn"
-displayInto: ["Tech"]
+link: "/blog/programming/bn"
+displayInto: ["Programming"]
 ---
 
-## Online Store Platform
+## Online Programming Platform
 
-This is the content of the blog post...
+This is the content of the Programming blog post...

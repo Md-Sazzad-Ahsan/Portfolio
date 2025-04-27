@@ -1,12 +1,12 @@
 ---
-title: "Online Store Platform"
+title: "Online Lifestyle Platform"
 imageSrc: "/projectImages/EcommerceImage.jpg"
-category: "Tech"
+category: "Lifestyle"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
-link: "/blogs/design/bn"
-displayInto: ["Tech"]
+link: "/blog/lifestyle/bn"
+displayInto: ["Lifestyle"]
 ---
 
-## Online Store Platform
+## Online Lifestyle Platform
 
-This is the content of the blog post...
+This is the content of the Lifestyle blog post...

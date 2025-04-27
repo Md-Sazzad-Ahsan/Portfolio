@@ -1,12 +1,12 @@
 ---
-title: "Online Store Platform"
+title: "Online Others Platform"
 imageSrc: "/projectImages/EcommerceImage.jpg"
-category: "Tech"
+category: "Others"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
-link: "/blogs/design/bn"
-displayInto: ["Tech"]
+link: "/blog/others/bn"
+displayInto: ["Others"]
 ---
 
-## Online Store Platform
+## Online Others Platform
 
-This is the content of the blog post...
+This is the content of the Others blog post...

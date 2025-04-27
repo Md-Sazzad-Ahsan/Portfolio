@@ -1,76 +1,87 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import BlogCardTemplate from "@/components/BlogComponent/BlogCardTemplate"; // Adjust the path as necessary
-import CategoryButtons from "@/components/GlobalComponents/CategoriesButton"; // Adjust the path as necessary
-import { BlogsData } from "@/components/BlogComponent/blogData"; // Adjust the path to where BlogData.tsx is located
-import Link from 'next/link'; // Import Link from Next.js
+import BlogCardTemplate from "@/components/BlogComponent/BlogCardTemplate";
+import CategoryButtons from "@/components/GlobalComponents/CategoriesButton";
+import Link from "next/link";
+
+interface BlogItem {
+  title: string;
+  imageSrc: string;
+  category: string;
+  description: string;
+  link: string;
+  displayInto: string[];
+}
 
 interface BlogGridProps {
-  initialCardCount?: number; // Optional prop to define how many cards to show initially
-  buttonType: 'viewMore' | 'loadMore'; // Prop to decide which button to show
+  initialCardCount?: number;
+  buttonType: "viewMore" | "loadMore";
 }
 
 const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType }) => {
+  // CHANGED: state to hold API data instead of static import
+  const [blogsData, setBlogsData] = useState<BlogItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
-  const [visibleCardCount, setVisibleCardCount] = useState<number>(initialCardCount); // State to manage visible cards
+  const [visibleCardCount, setVisibleCardCount] = useState<number>(initialCardCount);
 
-  // Filtered data based on selected category
+  // CHANGED: fetch from /api/blogs on mount
+  useEffect(() => {
+    fetch("/api/blogs")
+      .then(res => res.json())
+      .then((data: BlogItem[]) => setBlogsData(data))
+      .catch(err => console.error("Failed to load blogs:", err));
+  }, []);
+
+  // CHANGED: filter the fetched data
   const filteredBlogs = selectedCategory === "All"
-    ? BlogsData // Show all cards when "All" is selected
-    : BlogsData.filter((Blog) => Blog.displayInto.includes(selectedCategory)); // Filter based on exact category match
-
-  // Handler for category change
+   ? blogsData
+   : blogsData.filter(b =>
+       b.displayInto.some(tab => 
+         tab.toLowerCase() === selectedCategory.toLowerCase()
+       )
+     );
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
-    setVisibleCardCount(initialCardCount); // Reset visible cards when category changes
+    setVisibleCardCount(initialCardCount);
   };
 
-  // Reset visibleCardCount if the category changes
-  useEffect(() => {
-    setVisibleCardCount(initialCardCount);
-  }, [initialCardCount, selectedCategory]);
-
-  // Load more cards function
   const loadMoreCards = () => {
-    setVisibleCardCount((prevCount) => prevCount + initialCardCount); // Increase the number of visible cards
+    setVisibleCardCount(prev => prev + initialCardCount);
   };
 
   return (
     <div className="px-5 sm:px-16 md:px-28 lg:px-56">
-      {/* Category Selection Buttons */}
       <CategoryButtons
-        categories={["All", "Tech", "News", "Programming", "LifeStyle", "Design", "Social", "Education", "Others"]}
+        categories={["All","Tech","News","Programming","LifeStyle","Design","Social","Education","Others"]}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
 
-      {/* Grid of Cards - show only visibleCardCount cards */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
-        {filteredBlogs.slice(0, visibleCardCount).map((Blog) => (
+        {filteredBlogs.slice(0, visibleCardCount).map((b, i) => (
           <BlogCardTemplate
-            key={Blog.headline}
-            imageSrc={Blog.imageSrc}
-            category={Blog.category}
-            headline={Blog.headline}
-            description={Blog.description}
-            link={Blog.link}
+            key={i}
+            imageSrc={b.imageSrc}
+            category={b.category}
+            headline={b.title}
+            description={b.description}
+            link={b.link}
           />
         ))}
       </ul>
 
-      {/* Conditional Button Rendering */}
       <div className="flex justify-center mt-4">
-        {buttonType === 'viewMore' ? (
-          filteredBlogs.length > visibleCardCount && ( // Show "View More" if there are more cards to show
+        {filteredBlogs.length > visibleCardCount && (
+          buttonType === "viewMore" ? (
             <Link href="/blog">
-              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded hover:bg-cyan-700 transition">View more</div>
+              <div className="bg-cyan-600 text-white px-5 py-2 rounded hover:bg-cyan-700">
+                View more
+              </div>
             </Link>
-          )
-        ) : (
-          filteredBlogs.length > visibleCardCount && ( // Show "Load More" if there are more cards to load
+          ) : (
             <button
               onClick={loadMoreCards}
-              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded hover:bg-cyan-700 transition"
+              className="bg-cyan-600 text-white px-5 py-2 rounded hover:bg-cyan-700"
             >
               Show more
             </button>
