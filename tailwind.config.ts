@@ -32,6 +32,7 @@ const config: Config = {
   },
   darkMode: 'class', // Enable class-based dark mode
   plugins: [
+    require('@tailwindcss/typography'),
     plugin(function({ addUtilities }) {
       const newUtilities = {
         '.scrollbar-hide': {
