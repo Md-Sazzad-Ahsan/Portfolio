@@ -19,40 +19,87 @@ interface BlogGridProps {
 }
 
 const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType }) => {
-  // CHANGED: state to hold API data instead of static import
   const [blogsData, setBlogsData] = useState<BlogItem[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [visibleCardCount, setVisibleCardCount] = useState<number>(initialCardCount);
+  const [loading, setLoading] = useState<boolean>(true); // Add loading state
+  const [error, setError] = useState<string | null>(null); // Add error state
 
-  // CHANGED: fetch from /api/blogs on mount
   useEffect(() => {
-    fetch("/api/blogs")
-      .then(res => res.json())
-      .then((data: BlogItem[]) => setBlogsData(data))
-      .catch(err => console.error("Failed to load blogs:", err));
+    const fetchBlogs = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/blogs");
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data: BlogItem[] = await res.json();
+        setBlogsData(data);
+      } catch (err: any) {
+        console.error("Failed to load blogs:", err);
+        setError("Failed to load blog posts. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogs();
   }, []);
 
-  // CHANGED: filter the fetched data
+  // Logging the data to make sure everything is correct (for debugging)
+  console.log("Blogs Data:", blogsData);
+  console.log("Selected Category:", selectedCategory);
+
+  // Filter blogs based on selected category
   const filteredBlogs = selectedCategory === "All"
-   ? blogsData
-   : blogsData.filter(b =>
-       b.displayInto.some(tab => 
-         tab.toLowerCase() === selectedCategory.toLowerCase()
-       )
-     );
+  ? blogsData
+  : blogsData.filter((b) => {
+      console.log("Checking blog:", b.title, "with displayInto:", b.displayInto);
+      if (Array.isArray(b.displayInto)) {
+        const normalizedTabs = b.displayInto.map((tab) => {
+          if (typeof tab === 'string') {
+            return (tab as string).trim().toLowerCase();
+          }
+          console.warn(`- Unexpected non-string value in displayInto array for blog: ${b.title}`, tab);
+          return ''; // Or some other appropriate default
+        });
+        const normalizedCategory = (selectedCategory as string).trim().toLowerCase();
+        const includesCategory = normalizedTabs.includes(normalizedCategory);
+        console.log(` - Normalized Tabs: ${normalizedTabs}, Normalized Category: ${normalizedCategory}, Includes: ${includesCategory}`);
+        return includesCategory;
+      } else if (typeof b.displayInto === 'string') {
+        const normalizedTab = (b.displayInto as string).trim().toLowerCase();
+        const normalizedCategory = (selectedCategory as string).trim().toLowerCase();
+        const includesCategory = normalizedTab === normalizedCategory;
+        console.log(` - Normalized Tab (string): ${normalizedTab}, Normalized Category: ${normalizedCategory}, Includes: ${includesCategory}`);
+        return includesCategory;
+      }
+      console.warn(`- displayInto is not an array or string for blog: ${b.title}`, b.displayInto);
+      return false;
+    });
+
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
     setVisibleCardCount(initialCardCount);
   };
 
   const loadMoreCards = () => {
-    setVisibleCardCount(prev => prev + initialCardCount);
+    setVisibleCardCount((prev) => prev + initialCardCount);
   };
+
+  if (loading) {
+    return <div className="px-5 sm:px-16 md:px-28 lg:px-56">Loading blog posts...</div>;
+  }
+
+  if (error) {
+    return <div className="px-5 sm:px-16 md:px-28 lg:px-56 text-red-500">{error}</div>;
+  }
 
   return (
     <div className="px-5 sm:px-16 md:px-28 lg:px-56">
       <CategoryButtons
-        categories={["All","Tech","News","Programming","LifeStyle","Design","Social","Education","Others"]}
+        categories={["All", "Tech", "News", "Programming", "LifeStyle", "Design", "Social", "Education", "Others"]}
         selectedCategory={selectedCategory}
         onCategoryChange={handleCategoryChange}
       />
