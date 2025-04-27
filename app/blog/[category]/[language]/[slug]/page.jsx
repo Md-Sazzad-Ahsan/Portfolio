@@ -22,7 +22,7 @@ export default async function BlogPage({ params }) {
   const contentHtml = processedContent.toString();
 
   return (
-    <article className="prose max-w-3xl mx-auto">
+    <article className="prose max-w-3xl mx-auto my-16">
       <h1>{data.title}</h1>
       <p className="text-sm text-gray-500">{data.date}</p>
       <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
