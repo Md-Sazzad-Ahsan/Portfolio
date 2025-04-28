@@ -1,10 +1,12 @@
-// tailwind.config.js
+// tailwind.config.ts
 import type { Config } from "tailwindcss";
 import plugin from "tailwindcss/plugin";
+
 const config: Config = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}"
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}", // Include pages if needed
   ],
   theme: {
     extend: {
@@ -27,12 +29,11 @@ const config: Config = {
       textColor: {
         'transparent': 'transparent', // Custom text color for transparency
       },
-      
     },
   },
   darkMode: 'class', // Enable class-based dark mode
   plugins: [
-    require('@tailwindcss/typography'),
+    require('@tailwindcss/typography'), // Ensure the typography plugin is loaded
     plugin(function({ addUtilities }) {
       const newUtilities = {
         '.scrollbar-hide': {

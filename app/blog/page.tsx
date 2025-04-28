@@ -9,9 +9,9 @@ export default function Blog()
 {
     return (
 
-        <main className="pt-20">
-        <SeparatePages dividerText="My Blogs_" dividerTextColor="text-cyan-600" subText="Story | Content | Programming | ICT | GK" className={`py-10  sm:py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 text-center sm:text-start ${playfair.className}`} />
-        <HorizontalRow RowText="Top Articles" />
+        <main className="pt-16">
+        <SeparatePages dividerText="My Blogs_" dividerTextColor="text-cyan-600" subText="Story | Content | Programming | Tech | UIUX" className={`py-10  sm:py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 text-center sm:text-start ${playfair.className}`} />
+        <HorizontalRow RowText="Recent Articles" />
         <LatestBlogGrid />
         <HorizontalRow RowText="More Article" className="mt-20" />
         <BlogGrid buttonType={"loadMore"} initialCardCount={6} />

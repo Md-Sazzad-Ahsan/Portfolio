@@ -17,3 +17,148 @@ body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
+
+.md-editor {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.md-editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.md-editor-toolbar button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.md-editor-toolbar button:hover {
+  background: #e6e6e6;
+}
+
+.md-editor-content {
+  padding: 16px;
+  height: 300px; /* Adjust height as necessary */
+  overflow-y: auto;
+}
+
+.md-editor-content {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+
+.md-editor-content pre {
+  background: #f0f0f0;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.md-editor-content code {
+  background: #f0f0f0;
+  padding: 2px 2px;
+  border-radius: 4px;
+}
+/* Highlight.js styles */
+.hljs {
+  background: #f0f0f0;
+  padding: 8px;
+  border-radius: 4px;
+}
+.react-markdown-editor-lite .editor {
+  border: none; /* Remove inner border */
+  width: 100%; /* Ensure it takes full width */
+  box-shadow: none; /* Remove any shadows */
+}
+
+/* Global Markdown Styles */
+.prose h1 {
+  font-size: 1.4rem; /* Adjust size as needed */
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+}
+
+.prose h2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.9rem;
+  color: var(--text-color);
+}
+
+.prose h3 {
+  font-size: 1.3rem;
+  font-weight: semibold;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+}
+.prose h4 {
+  font-size: 1.2rem;
+  font-weight: semibold;
+  margin-bottom: 0.7rem;
+  color: var(--text-color);
+}
+
+.prose ul {
+  list-style-type: disc; /* For unordered lists */
+  margin-left: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.prose ol {
+  list-style-type: decimal; /* For ordered lists */
+  margin-left: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
+.prose li {
+  margin-bottom: 0.3rem;
+  color: var(--text-color);
+}
+
+.prose strong {
+  font-weight: semibold;
+  color: #0ea5e9;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+/* Additional styling for inline code */
+.prose code {
+  background-color: #ebedee;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+/* Global Markdown Styles for Blockquotes */
+.prose blockquote {
+  border-left: 2px solid #bcbcbc; /* Gray border on the left */
+  padding-left: 1rem; /* Space between text and border */
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0.2rem;
+  color: var(--text-color);
+  background-color: #f9f9f9; /* Optional: Light background for blockquotes */
+}
+
+.prose blockquote p {
+  margin: 0; /* Remove default margin from paragraphs inside blockquotes */
+}
+
+.prose blockquote blockquote {
+  border-left: 2px solid #646a78; /* Lighter gray for nested blockquotes */
+  padding-left: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: #f0f0f0; /* Optional: Slightly darker background for nested blockquotes */
+}
