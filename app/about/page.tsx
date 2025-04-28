@@ -1,5 +1,4 @@
 import AboutMe from "@/components/GlobalComponents/AboutMe";
-import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import MySkills from "@/components/Skills/MySkills"
@@ -11,7 +10,6 @@ export default function About()
         <SeparatePages dividerText="About me_" subText="Writer | Designer | Developer | Engineer" dividerTextColor="text-cyan-600" className={`py-10 sm:py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 text-center sm:text-left ${playfair.className}`} />
         <AboutMe />
         <MySkills/>
-        <UnderConstruction />
         </main>
 
     );

@@ -1,5 +1,3 @@
-import UnderConstruction from "@/components/LoadingPage/UnderConstructionPage";
-import CardList from "@/components/Unnecessary/PortfolioProjects/CardList";
 import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
@@ -11,7 +9,6 @@ export default function portfolio() {
         {/* <CardList maxCards={6} buttonShow={false} /> */}
          {/* maxCards is the limit of how many cards will be in section ALL*/}
          <ProjectGrid buttonType="loadMore" initialCardCount={6} />
-         <UnderConstruction />
       </main>
     );
   }
