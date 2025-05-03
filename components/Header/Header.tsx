@@ -73,7 +73,7 @@ const Header = () => {
             <Link href="/blog" className={`hover:underline ${getActiveClass('/blog')}`}>Blog</Link>
             <ToggleSwitch checked={darkMode} onChange={handleToggle} />
             <Link href="/contact">
-              <button className={`bg-cyan-600 text-gray-50 py-1 px-8 rounded-lg hover:bg-cyan-500 font-semibold${getActiveClass('/contact')}`}>Contact</button>
+              <button className={`bg-cyan-600 text-gray-50 py-1 px-8 rounded-full hover:bg-cyan-500 font-semibold${getActiveClass('/contact')}`}>Contact</button>
             </Link>
           </nav>
         </div>
@@ -125,7 +125,7 @@ const Header = () => {
           <Link href="/about" onClick={closeSidebar} className={`block py-2 hover:underline ${getActiveClass('/about')}`}>About</Link>
           <Link href="/portfolio" onClick={closeSidebar} className={`block py-2 hover:underline ${getActiveClass('/portfolio')}`}>Portfolio</Link>
           <Link href="/blog" onClick={closeSidebar} className={`block py-2 hover:underline ${getActiveClass('/blog')}`}>Blog</Link>
-          <Link href="/contact" onClick={closeSidebar} className={`mt-4 w-full bg-cyan-600 text-gray-50 py-2 px-5 rounded ${getActiveClass('/contact')}`}>Contact</Link>
+          <Link href="/contact" onClick={closeSidebar} className={`mt-4 w-full bg-cyan-600 text-gray-50 py-2 px-5 rounded-full ${getActiveClass('/contact')}`}>Contact</Link>
         </nav>
       </motion.aside>
     </>

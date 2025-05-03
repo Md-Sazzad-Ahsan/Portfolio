@@ -25,7 +25,7 @@ export default function AboutMe() {
             className="shadow-xl p-1 bg-gray-50 object-cover"
           />
           {/* Position SocialLinks in front of the image, centered at the bottom */}
-          <div className=" absolute inset-x-0 bottom-0 mb-2 bg-gray-950 bg-opacity-20 shadow">
+          <div className=" absolute inset-x-0 bottom-0 pb-2 bg-white dark:bg-gray-950 bg-opacity-20 dark:bg-opacity-20 shadow">
             {" "}
             {/* Center horizontally and position at the bottom */}
             <SocialLinks className="flex justify-center" />
@@ -39,34 +39,31 @@ export default function AboutMe() {
               Md. Sazzad Ahsan
             </span>
             <p className="font-normal pt-5 sm:pt-8">
-              To be graduate with a B.Sc. in Computer Science and Engineering from
-              Daffodil Institute of IT (DIIT), Dhaka. Passionate about
-              programming, web, app, software development, and cybersecurity.
-              Eager to evolve as a skilled Software Engineer. Lets connect and
-              explore the tech world together!
+            A Software Engineer with a B.Sc. in Computer Science and Engineering from Daffodil Institute of IT (DIIT), Dhaka. Specialized in programming, web development, app development, content writing, software engineering, and cybersecurity. Passionate about building innovative software and websites while continuously evolving with emerging technologies. Let’s connect and explore the ever-changing tech landscape together!
+
             </p>
           </div>
 
           {pathname === "/about" ? (
             <Button
               href="/ResumeMDSazzadAhsan.pdf" // Update with the correct path to your CV file
-              download="CV_MDSazzadAhsan.pdf"
-              buttonText="Download CV"
-              className="self-start mx-0 sm:mx-5 md:mx-12 mt-4 py-1 md:py-2 hover:underline ring-1 px-4 ring-gray-50 dark:ring-gray-700 hover:ring-cyan-700 text-gray-50 bg-cyan-700 hover:bg-cyan-900 text-sm rounded-sm text-left cursor-pointer"
+              download="Resume_MDSazzadAhsan.pdf"
+              buttonText="Save Resume"
+              className="self-start w-full md:w-1/3 mx-0 sm:mx-5 md:mx-12 my-8 py-2 hover:underline ring-1 px-6 md:px-8 ring-gray-50 dark:ring-gray-700 hover:ring-cyan-700 text-white bg-cyan-700 hover:bg-cyan-900 text-lg rounded-full text-center cursor-pointer"
             />
           ) : (
             <DoubleButton
               href1="/about"
               href2="/ResumeMDSazzadAhsan.pdf" // Update with the correct path to your CV file
               buttonOneText="Read more"
-              buttonTwoText="Download CV"
-              download="CV_MDSazzadAhsan.pdf"
-              className="pt-5 md:pt-10 md:pl-12 space-x-5"
+              buttonTwoText="Resume"
+              download="Resume_MDSazzadAhsan.pdf"
+              className="pt-5 md:pt-10 md:pl-12 space-x-5 flex justify-between"
             />
           )}
         </figure>
       </section>
-      <AboutSkillsCard />
+      {pathname !== "/about" && <AboutSkillsCard />}
     </main>
   );
 }

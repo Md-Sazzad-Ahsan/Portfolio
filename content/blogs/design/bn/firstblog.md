@@ -51,5 +51,3 @@ Accessibility features like full keyboard navigation and screen reader support m
 
 This project demonstrates that with the right design and technology stack, an online store can deliver a seamless and enjoyable shopping experience.  
 By combining functional features with user-centric design, the platform redefines how consumers engage with e-commerce, setting a new standard for future developments.
-
----

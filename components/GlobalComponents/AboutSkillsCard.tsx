@@ -44,7 +44,7 @@ function AboutSkillsCard() {
           "NodeJs and NextJs","MySQL Database"
         ]}
       />
-    <div className="col-span-full text-center pt-5 sm:pt-8 md:pt-10"><a href="/about" className="bg-cyan-700 px-8 py-1 text-base sm:text-md md:text-lg text-gray-50 font-semibold rounded-md shadow-md hover:shadow-lg hover:bg-cyan-900">View all</a></div>
+    <div className="col-span-full text-center pt-5 sm:pt-8 md:pt-10"><a href="/about/skills" className="bg-cyan-700 px-8 py-2 text-lg sm:text-md md:text-lg text-gray-50 font-semibold rounded-full shadow-lg hover:shadow-lg hover:bg-cyan-900">View All</a></div>
   </article>
 </section>
 </main>
