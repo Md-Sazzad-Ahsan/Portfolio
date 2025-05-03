@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import React, { Suspense } from "react";
 import { inter } from "@/public/fonts/fonts";
-import AuthProvider from "@/SessionProvider"
+import AuthProvider from "@/SessionProvider";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   title: "Md. Sazzad Ahsan - Software Developer",
   description:
-    "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+    "Md. Sazzad Ahsan is a Software Engineer with a B.Sc. in Computer Science and Engineering from Daffodil Institute of IT (DIIT), Dhaka. He specializes in multi-language programming, web development, mobile app development, software development, cybersecurity, UIUX and SEO content writing. Passionate about building innovative digital solutions, he stays ahead with emerging technologies to create fast, secure, and user-friendly applications. Connect with Ahsan to explore the evolving tech world and drive impactful software projects together.",
   openGraph: {
     title: "Md. Sazzad Ahsan - Software Developer",
     description:
-      "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+      "Md. Sazzad Ahsan is a Software Engineer with a B.Sc. in Computer Science and Engineering from Daffodil Institute of IT (DIIT), Dhaka. He specializes in multi-language programming, web development, mobile app development, software development, cybersecurity, UIUX and SEO content writing. Passionate about building innovative digital solutions, he stays ahead with emerging technologies to create fast, secure, and user-friendly applications. Connect with Ahsan to explore the evolving tech world and drive impactful software projects together.",
     type: "website",
     locale: "en_US",
     url: "https://ahsans-portfolio.vercel.app",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "Md. Sazzad Ahsan - Software Developer",
     description:
-      "Md. Sazzad Ahsan, a Computer Engineer specializing in programming, software development, web design, web development, prototyping, and content writing. Discover my work and expertise in crafting efficient digital solutions.",
+      "Md. Sazzad Ahsan is a Software Engineer with a B.Sc. in Computer Science and Engineering from Daffodil Institute of IT (DIIT), Dhaka. He specializes in multi-language programming, web development, mobile app development, software development, cybersecurity, UIUX and SEO content writing. Passionate about building innovative digital solutions, he stays ahead with emerging technologies to create fast, secure, and user-friendly applications. Connect with Ahsan to explore the evolving tech world and drive impactful software projects together.",
     card: "summary_large_image",
     site: "@Md_Sazzad_Ahsan", // Replace with your Twitter handle or remove if not applicable
   },
@@ -46,17 +46,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#333a3f" />
       </head>
       <body className={`${inter.className}`}>
-      <AuthProvider>
-        <Header />
-        <Suspense fallback={<div>Loading...</div>}>
-        <main>{children}</main>
-        </Suspense>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <Suspense fallback={<div>Loading...</div>}>
+            <main>{children}</main>
+          </Suspense>
+          <Footer />
         </AuthProvider>
       </body>
     </html>

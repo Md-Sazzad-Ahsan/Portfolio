@@ -105,7 +105,7 @@ const ContactMe = () => {
         >
           <h2 className="text-2xl text-cyan-600 font-semibold mb-2">Let’s Work Together</h2>
           <p className="text-gray-700 dark:text-gray-100 mb-4">
-          Great ideas deserve a great partnership. Contact me today and let’s transform your ideas into results.
+          Great ideas deserve a great partnership. Contact me today to transform your ideas into remarkable outcome.
           </p>
 
    <div className="grid grid-cols-1 sm:grid-cols-2 pt-2">
@@ -133,7 +133,7 @@ const ContactMe = () => {
         <span className="text-gray-700 dark:text-gray-100 flex items-center">
           Website
         </span>
-        <span className="text-gray-500 dark:text-gray-300"><a href="https://ahsans-portfolio.vercel.app">ahsans-portfolio.vercel.app</a></span>
+        <span className="text-gray-500 dark:text-gray-300"><a href="https://ahsans-portfolio.vercel.app">ahsan.lunitech.co</a></span>
         </div>
       </div>
       <div className="flex items-center p-4 ">
@@ -142,7 +142,7 @@ const ContactMe = () => {
         <span className="text-gray-700 dark:text-gray-100 flex items-center">
           Address
         </span>
-        <span className="text-gray-500 dark:text-gray-300">Paterbag, Shonir-Akhra, Dhaka, 1236</span>
+        <span className="text-gray-500 dark:text-gray-300">Shonir-Akhra, Dhaka</span>
         </div>
       </div>
 

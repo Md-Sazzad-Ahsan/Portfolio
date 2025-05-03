@@ -9,7 +9,7 @@ interface CardProps {
 
 const Cards: React.FC<CardProps> = ({ icon: Icon, title, subtitle, description }) => {
   return (
-    <li className="h-80 flex flex-col p-5 sm:p-6 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+    <li className="h-80 flex flex-col p-5 sm:p-6 ring-white shadow-xl hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md hover:scale-95">
       <div className="font-bold text-4xl px-4 pt-8 pb-5 pl-5 sm:pl-4 md:py-4">
         <Icon className="text-darkBg dark:text-gray-50 h-7 w-7" />
       </div>

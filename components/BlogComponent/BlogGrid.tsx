@@ -121,14 +121,14 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
         {filteredBlogs.length > visibleCardCount && (
           buttonType === "viewMore" ? (
             <Link href="/blog">
-              <div className="bg-cyan-600 text-white px-5 py-2 rounded hover:bg-cyan-700">
+              <div className="bg-cyan-600 text-white px-5 sm:px-8 py-2 rounded-full hover:bg-cyan-700">
                 View more
               </div>
             </Link>
           ) : (
             <button
               onClick={loadMoreCards}
-              className="bg-cyan-600 text-white px-5 py-2 rounded hover:bg-cyan-700"
+              className="bg-cyan-600 text-white px-5 sm:px-8 py-2 rounded-full hover:bg-cyan-700"
             >
               Show more
             </button>

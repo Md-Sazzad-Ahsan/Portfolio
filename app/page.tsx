@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import { GoArrowUpRight } from "react-icons/go";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/GlobalComponents/AboutMe";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
@@ -16,7 +17,7 @@ export default function Home() {
           <div className="text-darkBg dark:text-gray-50">
           <div className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning <span className="text-cyan-600">ideas </span>into a<br/>remarkable <a className="text-cyan-600">Website</a> </div>
           <h1 className="text-sm pt-2">A skilled web developer and designer, crafting user-friendly websites and apps <br className="hidden sm:static"/> that deliver engaging digital experiences.</h1>
-          <p className=" text-xl mt-10 text-cyan-500 font-semibold flex items-center"> <Link href="/about" className="hover:text-cyan-600 cursor-pointer">Read more</Link><IoIosArrowRoundForward className="pt-1 h-7 w-7 hover:text-cyan-600 cursor-pointer" /></p>
+          <p className=" text-xl mt-10 text-cyan-500 font-semibold flex items-center"> <Link href="/about" className="hover:text-cyan-600 cursor-pointer">Read more</Link><GoArrowUpRight className="pt-1 h-6 w-6 hover:text-cyan-600 cursor-pointer" /></p>
           </div>
         </span>
         <span>
