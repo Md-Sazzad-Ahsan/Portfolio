@@ -1,6 +1,6 @@
 ---
 title: "Building the Future of E-Commerce"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/projectImages/APIImage.jpg"
 category: "Design"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 author: "Md. Sazzad Ahsan"

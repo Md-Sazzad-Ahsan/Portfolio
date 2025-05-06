@@ -1,4 +1,4 @@
-import AboutMe from "@/components/GlobalComponents/AboutMe";
+import AboutMe from "@/components/AboutMe/AboutMe";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import ExperienceCard from "@/components/Skills/Skills";

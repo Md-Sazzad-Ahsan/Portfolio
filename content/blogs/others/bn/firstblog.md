@@ -1,6 +1,6 @@
 ---
 title: "Online Others Platform"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/projectImages/MachineImage.jpg"
 category: "Others"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blog/others/bn"

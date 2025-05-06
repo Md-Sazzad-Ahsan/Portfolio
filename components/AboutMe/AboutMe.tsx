@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import MyPhoto from "@/public/images/profilePhoto.jpg";
-import AboutSkillsCard from "@/components/GlobalComponents/AboutSkillsCard";
+import AboutSkillsCard from "@/components/AboutMe/AboutSkillsCard";
 import Button from "@/components/Button/Buttons";
 import DoubleButton from "@/components/Button/DoubleButton";
 import SocialLinks from "../ContactForm/SocialLinks";
@@ -12,7 +12,7 @@ export default function AboutMe() {
 
   return (
     <main className="dark:bg-darkBg px-5 sm:px-16 md:px-28 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
-      <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-8 lg:p-10 shadow-lg dark:shadow-xl">
+      <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-8 lg:p-10 shadow-md dark:shadow-xl">
         <figure className="col-span-1 relative w-full h-0 pb-[140%]">
           {" "}
           {/* Adjust height ratio as needed */}
@@ -22,7 +22,7 @@ export default function AboutMe() {
             fill
             priority
             sizes="cover"
-            className="shadow-xl p-1 bg-gray-50 object-cover"
+            className="p-1 bg-gray-50 object-cover"
           />
           {/* Position SocialLinks in front of the image, centered at the bottom */}
           <div className=" absolute inset-x-0 bottom-0 pb-2 bg-white dark:bg-gray-950 bg-opacity-20 dark:bg-opacity-20 shadow">

@@ -1,6 +1,6 @@
 ---
 title: "Online Programming Platform"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/projectImages/AppImage1.jpg"
 category: "Programming"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blog/programming/bn"

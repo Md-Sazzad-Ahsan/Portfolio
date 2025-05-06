@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IoIosArrowRoundForward } from "react-icons/io";
 import { GoArrowUpRight } from "react-icons/go";
 import VectorImage from "@/public/images/programmingImage.svg"
-import AboutMe from "@/components/GlobalComponents/AboutMe";
+import AboutMe from "@/components/AboutMe/AboutMe";
 import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import BlogGrid from "@/components/BlogComponent/BlogGrid";
 import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
+import SelectedWork from "@/components/ProjectComponent/SelectedWork";
+import Testimonial from "@/components/AboutMe/Testimonial"
 
 export default function Home() {
   return (
@@ -17,7 +18,7 @@ export default function Home() {
           <div className="text-darkBg dark:text-gray-50">
           <div className={"text-3xl sm:text-4xl md:text-5xl font-bold"}>Turning <span className="text-cyan-600">ideas </span>into a<br/>remarkable <a className="text-cyan-600">Website</a> </div>
           <h1 className="text-sm pt-2">A skilled web developer and designer, crafting user-friendly websites and apps <br className="hidden sm:static"/> that deliver engaging digital experiences.</h1>
-          <p className=" text-xl mt-10 text-cyan-500 font-semibold flex items-center"> <Link href="/about" className="hover:text-cyan-600 cursor-pointer">Read more</Link><GoArrowUpRight className="pt-1 h-6 w-6 hover:text-cyan-600 cursor-pointer" /></p>
+          <p className=" text-xl mt-10 text-cyan-500 hover:text-cyan-600 cursor-pointer font-semibold flex items-center"> <Link href="/about" className="">Read more</Link><GoArrowUpRight className="pt-1 h-6 w-6" /></p>
           </div>
         </span>
         <span>
@@ -28,10 +29,12 @@ export default function Home() {
       <AboutMe/>
       <SeparatePages dividerText="Projects_" dividerTextColor="dark:text-darkBg text-gray-50" className={`bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 sm:text-left ${playfair.className}`} />
       {/* <CardList maxCards={6} buttonShow={true} />  */}
+      <SelectedWork/>
       <ProjectGrid buttonType="viewMore" initialCardCount={3} />
       <SeparatePages dividerText="My Blog_" dividerTextColor="dark:text-darkBg text-gray-50" className={`mt-20 md:mt-28 bg-darkBg dark:bg-gray-100 py-20 md:py-28 px-5 sm:px-16 md:px-28 lg:px-56 sm:text-left ${playfair.className}`} />
       {/* <BlogList maxBlogs={6} buttonShow={true} />  */}
       <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
+      <Testimonial/>
     </main>
   );
 }
