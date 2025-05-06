@@ -1,6 +1,6 @@
 ---
 title: "Online Social Platform"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/projectImages/AppImage.jpg"
 category: "Social"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blog/social/bn"

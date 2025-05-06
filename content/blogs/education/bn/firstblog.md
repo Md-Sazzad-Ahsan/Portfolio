@@ -1,6 +1,6 @@
 ---
 title: "Online Education Platform"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/BlogImages/Programming.jpg"
 category: "Education"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blogs/design/bn"

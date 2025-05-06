@@ -1,6 +1,6 @@
 ---
 title: "Online Development Platform"
-imageSrc: "/projectImages/EcommerceImage.jpg"
+imageSrc: "/projectImages/UIUX.jpg"
 category: "Development"
 description: "An e-commerce platform built with React and Node.js, featuring product listings, product searching, shopping cart, and checkout."
 link: "/blog/development/bn"

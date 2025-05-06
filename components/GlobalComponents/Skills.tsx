@@ -21,13 +21,13 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.3 }}
-      className="w-full max-w-7xl pt-5 md:pt-8 px-5 md:px-10 lg:px-16 bg-gray-50 dark:bg-darkBg text-gray-700 dark:text-white mx-auto"
+      className="w-full max-w-7xl pt-5 md:pt-8 px-6 md:px-10 lg:px-16 bg-white dark:bg-darkBg text-gray-700 dark:text-white mx-auto"
     >
-      <div className="flex flex-col md:flex-row gap-8 md:gap-20">
+      <div className="flex flex-col md:flex-row gap-6 md:gap-20">
         <div className="w-full md:w-1/2">
           <h2 className="text-2xl sm:text-3xl font-bold">{title}</h2>
-          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 pt-2">
-            <span className="underline text-blue-400">{company}</span>
+          <p className="text-base sm:text-lg text-gray-500 dark:text-gray-400 md:pt-1">
+            <span className=" text-cyan-500">{company}</span>
           </p>
         </div>
         <div className="w-full md:w-1/2 text-gray-600 dark:text-gray-200 text-sm sm:text-base leading-relaxed mb-20">

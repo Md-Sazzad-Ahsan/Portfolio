@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import {HiArrowLongRight } from "react-icons/hi2";
+import { GoArrowUpRight } from "react-icons/go";
 import Link from "next/link";
 
 interface ProjectCardTemplateProps {
@@ -27,11 +27,11 @@ const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({ imageSrc, cat
         <h2 className="text-xl py-1 font-bold text-cyan-600">{headline}</h2>
         <p className="text-sm text-gray-700 dark:text-gray-50 pb-1">{description}</p>
        </div>
-        <div className="mt-auto flex items-center group py-1">
+        <div className="mt-auto flex items-center group pt-1 pb-2">
           <span className="text-cyan-600 hover:underline ">
             View Project 
           </span>
-          <HiArrowLongRight className="pt-1 ml-1 text-cyan-500" />
+          <GoArrowUpRight className="pt-1 ml-1 text-cyan-500" />
         </div>
       </div>
     </div>

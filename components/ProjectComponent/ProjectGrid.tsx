@@ -63,14 +63,14 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
         {buttonType === 'viewMore' ? (
           filteredProjects.length > visibleCardCount && ( // Show "View More" if there are more cards to show
             <Link href="/portfolio">
-              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded-full hover:bg-cyan-700 transition">View more</div>
+              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded-lg hover:bg-cyan-700 transition">View more</div>
             </Link>
           )
         ) : (
           filteredProjects.length > visibleCardCount && ( // Show "Load More" if there are more cards to load
             <button
               onClick={loadMoreCards}
-              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded-full hover:bg-cyan-700 transition"
+              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded-lg hover:bg-cyan-700 transition"
             >
               Show more
             </button>
