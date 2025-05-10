@@ -25,7 +25,7 @@ export default function AboutMe() {
             className="p-1 bg-gray-50 object-cover"
           />
           {/* Position SocialLinks in front of the image, centered at the bottom */}
-          <div className=" absolute inset-x-0 bottom-0 pb-2 bg-white dark:bg-gray-950 bg-opacity-20 dark:bg-opacity-20 shadow">
+          <div className=" absolute inset-x-0 bottom-0 pb-2 bg-white dark:bg-gray-950 bg-opacity-40 dark:bg-opacity-20 shadow">
             {" "}
             {/* Center horizontally and position at the bottom */}
             <SocialLinks className="flex justify-center" />
