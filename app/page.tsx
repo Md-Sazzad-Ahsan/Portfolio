@@ -35,6 +35,7 @@ export default function Home() {
       {/* <BlogList maxBlogs={6} buttonShow={true} />  */}
       <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
       <Testimonial/>
+
     </main>
   );
 }
