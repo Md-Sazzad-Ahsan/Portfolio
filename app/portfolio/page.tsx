@@ -11,7 +11,10 @@ export default function portfolio() {
 
         {/* <CardList maxCards={6} buttonShow={false} /> */}
          {/* maxCards is the limit of how many cards will be in section ALL*/}
+         <div className="px-5 sm:px-16 md:px-28 lg:px-56">
          <ProjectGrid buttonType="loadMore" initialCardCount={6} />
+
+         </div>
       </main>
     );
   }

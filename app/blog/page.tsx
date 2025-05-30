@@ -14,8 +14,9 @@ export default function Blog()
         <HorizontalRow RowText="Recent Articles" />
         <LatestBlogGrid />
         <HorizontalRow RowText="More Article" className="mt-20" />
+        <div className="px-5 sm:px-16 md:px-28 lg:px-56">
         <BlogGrid buttonType={"loadMore"} initialCardCount={6} />
-
+        </div>
         </main>
 
     );
