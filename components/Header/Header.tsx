@@ -62,7 +62,7 @@ const Header = () => {
         }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="hidden lg:flex bg-[var(--bg-color)] text-[var(--text-color)] fixed w-full top-0 z-50 sm:px-16 md:px-48 lg:px-56 py-4"
+        className="hidden lg:flex bg-transparent text-[var(--text-color)] fixed w-full top-0 z-50 shadow-sm backdrop-blur-sm py-4 px-8"
       >
         <div className="container mx-auto flex justify-between items-center">
           <Link href="/" className="text-xl font-bold text-cyan-600 dark:text-gray-50">Ahsan</Link>

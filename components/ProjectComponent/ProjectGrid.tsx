@@ -36,7 +36,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   };
 
   return (
-    <div className="px-5 sm:px-16 md:px-28 lg:px-56">
+    <div className="">
       {/* Category Selection Buttons */}
       <CategoryButtons
         categories={["All", "App", "UI/UX", "Software", "Website", "E-commerce", "AI", "Games", "Personal"]}

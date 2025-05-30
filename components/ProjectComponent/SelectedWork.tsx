@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const SelectedWork = () => {
   return (
-    <section className="w-full px-6 md:px-16 py-20 bg-white dark:bg-darkBg">
+    <section className="w-full py-20 bg-white dark:bg-darkBg">
       <div className="max-w-7xl mx-auto">
 
         <motion.div
