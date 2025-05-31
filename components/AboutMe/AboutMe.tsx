@@ -11,7 +11,7 @@ export default function AboutMe() {
 
   return (
     <main className="dark:bg-darkBg sm:px-16 md:px-28 lg:px-56 py-20 sm:py-28 items-left sm:items-center">
-      <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:py-8 lg:py-10">
+      <section className="rounded-xl grid grid-cols-1 sm:grid-cols-3 text-darkBg dark:text-gray-50 p-5 md:p-0 md:py-8 lg:py-10">
         <figure className="col-span-1 relative w-full h-0 pb-[140%]">
           {" "}
           {/* Adjust height ratio as needed */}

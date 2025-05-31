@@ -1,11 +1,10 @@
-import NextAuth from "next-auth";
+import NextAuth from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
-// Google provider removed as requested
 import bcrypt from "bcryptjs";
 import User from "@/models/User";
 import dbConnect from "@/lib/dbConnect";
 
-export const authOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -15,21 +14,43 @@ export const authOptions = {
       },
       async authorize(credentials) {
         try {
+          console.log('Authorization attempt for email:', credentials.email);
           await dbConnect();
-          
           const user = await User.findOne({ email: credentials.email });
           
           if (!user) {
+            console.log('No user found with email:', credentials.email);
             return null;
           }
           
-          const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+          console.log('User found, comparing passwords...');
+          console.log('Input password length:', credentials.password.length);
+          console.log('Stored hash length:', user.password.length);
+          console.log('Stored hash starts with:', user.password.substring(0, 10) + '...');
           
-          if (!isPasswordCorrect) {
+          try {
+            const isPasswordCorrect = await bcrypt.compare(
+              credentials.password, 
+              user.password
+            );
+            
+            console.log('Password comparison result:', isPasswordCorrect);
+            if (!isPasswordCorrect) {
+              console.log('Password comparison failed - hash does not match');
+              return null;
+            }
+          } catch (error) {
+            console.error('Error during password comparison:', error);
             return null;
           }
           
-          return { id: user._id, email: user.email, name: user.name, username: user.username, isAdmin: user.isAdmin };
+          return { 
+            id: user._id.toString(),
+            email: user.email, 
+            name: user.name, 
+            username: user.username, 
+            isAdmin: user.isAdmin 
+          };
         } catch (error) {
           console.error("Authorization error:", error);
           return null;
@@ -51,7 +72,7 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (token.user) {
+      if (token?.user) {
         session.user = token.user;
       }
       return session;
@@ -63,24 +84,11 @@ export const authOptions = {
     error: '/login',
   },
   session: {
-    strategy: "jwt",
-    maxAge: 60 * 60 * 24 * 15, // 15 days
-    updateAge: 24 * 60 * 60, // 24 hours
-  },
-  cookies: {
-    sessionToken: {
-      name: `next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-        path: "/",
-      },
-    },
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-const handler = NextAuth(authOptions);
+  debug: process.env.NODE_ENV === 'development',
+});
 
 export { handler as GET, handler as POST };
