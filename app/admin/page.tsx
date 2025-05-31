@@ -60,7 +60,7 @@ export default function Admin() {
         <div className="bg-card p-6 rounded-lg border border-border shadow-sm">
           <h2 className="text-xl font-semibold mb-2">Welcome back!</h2>
           <p className="text-muted-foreground">
-            You're now signed in to your admin dashboard.
+            You&apos;re now signed in to your admin dashboard.
           </p>
         </div>
 

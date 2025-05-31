@@ -159,7 +159,7 @@ export default function LoginPage() {
         </form>
         {/* Google sign-in button and divider removed as requested */}
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/register" className="text-teal-500 hover:underline">
             Sign up
           </Link>
