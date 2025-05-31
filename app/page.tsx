@@ -138,7 +138,7 @@ export default function Home() {
               <div className="h-px w-8 bg-cyan-500 ml-4"></div>
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white mb-2">What Clients Say</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Feedback from clients I've had the pleasure of working with.</p>
+            <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Feedback from clients I&apos;ve had the pleasure of working with.</p>
           </div>
           
           <div className="relative">
@@ -153,7 +153,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10"></div>
         <div className="container mx-auto max-w-4xl px-5 md:px-0 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Start Your Next Project?</h2>
-          <p className="text-gray-100 mb-8 max-w-2xl mx-auto">Let's collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
+          <p className="text-gray-100 mb-8 max-w-2xl mx-auto">Let&apos;s collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
           <Link href="/contact" className="inline-flex items-center px-8 py-3 bg-white text-gray-600 font-medium rounded-md hover:bg-gray-50 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Get in Touch
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
