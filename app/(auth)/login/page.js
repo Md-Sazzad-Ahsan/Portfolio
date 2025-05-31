@@ -4,19 +4,28 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { FcGoogle } from "react-icons/fc";
+// Google sign-in removed as requested
 import { FaGithub } from "react-icons/fa";
 
 export default function LoginPage() {
   const [error, setError] = useState("");
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (session?.status === "authenticated") {
-      router.replace("/dashboard");
-    }
-  }, [session, router]);
+    // Add a small delay to prevent immediate redirects
+    const timer = setTimeout(() => {
+      if (status === "authenticated") {
+        router.replace("/admin");
+      } else {
+        setIsLoading(false);
+      }
+    }, 700); // 700ms delay - slightly longer than dashboard
+
+    return () => clearTimeout(timer);
+  }, [status, router]);
 
   const isValidEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -60,9 +69,20 @@ export default function LoginPage() {
       setError("Invalid Email or Password");
     } else {
       setError("");
-      if (res?.url) router.replace("/dashboard");
+      router.replace("/admin");
     }
   };
+
+  // Google sign-in handler removed as requested
+
+  // Show loading spinner while checking auth state
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-darkBg">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 dark:bg-darkBg">
@@ -135,23 +155,11 @@ export default function LoginPage() {
           >
             Log In
           </button>
-          <p className="text-red-500 text-sm mt-2">{error && error}</p>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
         </form>
-        <div className="flex items-center my-4">
-          <div className="flex-grow border-t border-gray-300"></div>
-          <span className="mx-4 text-gray-500 dark:text-gray-300">or</span>
-          <div className="flex-grow border-t border-gray-300"></div>
-        </div>
-        <div className="flex justify-center space-x-4">
-          <button className="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-gray-50 focus:outline-none">
-            <FcGoogle className="mr-2" /> Google
-          </button>
-          <button className="flex items-center justify-center w-full px-4 py-2 border border-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-600 dark:hover:text-gray-50 focus:outline-none">
-            <FaGithub className="mr-2" /> GitHub
-          </button>
-        </div>
+        {/* Google sign-in button and divider removed as requested */}
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
-          Dont have an account?{" "}
+          Don't have an account?{" "}
           <Link href="/register" className="text-teal-500 hover:underline">
             Sign up
           </Link>
