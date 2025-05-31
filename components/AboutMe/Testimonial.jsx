@@ -59,7 +59,7 @@ export default function TestimonialsBlock() {
   };
 
   return (
-    <section className="bg-white dark:bg-darkBg">
+    <section className="bg-gray-50 dark:bg-darkBg">
       <div className="container px-5 md:px-0 py-10 mx-auto max-w-6xl">
         <div className="mt-6 md:mt-20 md:flex md:items-center md:justify-between">
           <div>
@@ -67,7 +67,7 @@ export default function TestimonialsBlock() {
               What People say about me
             </h1>
             <div className="flex mx-auto mt-6">
-              <span className="inline-block w-40 h-1 bg-darkBg dark:bg-white rounded-full" />
+              <span className="inline-block w-40 h-1 bg-darkBg dark:bg-gray-50 rounded-full" />
               <span className="inline-block w-3 h-1 mx-1 bg-darkBg dark:bg-white rounded-full" />
               <span className="inline-block w-1 h-1 bg-darkBg dark:bg-white rounded-full" />
             </div>
@@ -104,7 +104,7 @@ export default function TestimonialsBlock() {
           {testimonials.slice(startIndex, startIndex + itemsPerPage).map(({ name, title, img, feedback }, index) => (
             <div
               key={index}
-              className="p-5 md:p-8 border border-gray-200 dark:border-gray-700 rounded-lg hover:scale-95 transition-transform duration-200 bg-white dark:bg-darkBg"
+              className="p-5 md:p-8 border border-gray-200 dark:border-gray-700 rounded-lg hover:scale-95 transition-transform duration-200 bg-gray-50 dark:bg-darkBg"
             >
               <p className="leading-loose text-gray-500 dark:text-white">{feedback}</p>
               <div className="flex items-center mt-8 -mx-2">

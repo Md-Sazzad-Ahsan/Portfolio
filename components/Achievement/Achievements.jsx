@@ -29,6 +29,7 @@ export default function BentoGallery() {
               alt={item.title}
               layout="fill"
               objectFit="cover"
+              loading='lazy'
               className="hover:scale-105 transition-transform duration-300"
             />
             <div className="absolute bottom-0 w-full bg-gray-500 text-gray-100 dark:bg-gray-600 text-sm px-3 py-1 font-medium bg-opacity-50 backdrop-blur-sm">

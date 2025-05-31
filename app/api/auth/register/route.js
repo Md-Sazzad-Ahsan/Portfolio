@@ -7,7 +7,7 @@ export async function POST(request) {
   try {
     await dbConnect();
 
-    const { username, email, password } = await request.json();
+    const { username, email, password, isAdmin = false } = await request.json();
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -16,7 +16,7 @@ export async function POST(request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ username, email, password: hashedPassword, isAdmin });
     await newUser.save();
 
     return NextResponse.json({ message: 'User created successfully', user: newUser }, { status: 201 });

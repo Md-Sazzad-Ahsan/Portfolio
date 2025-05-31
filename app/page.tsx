@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/AboutMe/AboutMe";
-import SeparatePages from "@/components/GlobalComponents/SeparatePages";
+// import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import BlogGrid from "@/components/BlogComponent/BlogGrid";
 import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
@@ -149,12 +149,12 @@ export default function Home() {
       </section>
       
       {/* Contact CTA Section */}
-      <section className="relative bg-gradient-to-r from-gray-600 to-gray-700 dark:from-gray-700 dark:to-gray-800 py-20 dark:bg-darkBg">
+      <section className="relative bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 dark:bg-darkBg py-20">
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10"></div>
         <div className="container mx-auto max-w-4xl px-5 md:px-0 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to Start Your Next Project?</h2>
-          <p className="text-gray-100 mb-8 max-w-2xl mx-auto">Let&apos;s collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
-          <Link href="/contact" className="inline-flex items-center px-8 py-3 bg-white text-gray-600 font-medium rounded-md hover:bg-gray-50 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6">Ready to Start Your Next Project?</h2>
+          <p className="text-gray-700 dark:text-gray-100 mb-8 max-w-2xl mx-auto">Let&apos;s collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
+          <Link href="/contact" className="inline-flex items-center px-8 py-3 bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-600 font-medium rounded-md hover:bg-gray-700 hover:dark:bg-gray-50 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Get in Touch
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
