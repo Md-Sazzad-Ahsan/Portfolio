@@ -1,7 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import MyPhoto from "@/public/images/profilePhoto.jpg";
 import AboutSkillsCard from "@/components/AboutMe/AboutSkillsCard";
 import Button from "@/components/Button/Buttons";
 import DoubleButton from "@/components/Button/DoubleButton";
@@ -17,7 +16,7 @@ export default function AboutMe() {
           {" "}
           {/* Adjust height ratio as needed */}
           <Image
-            src={MyPhoto}
+            src="/images/profilePhoto.jpg"
             alt="Author's photo"
             fill
             priority
