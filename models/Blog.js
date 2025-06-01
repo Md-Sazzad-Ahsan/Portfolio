@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import isURL from 'validator/lib/isURL.js';
 
 const blogSchema = new mongoose.Schema({
   slug: {
@@ -8,7 +9,7 @@ const blogSchema = new mongoose.Schema({
     trim: true,
     lowercase: true,
     match: [/^[a-z0-9]+(?:-[a-z0-9]+)*$/, 'Slug format is invalid. Use lowercase letters, numbers, and hyphens only'],
-    index: true, // Add index for faster queries
+    index: true,
   },
   category: {
     type: String,
@@ -27,9 +28,9 @@ const blogSchema = new mongoose.Schema({
         'general-knowledge',
         'others'
       ],
-      message: '{VALUE} is not a valid category'
+      message: '{VALUE} is not a valid category',
     },
-    index: true, // Add index for category filtering
+    index: true,
   },
   author: {
     type: String,
@@ -38,39 +39,39 @@ const blogSchema = new mongoose.Schema({
   },
   content: {
     en: {
-      title: { 
-        type: String, 
-        required: false, // Not required if Bangla is provided
-        trim: true,
-        maxlength: [200, 'Title cannot be more than 200 characters']
-      },
-      description: { 
-        type: String, 
+      title: {
+        type: String,
         required: false,
         trim: true,
-        maxlength: [500, 'Description cannot be more than 500 characters']
+        maxlength: [200, 'Title cannot be more than 200 characters'],
       },
-      body: { 
-        type: String, 
-        required: false // Not required if Bangla is provided
+      description: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: [500, 'Description cannot be more than 500 characters'],
+      },
+      body: {
+        type: String,
+        required: false,
       },
     },
     bn: {
-      title: { 
-        type: String, 
-        required: false, // Not required if English is provided
-        trim: true,
-        maxlength: [200, 'Title cannot be more than 200 characters']
-      },
-      description: { 
-        type: String, 
+      title: {
+        type: String,
         required: false,
         trim: true,
-        maxlength: [500, 'Description cannot be more than 500 characters']
+        maxlength: [200, 'Title cannot be more than 200 characters'],
       },
-      body: { 
-        type: String, 
-        required: false // Not required if English is provided
+      description: {
+        type: String,
+        required: false,
+        trim: true,
+        maxlength: [500, 'Description cannot be more than 500 characters'],
+      },
+      body: {
+        type: String,
+        required: false,
       },
     },
   },
@@ -78,77 +79,57 @@ const blogSchema = new mongoose.Schema({
     type: String,
     trim: true,
     validate: {
-      validator: function(v) {
-        if (!v) return true; // Allow empty string
-        
-        // Check for Google Drive direct links
-        if (v.includes('drive.google.com/uc?export=view&id=')) {
-          return true;
-        }
-        
-        // Check for standard URLs
-        const standardUrlPattern = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/ .-]*)*\/?$/;
-        
-        // Check for more complex URLs with query parameters
-        const complexUrlPattern = /^(https?:\/\/)(([\da-z.-]+)\.([a-z.]{2,6})|(localhost|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}))(:\d{1,5})?(\/[\w .-]*)*\/?([\?&][\w=&]+)*/;
-        
-        return standardUrlPattern.test(v) || complexUrlPattern.test(v);
+      validator: function (v) {
+        if (!v) return true;
+        if (v.includes('drive.google.com/uc?export=view&id=')) return true;
+        return isURL(v, { protocols: ['http', 'https'], require_protocol: true });
       },
-      message: props => `${props.value} is not a valid URL`
-    }
+      message: (props) => `${props.value} is not a valid URL`,
+    },
   },
   createdAt: {
     type: Date,
     default: Date.now,
-    immutable: true, // Prevent modification after creation
-    index: true, // Add index for sorting by date
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
+    immutable: true,
+    index: true,
   },
 }, {
-  // Add timestamps option to automatically handle createdAt/updatedAt
   timestamps: true,
-  // Add virtuals to JSON output
   toJSON: { virtuals: true },
-  toObject: { virtuals: true }
+  toObject: { virtuals: true },
 });
 
-// Add text index for search functionality
+// Full-text search index
 blogSchema.index({
   'content.en.title': 'text',
   'content.en.description': 'text',
   'content.bn.title': 'text',
-  'content.bn.description': 'text'
+  'content.bn.description': 'text',
 });
 
-// Pre-save middleware to ensure updatedAt is set correctly and validate at least one language content
-blogSchema.pre('save', function(next) {
-  this.updatedAt = new Date();
-  
-  // Validate that at least one language has both title and body
-  const hasEnglishContent = this.content?.en?.title && this.content?.en?.body;
-  const hasBanglaContent = this.content?.bn?.title && this.content?.bn?.body;
-  
-  if (!hasEnglishContent && !hasBanglaContent) {
-    return next(new Error('At least one language (English or Bangla) must have both title and body content'));
+// Middleware to ensure at least one language has title + body
+blogSchema.pre('save', function (next) {
+  const hasEn = this.content?.en?.title && this.content?.en?.body;
+  const hasBn = this.content?.bn?.title && this.content?.bn?.body;
+
+  if (!hasEn && !hasBn) {
+    return next(new Error('At least one language (English or Bangla) must have both title and body'));
   }
-  
+
   next();
 });
 
-// Add a virtual property for formatted date
-blogSchema.virtual('formattedDate').get(function() {
+// Virtual for formatted date
+blogSchema.virtual('formattedDate').get(function () {
   return this.createdAt.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 });
 
-// Add method to check if blog is new (less than 7 days old)
-blogSchema.methods.isNew = function() {
+// Custom method to check if post is new
+blogSchema.methods.isRecentlyCreated = function () {
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
   return this.createdAt > oneWeekAgo;
