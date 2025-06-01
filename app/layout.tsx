@@ -5,6 +5,7 @@ import AuthProvider from "@/SessionProvider";
 import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   manifest: "/manifest.json",
@@ -51,6 +52,28 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className}`}>
         <AuthProvider>
+          <Toaster 
+            position="top-right"
+            toastOptions={{
+              duration: 4000,
+              style: {
+                background: '#333',
+                color: '#fff',
+              },
+              success: {
+                style: {
+                  background: '#10b981',
+                  color: '#fff',
+                },
+              },
+              error: {
+                style: {
+                  background: '#ef4444',
+                  color: '#fff',
+                },
+              },
+            }}
+          />
           <Header />
           <Suspense fallback={<div>Loading...</div>}>
             <main>{children}</main>

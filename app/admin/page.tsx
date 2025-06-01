@@ -68,17 +68,12 @@ export default function Admin() {
         <div className="bg-card p-6 rounded-lg border border-border shadow-sm">
           <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
           <div className="space-y-2">
+          
             <Link 
-              href="/profile" 
+              href="/blog/create" 
               className="block p-3 rounded-md hover:bg-accent/50 transition-colors"
             >
-              View Profile
-            </Link>
-            <Link 
-              href="/settings" 
-              className="block p-3 rounded-md hover:bg-accent/50 transition-colors"
-            >
-              Account Settings
+              Create Post
             </Link>
           </div>
         </div>
