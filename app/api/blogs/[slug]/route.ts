@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import connectToDB from '@/lib/dbConnect';
 import Blog from '@/models/Blog';
 
 // GET /api/blogs/[slug]
 export async function GET(
-  request: Request,
-  { params }: { params: { slug: string } }
+  request: NextRequest,
+  context: { params: { slug: string } }
 ) {
   try {
-    // Get slug from destructured params
-    const { slug } = params;
+    // Get slug from context params
+    const { slug } = context.params;
     
     if (!slug) {
       return NextResponse.json(
@@ -43,12 +44,12 @@ export async function GET(
 
 // PUT /api/blogs/[slug]
 export async function PUT(
-  request: Request,
-  { params }: { params: { slug: string } }
+  request: NextRequest,
+  context: { params: { slug: string } }
 ) {
   try {
-    // Get originalSlug from destructured params
-    const { slug: originalSlug } = params;
+    // Get originalSlug from context params
+    const { slug: originalSlug } = context.params;
     
     if (!originalSlug) {
       return NextResponse.json(
@@ -113,12 +114,12 @@ export async function PUT(
 
 // DELETE /api/blogs/[slug]
 export async function DELETE(
-  request: Request,
-  { params }: { params: { slug: string } }
+  request: NextRequest,
+  context: { params: { slug: string } }
 ) {
   try {
-    // Get slug from destructured params
-    const { slug } = params;
+    // Get slug from context params
+    const { slug } = context.params;
     
     if (!slug) {
       return NextResponse.json(
