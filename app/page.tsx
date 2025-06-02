@@ -123,7 +123,7 @@ export default function Home() {
             <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Insights, tutorials, and thoughts on web development and design.</p>
           </div>
           
-          {/* <BlogGrid buttonType={"viewMore"} initialCardCount={6} /> */}
+          <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
         </div>
       </section>
       

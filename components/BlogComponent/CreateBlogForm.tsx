@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
-import { CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { CheckCircle, AlertCircle, Loader2, Upload, Image as ImageIcon } from "lucide-react";
+import Image from "next/image";
 
 type Language = 'en' | 'bn';
 
@@ -45,17 +46,20 @@ export default function CreateBlogForm() {
       bn: { title: '', description: '', body: '' }
     }
   });
+  
+  const [imagePreview, setImagePreview] = useState<string>('');
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const categories = [
-    'technology',
-    'programming',
-    'design',
-    'academic',
-    'lifestyle',
-    'news',
-    'tips',
-    'general-knowledge',
-    'others'
+    'Tech',
+    'Education',
+    'Programming',
+    'LifeStyle',
+    'Design',
+    'News',
+    'Social',
+    'Others'
   ];
 
   // Check if slug exists and load blog data if it does
@@ -98,7 +102,7 @@ export default function CreateBlogForm() {
   }, []);
 
   /**
-   * Updates form data based on input changes and handles slug checking
+   * Updates form data based on input changes
    * @param e - The change event from form inputs
    */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -133,17 +137,20 @@ export default function CreateBlogForm() {
         setIsEditing(false);
         setSlugStatus('idle');
       }
-      
-      // Debounce slug availability check
-      const timeoutId = setTimeout(() => {
-        if (value && value.trim() !== '') {
-          checkSlugAvailability(value);
-        } else {
-          setSlugStatus('idle');
-        }
-      }, 500);
-      
-      return () => clearTimeout(timeoutId);
+    }
+  };
+  
+  /**
+   * Handles the blur event for the slug input to check availability
+   * @param e - The blur event from the slug input
+   */
+  const handleSlugBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    
+    if (value && value.trim() !== '') {
+      checkSlugAvailability(value);
+    } else {
+      setSlugStatus('idle');
     }
   };
 
@@ -152,51 +159,75 @@ export default function CreateBlogForm() {
    * @param url - The Google Drive URL to convert
    * @returns The direct link or the original URL if it's not a Google Drive link
    */
-  /**
-   * Converts a Google Drive sharing link to a direct link format
-   * @param url - The Google Drive URL to convert
-   * @returns The direct link or the original URL if it's not a Google Drive link
+    /**
+   * Handles image upload to Cloudinary
+   * @param e - The change event from the file input
    */
-  const convertGoogleDriveLink = (url: string): string => {
-    if (!url) return url;
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
     
-    // If it's already in the correct format, return as is
-    if (url.includes('drive.google.com/uc?export=view&id=')) {
-      return url;
+    // Check file size (max 5MB)
+    const maxSize = 5 * 1024 * 1024; // 5MB
+    if (file.size > maxSize) {
+      toast.error('Image size must be less than 5MB');
+      return;
     }
+    
+    // Create a preview
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setImagePreview(event.target?.result as string);
+    };
+    reader.readAsDataURL(file);
+    
+    // Upload to Cloudinary
+    setUploadingImage(true);
     
     try {
-      // Define patterns for different Google Drive URL formats
-      const patterns = [
-        // Standard file sharing format: https://drive.google.com/file/d/FILE_ID/view
-        /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)(\/view)?/,
-        // Sharing link format: https://drive.google.com/open?id=FILE_ID
-        /https:\/\/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/,
-        // New sharing UI format: https://drive.google.com/drive/u/0/d/FILE_ID
-        /https:\/\/drive\.google\.com\/drive\/u\/\d+\/d\/([a-zA-Z0-9_-]+)/,
-        // Sharing URL with parameters: https://drive.google.com/file/d/FILE_ID/view?usp=sharing
-        /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\/view\?usp=sharing/
-      ];
+      const formData = new FormData();
+      formData.append('file', file);
       
-      // Try each pattern to extract the file ID
-      for (const pattern of patterns) {
-        const match = url.match(pattern);
-        if (match && match[1]) {
-          return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-        }
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to upload image');
       }
       
-      // Handle shared folder links that contain images
-      const folderMatch = url.match(/https:\/\/drive\.google\.com\/drive\/folders\/([a-zA-Z0-9_-]+)/);
-      if (folderMatch && folderMatch[1]) {
-        console.warn('Folder links cannot be automatically converted to direct links. Please use a direct file link instead.');
-      }
+      // Save the Cloudinary URL to the form data
+      setFormData(prev => ({
+        ...prev,
+        thumbnail: data.url
+      }));
+      
+      toast.success('Image uploaded successfully');
     } catch (error) {
-      console.error('Error converting Google Drive link:', error);
+      console.error('Error uploading image:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to upload image. Please try again.');
+      // Clear the preview on error
+      setImagePreview('');
+    } finally {
+      setUploadingImage(false);
     }
-    
-    // Return original URL if it's not a Google Drive link or if conversion failed
-    return url;
+  };
+  
+  /**
+   * Clears the thumbnail image
+   */
+  const clearThumbnail = () => {
+    setFormData(prev => ({
+      ...prev,
+      thumbnail: ''
+    }));
+    setImagePreview('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   /**
@@ -219,6 +250,7 @@ export default function CreateBlogForm() {
     // Reset form state
     setIsEditing(false);
     setSlugStatus('idle');
+    setImagePreview('');
     
     // Show success message and redirect
     toast.success(successMessage);
@@ -233,19 +265,8 @@ export default function CreateBlogForm() {
       // Create a copy of the form data to modify
       const processedFormData = { ...formData };
       
-      // Convert Google Drive link if present
-      if (processedFormData.thumbnail) {
-        const originalLink = processedFormData.thumbnail;
-        processedFormData.thumbnail = convertGoogleDriveLink(originalLink);
-        
-        // Log conversion for debugging
-        if (originalLink !== processedFormData.thumbnail) {
-          console.log('Converted Google Drive link:', {
-            original: originalLink,
-            converted: processedFormData.thumbnail
-          });
-        }
-      }
+      // Thumbnail URL is already set from the image upload process
+      // No need to convert Google Drive links anymore
       
       // Determine if we're creating a new blog or updating an existing one
       const method = isEditing ? 'PUT' : 'POST';
@@ -389,7 +410,8 @@ export default function CreateBlogForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6 mt-20">
+      <h1 className="text-3xl font-bold mb-6">Create New Blog Post</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="slug" className="block text-sm font-medium text-foreground mb-1">
@@ -405,6 +427,7 @@ export default function CreateBlogForm() {
               name="slug"
               value={formData.slug}
               onChange={handleChange}
+              onBlur={handleSlugBlur}
               placeholder="my-awesome-post"
               className={`flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors${isChecking ? 'bg-gray-200 dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-700'}`}
               required
@@ -475,17 +498,73 @@ export default function CreateBlogForm() {
 
         <div>
           <label htmlFor="thumbnail" className="block text-sm font-medium text-foreground mb-1">
-            Thumbnail URL
+            Blog Thumbnail Image
           </label>
-          <input
-            type="url"
-            id="thumbnail"
-            name="thumbnail"
-            value={formData.thumbnail}
-            onChange={handleChange}
-            placeholder="https://example.com/image.jpg"
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 transition-colors focus:ring-2 focus:ring-primary focus:border-transparent"
-          />
+          <div className="flex flex-col space-y-3">
+            <div className="flex items-center space-x-2">
+              <input
+                type="file"
+                id="thumbnail-upload"
+                ref={fileInputRef}
+                accept="image/*"
+                className="hidden"
+                onChange={handleImageUpload}
+              />
+              <button
+                type="button"
+                onClick={() => fileInputRef.current?.click()}
+                className="px-4 py-2 flex items-center justify-center space-x-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors w-full"
+                disabled={uploadingImage}
+              >
+                {uploadingImage ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Uploading...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload className="h-4 w-4" />
+                    <span>Upload Image</span>
+                  </>
+                )}
+              </button>
+              {formData.thumbnail && (
+                <button
+                  type="button"
+                  onClick={clearThumbnail}
+                  className="px-3 py-2 border border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 rounded-md hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                  disabled={uploadingImage}
+                >
+                  Remove
+                </button>
+              )}
+            </div>
+
+            {/* Preview area for the uploaded image */}
+            {(imagePreview || formData.thumbnail) && (
+              <div className="mt-2 border border-gray-200 dark:border-gray-700 rounded-md p-2">
+                <div className="relative h-60 w-full overflow-hidden rounded-md">
+                  <Image
+                    src={imagePreview || formData.thumbnail}
+                    alt="Thumbnail preview"
+                    fill
+                    style={{ objectFit: 'cover' }}
+                    className="rounded-md"
+                  />
+                </div>
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 truncate">
+                  {formData.thumbnail}
+                </p>
+              </div>
+            )}
+            
+            {!formData.thumbnail && (
+              <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center">
+                <ImageIcon className="h-4 w-4 mr-1" />
+                Upload a thumbnail image for your blog post
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

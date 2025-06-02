@@ -27,38 +27,33 @@ const BlogCard = ({ blog, language }: BlogCardProps) => {
   const createdTime = timeAgo(blog.createdAt);
 
   return (
-    <Link href={`/blogs/${blog.slug}`} className="block max-w-sm">
-      <div className="rounded-lg overflow-hidden bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+    <Link href={`/blog/${blog.slug}`} className="block max-w-md">
+      <div className="rounded-lg overflow-hidden bg-white dark:bg-darkBg border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-200 hover:translate-y-[-4px]">
         {blog.thumbnail && (
-          <div className="w-full h-48 relative">
-            {blog.thumbnail.includes('drive.google.com') ? (
-              <img
-                // src={blog.thumbnail}
-                src="/images/projects.jpg"
-                alt={content.title || 'Untitled Blog'}
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Image
-                // src={blog.thumbnail}
-                src="/images/projects.jpg"
-                alt={content.title || 'Untitled Blog'}
-                width={500}
-                height={500}
-                className="object-cover"
-              />
-            )}
+          <div className="w-full h-52 relative overflow-hidden">
+            <Image
+              src={blog.thumbnail}
+              alt={content.title || 'Untitled Blog'}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform hover:scale-105 duration-300"
+              unoptimized={true}
+              onError={(e) => {
+                // Fallback to default image if thumbnail fails to load
+                e.currentTarget.src = "/images/TempImage.jpg";
+              }}
+            />
           </div>
         )}
 
-        <div className="p-3">
-          <h2 className="text-base font-semibold text-black leading-snug mb-1">
+        <div className="p-4">
+          <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 leading-snug mb-2">
             {content.title || 'Untitled Blog'}
           </h2>
-          <p className="text-sm text-gray-700 line-clamp-2">
+          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-3">
             {content.description || 'No description available'}
           </p>
-          <p className="text-xs text-gray-500 mt-1">{createdTime}</p>
+          <p className="text-xs text-gray-700 dark:text-gray-400 font-medium">{createdTime}</p>
         </div>
       </div>
     </Link>

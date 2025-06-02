@@ -65,7 +65,7 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
         type="button"
         title="Scroll Left"
         aria-label="Scroll Left"
-        className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
+        className="md:hidden absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-50 dark:bg-opacity-50 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10 rounded-r text-gray-800 dark:text-gray-200"
         onClick={() => scrollContainer("left")}
       >
         <IoIosArrowBack className="text-lg" aria-hidden="true" />
@@ -77,7 +77,7 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
       <div
         ref={scrollContainerRef}
         onScroll={handleScroll}
-        className="flex justify-start space-x-0 overflow-x-auto scrollbar-hide bg-gray-50 dark:bg-darkBg shadow-lg"
+        className="flex justify-start space-x-0 overflow-x-auto scrollbar-hide bg-gray-50 dark:bg-darkBg shadow-md rounded"
       >
         {categories.map((category) => (
           <a
@@ -85,8 +85,8 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
             href="#"
             className={`flex-1 text-center transition-all duration-300 ease-in-out ring-0 text-xs sm:text-sm font-semibold whitespace-nowrap px-5 py-2 sm:py-3 ${
               selectedCategory === category
-                ? "bg-cyan-700 text-gray-50 shadow-xl hover:bg-cyan-600"
-                : "bg-gray-50 dark:bg-darkBg text-darkBg dark:text-gray-50 hover:bg-cyan-600 dark:hover:bg-cyan-600 hover:text-white"
+                ? "bg-cyan-600 dark:bg-cyan-700 text-white shadow-md hover:bg-cyan-700 dark:hover:bg-cyan-800"
+                : "bg-gray-50 dark:bg-darkBg text-gray-800 dark:text-gray-200 hover:bg-cyan-500 dark:hover:bg-cyan-600 hover:text-white"
             }`}
             onClick={(e) => {
               e.preventDefault(); // Prevent default anchor click behavior
@@ -104,7 +104,7 @@ const CategoryButtons: React.FC<CategoryButtonsProps> = ({
         type="button"
         title="Scroll Right"
         aria-label="Scroll Right"
-        className="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-40 dark:bg-opacity-40 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10"
+        className="md:hidden absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-300 dark:bg-gray-700 bg-opacity-50 dark:bg-opacity-50 hover:bg-gray-400 dark:hover:bg-gray-600 p-2 z-10 rounded-l text-gray-800 dark:text-gray-200"
         onClick={() => scrollContainer("right")}
       >
         <IoIosArrowForward className="text-lg" aria-hidden="true" />

@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import CreateBlog from '@/components/CreateBlog';
+import CreateBlogForm from '@/components/BlogComponent/CreateBlogForm';
 
 export default function CreateBlogPage() {
   const { data: session, status } = useSession();
@@ -33,7 +33,7 @@ export default function CreateBlogPage() {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <CreateBlog />
+      <CreateBlogForm />
     </div>
   );
 }

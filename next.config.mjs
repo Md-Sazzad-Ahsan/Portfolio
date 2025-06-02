@@ -3,7 +3,29 @@ import withPWA from "@ducanh2912/next-pwa";
 
 const nextConfig = {
   images: {
-    domains: ['md-sazzad-ahsan.github.io', 'placehold.co', 'drive.google.com'],
+    domains: [
+      "drive.google.com", 
+      "res.cloudinary.com",
+      "dlimkdohv.cloudinary.com" // Adding another variation of the domain
+    ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "drive.google.com",
+        pathname: "/uc*",
+      },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.cloudinary.com", // Wildcard to match any subdomain
+        pathname: "/**",
+      },
+    ],
+    unoptimized: true, // Fallback option if domain configuration doesn't work
   },
   pwa: {
     dest: "public",

@@ -8,10 +8,18 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
-    await connectToDB();
-    
+    // Get slug from destructured params
     const { slug } = params;
-    const blog = await Blog.findOne({ slug });
+    
+    if (!slug) {
+      return NextResponse.json(
+        { success: false, error: 'Missing slug parameter' },
+        { status: 400 }
+      );
+    }
+    
+    await connectToDB();
+    const blog = await Blog.findOne({ slug: String(slug) });
     
     if (!blog) {
       return NextResponse.json(
@@ -39,13 +47,21 @@ export async function PUT(
   { params }: { params: { slug: string } }
 ) {
   try {
-    await connectToDB();
+    // Get originalSlug from destructured params
+    const { slug: originalSlug } = params;
     
-    const { slug } = params;
+    if (!originalSlug) {
+      return NextResponse.json(
+        { success: false, error: 'Missing slug parameter' },
+        { status: 400 }
+      );
+    }
+    
+    await connectToDB();
     const body = await request.json();
     
     // Don't allow updating the slug directly
-    if (body.slug && body.slug !== slug) {
+    if (body.slug && body.slug !== originalSlug) {
       // Check if new slug is already taken
       const existingBlog = await Blog.findOne({ slug: body.slug });
       if (existingBlog) {
@@ -57,7 +73,7 @@ export async function PUT(
     }
     
     const updatedBlog = await Blog.findOneAndUpdate(
-      { slug },
+      { slug: String(originalSlug) },
       { 
         ...body,
         updatedAt: new Date() 
@@ -91,10 +107,18 @@ export async function DELETE(
   { params }: { params: { slug: string } }
 ) {
   try {
-    await connectToDB();
-    
+    // Get slug from destructured params
     const { slug } = params;
-    const deletedBlog = await Blog.findOneAndDelete({ slug });
+    
+    if (!slug) {
+      return NextResponse.json(
+        { success: false, error: 'Missing slug parameter' },
+        { status: 400 }
+      );
+    }
+    
+    await connectToDB();
+    const deletedBlog = await Blog.findOneAndDelete({ slug: String(slug) });
     
     if (!deletedBlog) {
       return NextResponse.json(
