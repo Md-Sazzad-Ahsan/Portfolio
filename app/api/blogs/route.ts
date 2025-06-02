@@ -151,15 +151,12 @@ export async function POST(request: Request) {
       }
     }
     
-    // Validate that at least one language has both title and body
-    const hasEnglishContent = body.content?.en?.title && body.content?.en?.body;
-    const hasBanglaContent = body.content?.bn?.title && body.content?.bn?.body;
-    
+    // Validate at least one language has content
+    const hasEnglishContent = body.content.en.title && body.content.en.body;
+    const hasBanglaContent = body.content.bn.title && body.content.bn.body;
+
     if (!hasEnglishContent && !hasBanglaContent) {
-      return NextResponse.json(
-        { success: false, error: 'At least one language (English or Bangla) must have both title and body content' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Please provide content in at least one language (English or Bangla)' }, { status: 400 });
     }
 
     // Validate slug format (lowercase, letters, numbers, hyphens only)

@@ -78,17 +78,55 @@ export default function CreateBlogForm() {
     setSlugStatus('checking');
     
     try {
-      const response = await fetch(`/api/blogs/${slug}`);
-      const data = await response.json();
+      const response = await fetch(`/api/blogs/${encodeURIComponent(slug)}`);
+      const result = await response.json();
       
-      if (response.ok && data.success) {
+      if (response.ok && result.success) {
         // Blog exists, load its data
-        setFormData(data.data);
+        const blogData = result.data;
+        setFormData({
+          slug: blogData.slug,
+          category: blogData.category || '',
+          author: blogData.author || '',
+          thumbnail: blogData.thumbnail || '',
+          content: {
+            en: {
+              title: blogData.content?.en?.title || '',
+              description: blogData.content?.en?.description || '',
+              body: blogData.content?.en?.body || ''
+            },
+            bn: {
+              title: blogData.content?.bn?.title || '',
+              description: blogData.content?.bn?.description || '',
+              body: blogData.content?.bn?.body || ''
+            }
+          },
+          createdAt: blogData.createdAt,
+          updatedAt: blogData.updatedAt
+        });
+        
+        // Set image preview if thumbnail exists
+        if (blogData.thumbnail) {
+          setImagePreview(blogData.thumbnail);
+        }
+        
         setIsEditing(true);
         setSlugStatus('unavailable');
         toast.success('Existing blog loaded. You can now update it.');
       } else {
-        // Blog doesn't exist
+        // Blog doesn't exist, reset form data except the slug
+        setFormData(prev => ({
+          ...prev,
+          slug: slug,
+          category: '',
+          author: '',
+          thumbnail: '',
+          content: {
+            en: { title: '', description: '', body: '' },
+            bn: { title: '', description: '', body: '' }
+          }
+        }));
+        setImagePreview('');
         setIsEditing(false);
         setSlugStatus('available');
       }
@@ -262,11 +300,30 @@ export default function CreateBlogForm() {
     setIsSubmitting(true);
     
     try {
+      // Validate at least one language has content
+      const hasEnglishContent = formData.content.en.title.trim() !== '' && formData.content.en.body.trim() !== '';
+      const hasBanglaContent = formData.content.bn.title.trim() !== '' && formData.content.bn.body.trim() !== '';
+      
+      if (!hasEnglishContent && !hasBanglaContent) {
+        throw new Error('Please provide content in at least one language (English or Bangla)');
+      }
+      
       // Create a copy of the form data to modify
       const processedFormData = { ...formData };
       
-      // Thumbnail URL is already set from the image upload process
-      // No need to convert Google Drive links anymore
+      // If we're updating, preserve existing content for the language we're not updating
+      if (isEditing) {
+        const response = await fetch(`/api/blogs/${formData.slug}`);
+        if (response.ok) {
+          const existingData = await response.json();
+          if (existingData.success) {
+            processedFormData.content = {
+              en: hasEnglishContent ? processedFormData.content.en : existingData.data.content.en || { title: '', description: '', body: '' },
+              bn: hasBanglaContent ? processedFormData.content.bn : existingData.data.content.bn || { title: '', description: '', body: '' },
+            };
+          }
+        }
+      }
       
       // Determine if we're creating a new blog or updating an existing one
       const method = isEditing ? 'PUT' : 'POST';
@@ -279,7 +336,10 @@ export default function CreateBlogForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(processedFormData),
+        body: JSON.stringify({
+          ...processedFormData,
+          originalSlug: isEditing ? formData.slug : undefined
+        }),
       });
 
       const data = await response.json();
@@ -288,8 +348,25 @@ export default function CreateBlogForm() {
         throw new Error(data.error || `Failed to ${isEditing ? 'update' : 'create'} blog post`);
       }
 
-      resetFormAndRedirect(successMessage);
+      // If we just created a blog and only filled one language, show a message
+      if (!isEditing && ((hasEnglishContent && !hasBanglaContent) || (!hasEnglishContent && hasBanglaContent))) {
+        const language = hasEnglishContent ? 'English' : 'Bangla';
+        toast.success(`Blog post created in ${language}. You can add the other language later by using the same slug.`);
+      } else {
+        toast.success(successMessage);
+      }
       
+      // Only reset the form if we're not in editing mode
+      if (!isEditing) {
+        resetFormAndRedirect(successMessage);
+      } else {
+        // If we're editing, just update the form data and show success
+        setFormData(prev => ({
+          ...prev,
+          ...processedFormData
+        }));
+        setIsSubmitting(false);
+      }
     } catch (error) {
       console.error(`Error ${isEditing ? 'updating' : 'creating'} blog post:`, error);
       toast.error(error instanceof Error ? error.message : `Failed to ${isEditing ? 'update' : 'create'} blog post. Please try again.`);
@@ -298,6 +375,9 @@ export default function CreateBlogForm() {
     }
   };
   
+  /**
+   * Handles the delete button click
+   */
   const handleDelete = async () => {
     if (!isEditing || !formData.slug) return;
     
@@ -429,11 +509,11 @@ export default function CreateBlogForm() {
               onChange={handleChange}
               onBlur={handleSlugBlur}
               placeholder="my-awesome-post"
-              className={`flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors${isChecking ? 'bg-gray-200 dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-700'}`}
+              className={`flex-1 min-w-0 block w-full px-3 py-2 rounded-none rounded-r-md border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors${isChecking ? 'bg-gray-200 dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-700'} ${isEditing ? 'cursor-not-allowed opacity-50' : ''}`}
               required
               pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
               title="Use lowercase letters, numbers, and hyphens only"
-              disabled={isChecking}
+              disabled={isChecking || isEditing}
             />
           </div>
           <div className="mt-1 flex items-center justify-between">

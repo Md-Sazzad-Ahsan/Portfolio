@@ -18,14 +18,13 @@ const blogSchema = new mongoose.Schema({
     lowercase: true,
     enum: {
       values: [
-        'technology',
+        'tech',
         'programming',
         'design',
-        'academic',
+        'education',
         'lifestyle',
         'news',
-        'tips',
-        'general-knowledge',
+        'social',
         'others'
       ],
       message: '{VALUE} is not a valid category',

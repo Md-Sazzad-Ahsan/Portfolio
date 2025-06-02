@@ -72,12 +72,22 @@ export async function PUT(
       }
     }
     
+    const updatedBlogData = { 
+      ...body,
+      updatedAt: new Date() 
+    };
+
+    // Validate at least one language has content
+    const hasEnglishContent = updatedBlogData.content.en.title && updatedBlogData.content.en.body;
+    const hasBanglaContent = updatedBlogData.content.bn.title && updatedBlogData.content.bn.body;
+
+    if (!hasEnglishContent && !hasBanglaContent) {
+      return NextResponse.json({ error: 'Please provide content in at least one language (English or Bangla)' }, { status: 400 });
+    }
+
     const updatedBlog = await Blog.findOneAndUpdate(
       { slug: String(originalSlug) },
-      { 
-        ...body,
-        updatedAt: new Date() 
-      },
+      updatedBlogData,
       { new: true, runValidators: true }
     );
     
