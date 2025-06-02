@@ -84,7 +84,7 @@ export default function CreateBlogForm() {
       if (response.ok && result.success) {
         // Blog exists, load its data
         const blogData = result.data;
-        setFormData({
+        const newFormData = {
           slug: blogData.slug,
           category: blogData.category || '',
           author: blogData.author || '',
@@ -103,11 +103,25 @@ export default function CreateBlogForm() {
           },
           createdAt: blogData.createdAt,
           updatedAt: blogData.updatedAt
-        });
+        };
         
-        // Set image preview if thumbnail exists
+        // Update form data
+        setFormData(newFormData);
+        
+        // Set image preview if thumbnail exists (including Cloudinary URLs)
         if (blogData.thumbnail) {
-          setImagePreview(blogData.thumbnail);
+          // Check if it's a Cloudinary URL and needs transformation
+          let thumbnailUrl = blogData.thumbnail;
+          if (thumbnailUrl.includes('res.cloudinary.com') && !thumbnailUrl.includes('upload/')) {
+            // Insert transformation parameters if not already present
+            const parts = thumbnailUrl.split('upload/');
+            if (parts.length === 2) {
+              thumbnailUrl = `${parts[0]}upload/c_scale,w_800/${parts[1]}`;
+            }
+          }
+          setImagePreview(thumbnailUrl);
+        } else {
+          setImagePreview('');
         }
         
         setIsEditing(true);
@@ -627,8 +641,17 @@ export default function CreateBlogForm() {
                     src={imagePreview || formData.thumbnail}
                     alt="Thumbnail preview"
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     style={{ objectFit: 'cover' }}
                     className="rounded-md"
+                    onError={(e) => {
+                      // Fallback to unoptimized image if optimization fails
+                      const target = e.target as HTMLImageElement;
+                      target.src = imagePreview || formData.thumbnail;
+                      target.style.objectFit = 'contain';
+                      target.style.padding = '1rem';
+                    }}
+                    unoptimized={process.env.NODE_ENV !== 'production'}
                   />
                 </div>
                 <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 truncate">

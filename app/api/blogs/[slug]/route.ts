@@ -6,11 +6,11 @@ import Blog from '@/models/Blog';
 // GET /api/blogs/[slug]
 export async function GET(
   request: NextRequest,
-  context: { params: { slug: string } }
+  { params }: { params: { slug: string } }
 ) {
   try {
-    // Get slug from context params
-    const { slug } = context.params;
+    // Get slug from params
+    const { slug } = params;
     
     if (!slug) {
       return NextResponse.json(
@@ -45,11 +45,11 @@ export async function GET(
 // PUT /api/blogs/[slug]
 export async function PUT(
   request: NextRequest,
-  context: { params: { slug: string } }
+  { params }: { params: { slug: string } }
 ) {
   try {
-    // Get originalSlug from context params
-    const { slug: originalSlug } = context.params;
+    // Get originalSlug from params
+    const { slug: originalSlug } = params;
     
     if (!originalSlug) {
       return NextResponse.json(
@@ -115,11 +115,11 @@ export async function PUT(
 // DELETE /api/blogs/[slug]
 export async function DELETE(
   request: NextRequest,
-  context: { params: { slug: string } }
+  { params }: { params: { slug: string } }
 ) {
   try {
-    // Get slug from context params
-    const { slug } = context.params;
+    // Get slug from params
+    const { slug } = params;
     
     if (!slug) {
       return NextResponse.json(
