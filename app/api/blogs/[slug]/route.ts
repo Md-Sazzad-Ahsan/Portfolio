@@ -14,30 +14,28 @@ async function ensureDbConnection() {
 // GET /api/blogs/[slug]
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: { slug: string } }
 ) {
   try {
     await ensureDbConnection();
-    // Get slug from params
-    const slug = params.slug;
-    
+    const { slug } = context.params;
+
     if (!slug) {
       return NextResponse.json(
         { success: false, error: 'Missing slug parameter' },
         { status: 400 }
       );
     }
-    
-    await connectToDB();
+
     const blog = await Blog.findOne({ slug: String(slug) });
-    
+
     if (!blog) {
       return NextResponse.json(
         { success: false, error: 'Blog post not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       data: blog
@@ -54,26 +52,22 @@ export async function GET(
 // PUT /api/blogs/[slug]
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: { slug: string } }
 ) {
   try {
     await ensureDbConnection();
-    // Get originalSlug from params
-    const originalSlug = params.slug;
-    
+    const { slug: originalSlug } = context.params;
+
     if (!originalSlug) {
       return NextResponse.json(
         { success: false, error: 'Missing slug parameter' },
         { status: 400 }
       );
     }
-    
-    await connectToDB();
+
     const body = await request.json();
-    
-    // Don't allow updating the slug directly
+
     if (body.slug && body.slug !== originalSlug) {
-      // Check if new slug is already taken
       const existingBlog = await Blog.findOne({ slug: body.slug });
       if (existingBlog) {
         return NextResponse.json(
@@ -82,18 +76,20 @@ export async function PUT(
         );
       }
     }
-    
-    const updatedBlogData = { 
+
+    const updatedBlogData = {
       ...body,
-      updatedAt: new Date() 
+      updatedAt: new Date()
     };
 
-    // Validate at least one language has content
-    const hasEnglishContent = updatedBlogData.content.en.title && updatedBlogData.content.en.body;
-    const hasBanglaContent = updatedBlogData.content.bn.title && updatedBlogData.content.bn.body;
+    const hasEnglishContent = updatedBlogData.content?.en?.title && updatedBlogData.content?.en?.body;
+    const hasBanglaContent = updatedBlogData.content?.bn?.title && updatedBlogData.content?.bn?.body;
 
     if (!hasEnglishContent && !hasBanglaContent) {
-      return NextResponse.json({ error: 'Please provide content in at least one language (English or Bangla)' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Please provide content in at least one language (English or Bangla)' },
+        { status: 400 }
+      );
     }
 
     const updatedBlog = await Blog.findOneAndUpdate(
@@ -101,14 +97,14 @@ export async function PUT(
       updatedBlogData,
       { new: true, runValidators: true }
     );
-    
+
     if (!updatedBlog) {
       return NextResponse.json(
         { success: false, error: 'Blog post not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       data: updatedBlog
@@ -125,30 +121,28 @@ export async function PUT(
 // DELETE /api/blogs/[slug]
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  context: { params: { slug: string } }
 ) {
   try {
     await ensureDbConnection();
-    // Get slug from params
-    const slug = params.slug;
-    
+    const { slug } = context.params;
+
     if (!slug) {
       return NextResponse.json(
         { success: false, error: 'Missing slug parameter' },
         { status: 400 }
       );
     }
-    
-    await connectToDB();
+
     const deletedBlog = await Blog.findOneAndDelete({ slug: String(slug) });
-    
+
     if (!deletedBlog) {
       return NextResponse.json(
         { success: false, error: 'Blog post not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json({
       success: true,
       message: 'Blog post deleted successfully'
