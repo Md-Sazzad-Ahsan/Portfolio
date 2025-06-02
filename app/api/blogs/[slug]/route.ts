@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server';
 import { NextRequest } from 'next/server';
 import connectToDB from '@/lib/dbConnect';
 import Blog from '@/models/Blog';
+import mongoose from 'mongoose';
+
+// Helper function to ensure DB connection
+async function ensureDbConnection() {
+  if (mongoose.connection.readyState === 0) {
+    await connectToDB();
+  }
+}
 
 // GET /api/blogs/[slug]
 export async function GET(
@@ -9,8 +17,9 @@ export async function GET(
   { params }: { params: { slug: string } }
 ) {
   try {
+    await ensureDbConnection();
     // Get slug from params
-    const { slug } = params;
+    const slug = params.slug;
     
     if (!slug) {
       return NextResponse.json(
@@ -48,8 +57,9 @@ export async function PUT(
   { params }: { params: { slug: string } }
 ) {
   try {
+    await ensureDbConnection();
     // Get originalSlug from params
-    const { slug: originalSlug } = params;
+    const originalSlug = params.slug;
     
     if (!originalSlug) {
       return NextResponse.json(
@@ -118,8 +128,9 @@ export async function DELETE(
   { params }: { params: { slug: string } }
 ) {
   try {
+    await ensureDbConnection();
     // Get slug from params
-    const { slug } = params;
+    const slug = params.slug;
     
     if (!slug) {
       return NextResponse.json(
