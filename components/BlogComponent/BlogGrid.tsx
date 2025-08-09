@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import CategoryButtons from "@/components/GlobalComponents/CategoriesButton";
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
+import { BlogGridSkeleton, BlogCardSkeleton } from "@/components/BlogComponent/BlogSkeleton";
 
 interface BlogContent {
   title?: string;
@@ -118,7 +119,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   };
 
   if (loading) {
-    return <div className="px-5 sm:px-16 md:px-28 lg:px-56 flex justify-center text-gray-800 dark:text-gray-200">Loading blog posts...</div>;
+    return <BlogGridSkeleton count={initialCardCount} />;
   }
 
   if (error) {
@@ -127,16 +128,6 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
 
   return (
     <div className="text-gray-900 dark:text-gray-100">
-      {/* Language toggle button
-      <div className="flex justify-end mb-6">
-        <button
-          onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
-          className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition mb-4"
-        >
-          {language === 'en' ? 'বাংলা' : 'English'}
-        </button>
-      </div> */}
-
       <CategoryButtons
         categories={["All", "Tech", "Education", "Programming", "LifeStyle", "Design", "News", "Social", "Others"]}
         selectedCategory={selectedCategory}
@@ -152,13 +143,14 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
             />
           </li>
         ))}
+        
+        {/* Show skeleton cards while loading more */}
+        {loadingMore && Array.from({ length: initialCardCount }).map((_, i) => (
+          <li key={`skeleton-${i}`}>
+            <BlogCardSkeleton />
+          </li>
+        ))}
       </ul>
-      
-      {loadingMore && (
-        <div className="flex justify-center mt-4">
-          <div className="animate-pulse text-gray-600 dark:text-gray-400">Loading more blogs...</div>
-        </div>
-      )}
 
       <div className="flex justify-center mt-8">
         {hasMore && !loading && !loadingMore && (
