@@ -5,6 +5,11 @@ import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypeRaw from 'rehype-raw';
 
 // Loading skeleton component
 const LoadingSkeleton = () => (
@@ -108,11 +113,11 @@ const BlogDetail = () => {
       </div>
       
       {/* Blog header */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">{title}</h1>
 
       {/* Blog description */}
       {description && (
-        <div className="mb-8 text-lg italic text-gray-700 dark:text-gray-300">
+        <div className="mb-8 text-lg text-gray-700 dark:text-gray-300">
           {description}
         </div>
       )}
@@ -159,16 +164,74 @@ const BlogDetail = () => {
       )}
       
       
-      {/* Blog content */}
-      <div 
-        className="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 mx-auto max-w-6xl"
-        dangerouslySetInnerHTML={{ __html: body }}
-      />
+      {/* Blog content (Markdown) */}
+      <div className="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 mx-auto max-w-6xl prose-pre:bg-transparent prose-pre:p-0 prose-code:before:content-none prose-code:after:content-none prose-pre:text-gray-800 dark:prose-pre:text-gray-100 prose-code:text-gray-800 dark:prose-code:text-gray-700">
+        <ReactMarkdown
+          // Support GitHub flavored markdown
+          remarkPlugins={[remarkGfm]}
+          // Enhance headings and allow raw HTML inside markdown if present
+          rehypePlugins={[
+            rehypeSlug,
+            [rehypeAutolinkHeadings, { behavior: 'append' }],
+            rehypeRaw,
+          ]}
+          // Allow raw HTML in markdown (use with rehypeRaw)
+          skipHtml={false}
+          components={{
+            img({ node, ...props }) {
+              return (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img {...props} alt={props.alt || ''} loading="lazy" />
+              );
+            },
+            a({ node, ...props }) {
+              return <a {...props} target="_blank" rel="noopener noreferrer" />;
+            },
+            code({ inline, className, children, ...props }) {
+              // Inline code only; block-level handled by custom `pre` below
+              if (!inline) {
+                return <code className={className} {...props}>{children}</code>;
+              }
+              const txt = String(children).replace(/\n$/, '');
+              return (
+                <code
+                  className={`px-1.5 py-0.5 rounded bg-gray-200 text-gray-800 dark:bg-gray-800 dark:text-white font-mono text-sm ${className || ''}`}
+                  {...props}
+                >
+                  {txt}
+                </code>
+              );
+            },
+            pre({ children }) {
+              // children should be a single <code> element
+              const child = Array.isArray(children) ? children[0] : children;
+              const className = child?.props?.className || '';
+              const langMatch = /language-(\w+)/.exec(className);
+              const lang = langMatch?.[1] || 'code';
+              const raw = child?.props?.children || '';
+              const txt = Array.isArray(raw) ? raw.join('') : String(raw);
+
+              return (
+                <div className="my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#0f172a]">
+                  <div className="flex items-center justify-between px-3 py-2 text-xs bg-gray-100 dark:bg-[#111827] text-gray-600 dark:text-gray-200">
+                    <span className="uppercase tracking-wide">{lang}</span>
+                  </div>
+                  <pre className="overflow-x-auto m-0 p-4 text-sm leading-6 bg-transparent text-gray-800 dark:text-gray-100 dark:[&_code]:text-gray-100 dark:[&_span]:text-gray-100 dark:[&_code]:!text-opacity-100 dark:[&_span]:!text-opacity-100">
+                    {child}
+                  </pre>
+                </div>
+              );
+            },
+          }}
+        >
+          {body || ''}
+        </ReactMarkdown>
+      </div>
       
       {/* Back to blog list link */}
       <div className="mt-12">
         <Link href="/blog" className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-6 py-2 rounded transition">
-          Back to Blog List
+          All Blogs
         </Link>
       </div>
     </div>

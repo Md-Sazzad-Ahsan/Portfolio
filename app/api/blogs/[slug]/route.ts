@@ -14,11 +14,11 @@ async function ensureDbConnection() {
 // GET /api/blogs/[slug]
 export async function GET(
   request: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     await ensureDbConnection();
-    const { slug } = context.params;
+    const { slug } = await context.params;
 
     if (!slug) {
       return NextResponse.json(
@@ -52,11 +52,11 @@ export async function GET(
 // PUT /api/blogs/[slug]
 export async function PUT(
   request: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     await ensureDbConnection();
-    const { slug: originalSlug } = context.params;
+    const { slug: originalSlug } = await context.params;
 
     if (!originalSlug) {
       return NextResponse.json(
@@ -121,11 +121,11 @@ export async function PUT(
 // DELETE /api/blogs/[slug]
 export async function DELETE(
   request: NextRequest,
-  context: { params: { slug: string } }
+  context: { params: Promise<{ slug: string }> }
 ) {
   try {
     await ensureDbConnection();
-    const { slug } = context.params;
+    const { slug } = await context.params;
 
     if (!slug) {
       return NextResponse.json(

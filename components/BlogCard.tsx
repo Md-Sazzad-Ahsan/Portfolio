@@ -64,10 +64,34 @@ const BlogCard = ({ blog, language }: BlogCardProps) => {
 function timeAgo(dateStr: string): string {
   const date = new Date(dateStr);
   const now = new Date();
-  const diffMs = now.getTime() - date.getTime();
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  if (diffHours < 1) return 'Just Now'; 
-  return `${diffHours} Hours Ago`; 
+  const diffMs = Math.max(0, now.getTime() - date.getTime());
+
+  const sec = Math.floor(diffMs / 1000);
+  const min = Math.floor(sec / 60);
+  const hrs = Math.floor(min / 60);
+  const days = Math.floor(hrs / 24);
+  const months = Math.floor(days / 30); // approximate
+  const years = Math.floor(days / 365); // approximate
+
+  const plural = (n: number, unit: string) => `${n} ${unit}${n === 1 ? '' : 's'}`;
+
+  if (sec < 60) return 'Just now';
+  if (min < 60) return `${plural(min, 'minute')} ago`;
+  if (hrs < 24) return `${plural(hrs, 'hour')} ago`;
+  if (days < 30) return `${plural(days, 'day')} ago`;
+
+  if (years >= 1) {
+    const remMonths = Math.floor((days - years * 365) / 30);
+    return remMonths > 0
+      ? `${plural(years, 'year')} ${plural(remMonths, 'month')} ago`
+      : `${plural(years, 'year')} ago`;
+  }
+
+  // months >= 1 and < 12
+  const remDays = days - months * 30;
+  return remDays > 0
+    ? `${plural(months, 'month')} ${plural(remDays, 'day')} ago`
+    : `${plural(months, 'month')} ago`;
 }
 
 export default BlogCard;

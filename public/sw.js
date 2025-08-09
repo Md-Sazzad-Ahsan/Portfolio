@@ -88,5 +88,6 @@ define(['./workbox-7144475a'], (function (workbox) { 'use strict';
     "cacheName": "dev",
     plugins: []
   }), 'GET');
+  self.__WB_DISABLE_DEV_LOGS = true;
 
 }));

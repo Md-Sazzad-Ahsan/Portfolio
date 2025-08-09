@@ -28,17 +28,19 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     unoptimized: process.env.NODE_ENV !== 'production', // Only optimize in production
   },
-  pwa: {
-    dest: "public",
-    cacheOnFrontEndNav: true,
-    aggressiveFrontEndNavCaching: true,
-    reloadOnOnline: true,
-    swMinify: true,
-    disable: false,
-    workboxOptions: {
-      disableDevLogs: true,
-    },
-  },
 };
 
-export default withPWA(nextConfig);
+// Initialize PWA plugin with options (curried API) and wrap the Next config
+const withPWAConfigured = withPWA({
+  dest: "public",
+  cacheOnFrontEndNav: true,
+  aggressiveFrontEndNavCaching: true,
+  reloadOnOnline: true,
+  swMinify: true,
+  disable: false,
+  workboxOptions: {
+    disableDevLogs: true,
+  },
+});
+
+export default withPWAConfigured(nextConfig);
