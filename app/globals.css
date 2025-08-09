@@ -162,3 +162,123 @@ body {
   margin-right: 0;
   background-color: #f0f0f0; /* Optional: Slightly darker background for nested blockquotes */
 }
+
+@layer components {
+  /* Editor wrapper */
+  .text-editor {
+    @apply bg-lightBg dark:bg-darkBg rounded-md;
+  }
+
+  /* Light mode list markers */
+  .wmde-markdown ul li::marker,
+  .wmde-markdown ol li::marker {
+    color: theme("colors.darkBg") !important;
+  }
+
+  /* Dark mode markdown areas */
+  :root.dark .w-md-editor .wmde-markdown,
+  :root.dark .w-md-editor-preview,
+  :root.dark .w-md-editor-content {
+    @apply bg-darkBg text-lightText;
+  }
+
+  /* Dark mode list markers */
+  :root.dark .wmde-markdown ul li::marker,
+  :root.dark .wmde-markdown ol li::marker {
+    color: theme("colors.lightText") !important;
+  }
+
+  /* Code block backgrounds transparent in dark mode */
+  :root.dark .wmde-markdown pre,
+  :root.dark .wmde-markdown code {
+    background-color: transparent !important;
+  }
+
+  /* Fullscreen mode dark styles */
+  :root.dark .w-md-editor-fullscreen,
+  :root.dark .w-md-editor-fullscreen .w-md-editor-content,
+  :root.dark .w-md-editor-fullscreen .w-md-editor-preview,
+  :root.dark .w-md-editor-fullscreen .wmde-markdown {
+    @apply bg-darkBg text-lightText;
+  }
+
+  :root.dark .w-md-editor-fullscreen .wmde-markdown ul li::marker,
+  :root.dark .w-md-editor-fullscreen .wmde-markdown ol li::marker {
+    color: theme("colors.lightText") !important;
+  }
+
+  /* Toolbar button sizing */
+  .w-md-editor .w-md-editor-toolbar li > button {
+    min-height: 30px;
+    @apply px-2 py-1 text-[13.5px];
+  }
+
+  .w-md-editor .w-md-editor-toolbar svg {
+    @apply w-[15px] h-[15px];
+  }
+
+  .w-md-editor-fullscreen .w-md-editor-toolbar li > button {
+    min-height: 34px;
+    @apply px-3 py-[7px] text-[15px];
+  }
+
+  .w-md-editor-fullscreen .w-md-editor-toolbar svg {
+    @apply w-[17px] h-[17px];
+  }
+
+  /* Force bullet & number markers to show */
+.wmde-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem; /* same as pl-6 */
+}
+
+.wmde-markdown ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem;
+}
+
+.wmde-markdown ul li,
+.wmde-markdown ol li {
+  display: list-item !important;
+}
+
+/* Light mode marker color */
+.wmde-markdown ul li::marker,
+.wmde-markdown ol li::marker {
+  color: #333a3f !important;
+}
+
+/* Dark mode marker color */
+:root.dark .wmde-markdown ul li::marker,
+:root.dark .wmde-markdown ol li::marker {
+  color: #50B498 !important;
+}
+/* Force bullets & numbers to show inside the markdown preview */
+.wmde-markdown ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem; /* same as Tailwind pl-6 */
+}
+
+.wmde-markdown ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem;
+}
+
+.wmde-markdown ul li,
+.wmde-markdown ol li {
+  display: list-item !important;
+}
+
+/* Marker colors for light mode */
+.wmde-markdown ul li::marker,
+.wmde-markdown ol li::marker {
+  color: #333a3f !important;
+}
+
+/* Dark mode marker colors */
+:root.dark .wmde-markdown ul li::marker,
+:root.dark .wmde-markdown ol li::marker {
+  color: #50B498 !important;
+}
+
+}

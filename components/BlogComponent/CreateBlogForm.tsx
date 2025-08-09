@@ -28,6 +28,41 @@ interface BlogData {
   updatedAt?: string;
 }
 
+// Extract Cloudinary public_id from a secure_url
+// Examples:
+// https://res.cloudinary.com/<cloud>/image/upload/v1700000000/blog-thumbnails/abc.jpg -> blog-thumbnails/abc
+// https://res.cloudinary.com/<cloud>/image/upload/c_scale,w_800/v1700000000/blog-thumbnails/abc.webp -> blog-thumbnails/abc
+const getCloudinaryPublicId = (url: string): string | null => {
+  try {
+    if (!url || typeof url !== 'string') return null;
+    const marker = '/upload/';
+    const idx = url.indexOf(marker);
+    if (idx === -1) return null;
+
+    // Remove everything up to and including '/upload/'
+    let tail = url.slice(idx + marker.length);
+
+    // Strip any transformations e.g. "c_scale,w_800/"
+    if (tail.startsWith('c_') || tail.startsWith('f_') || tail.startsWith('q_') || tail.startsWith('w_') || tail.startsWith('h_')) {
+      const afterTransform = tail.indexOf('/')
+      tail = afterTransform !== -1 ? tail.slice(afterTransform + 1) : tail;
+    }
+
+    // Remove version segment like "v1700000000/"
+    if (tail.startsWith('v')) {
+      const afterVersion = tail.indexOf('/')
+      tail = afterVersion !== -1 ? tail.slice(afterVersion + 1) : tail;
+    }
+
+    // Now tail should look like: folder/name.ext or name.ext
+    const lastDot = tail.lastIndexOf('.')
+    const publicId = lastDot !== -1 ? tail.slice(0, lastDot) : tail;
+    return publicId || null;
+  } catch {
+    return null;
+  }
+};
+
 // Stable, memoized content tab to prevent remounts while typing
 const ContentTab = memo(function ContentTab({
   lang,
@@ -165,6 +200,8 @@ export default function CreateBlogForm() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formDataRef = useRef<BlogData>(formData);
+  // Hold a selected image locally to upload on submit
+  const [pendingImageFile, setPendingImageFile] = useState<File | null>(null);
 
   // memoized categories
   const categories = useMemo(() => [
@@ -352,32 +389,9 @@ export default function CreateBlogForm() {
     reader.onload = (event) => setImagePreview(event.target?.result as string);
     reader.readAsDataURL(file);
 
-    setUploadingImage(true);
-
-    try {
-      const payload = new FormData();
-      payload.append('file', file);
-
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: payload,
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to upload image');
-      }
-
-      setFormData(prev => ({ ...prev, thumbnail: data.url }));
-      toast.success('Image uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading image:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to upload image. Please try again.');
-      setImagePreview('');
-    } finally {
-      setUploadingImage(false);
-    }
+    // Do not upload immediately; stage for submit
+    setPendingImageFile(file);
+    toast.success('Image selected. It will upload on Save.');
   }, []);
 
   /**
@@ -386,6 +400,7 @@ export default function CreateBlogForm() {
   const clearThumbnail = useCallback(() => {
     setFormData(prev => ({ ...prev, thumbnail: '' }));
     setImagePreview('');
+    setPendingImageFile(null);
     if (fileInputRef.current) fileInputRef.current.value = '';
   }, []);
 
@@ -407,6 +422,8 @@ export default function CreateBlogForm() {
     setIsEditing(false);
     setSlugStatus('idle');
     setImagePreview('');
+    setPendingImageFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
     toast.success(successMessage);
     router.push('/admin');
   }, [router]);
@@ -424,6 +441,28 @@ export default function CreateBlogForm() {
       }
 
       const processedFormData: BlogData = { ...formData };
+
+      // If a new file is selected, upload it now
+      let uploadedNewImageUrl: string | null = null;
+      const previousThumbnailUrl = formData.thumbnail;
+      if (pendingImageFile) {
+        try {
+          setUploadingImage(true);
+          const payload = new FormData();
+          payload.append('file', pendingImageFile);
+          const uploadRes = await fetch('/api/upload-image', { method: 'POST', body: payload });
+          const uploadData = await uploadRes.json();
+          if (!uploadRes.ok) throw new Error(uploadData.error || 'Failed to upload image');
+          uploadedNewImageUrl = uploadData.url;
+          if (uploadedNewImageUrl) {
+            processedFormData.thumbnail = uploadedNewImageUrl;
+          }
+        } catch (uploadErr) {
+          throw uploadErr instanceof Error ? uploadErr : new Error('Failed to upload selected image');
+        } finally {
+          setUploadingImage(false);
+        }
+      }
 
       if (isEditing) {
         // Preserve existing content for language not updated
@@ -458,6 +497,22 @@ export default function CreateBlogForm() {
         throw new Error(data.error || `Failed to ${isEditing ? 'update' : 'create'} blog post`);
       }
 
+      // After successful save, if we uploaded a new image and there was a previous Cloudinary image, delete the old one
+      if (uploadedNewImageUrl && previousThumbnailUrl && previousThumbnailUrl.includes('res.cloudinary.com')) {
+        const oldId = getCloudinaryPublicId(previousThumbnailUrl);
+        if (oldId) {
+          try {
+            await fetch('/api/delete-image', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ public_id: oldId })
+            });
+          } catch (delErr) {
+            console.warn('Failed to delete previous image from Cloudinary:', delErr);
+          }
+        }
+      }
+
       if (!isEditing && ((hasEnglishContent && !hasBanglaContent) || (!hasEnglishContent && hasBanglaContent))) {
         const language = hasEnglishContent ? 'English' : 'Bangla';
         toast.success(`Blog post created in ${language}. You can add the other language later by using the same slug.`);
@@ -469,6 +524,8 @@ export default function CreateBlogForm() {
         resetFormAndRedirect(successMessage);
       } else {
         setFormData(prev => ({ ...prev, ...processedFormData }));
+        setPendingImageFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
         setIsSubmitting(false);
       }
     } catch (error) {
@@ -477,12 +534,13 @@ export default function CreateBlogForm() {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, isEditing, resetFormAndRedirect]);
+  }, [formData, isEditing, resetFormAndRedirect, pendingImageFile]);
 
-  /**
-   * Handles the delete button click
-   */
-  const handleDelete = useCallback(async () => {
+/**
+ * Handles the delete button click
+ */
+const handleDelete = useCallback(async () => {
+  // ...
     if (!isEditing || !formData.slug) return;
 
     if (!confirm(`Are you sure you want to delete this blog post? This action cannot be undone.`)) {
