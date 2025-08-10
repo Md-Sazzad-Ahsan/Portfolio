@@ -87,7 +87,7 @@ export default function AboutMe() {
               >
                 <motion.div variants={itemVariants}>
                   <span className="inline-block text-sm font-semibold text-cyan-600 dark:text-cyan-400 mb-2">
-                    Hello, I'm
+                    Hello, I&apos;m
                   </span>
                   <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white">
                     Md. Sazzad Ahsan

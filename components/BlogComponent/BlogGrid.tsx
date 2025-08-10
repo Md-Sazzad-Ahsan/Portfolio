@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import CategoryButtons from "@/components/GlobalComponents/CategoriesButton";
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
@@ -40,7 +40,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   const [language] = useState<'en' | 'bn'>('en');
   const [showCards, setShowCards] = useState<boolean>(true);
 
-  const fetchBlogs = async (isInitialLoad = false, currentPage = 1) => {
+  const fetchBlogs = useCallback(async (isInitialLoad: boolean, currentPage: number) => {
     if (isInitialLoad) setLoading(true);
     else setLoadingMore(true);
 
@@ -82,16 +82,16 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
       setLoading(false);
       setLoadingMore(false);
     }
-  };
+  }, [selectedCategory, initialCardCount]);
 
   useEffect(() => {
     fetchBlogs(true, 1);
-  }, []);
+  }, [fetchBlogs, initialCardCount, selectedCategory]);
 
   useEffect(() => {
     setPage(1);
     fetchBlogs(true, 1);
-  }, [selectedCategory]);
+  }, [selectedCategory, initialCardCount]);
 
   const filteredBlogs = useMemo(() => blogsData, [blogsData]);
 
