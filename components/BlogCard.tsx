@@ -50,7 +50,7 @@ const BlogCard = ({ blog, language }: BlogCardProps) => {
           <h2 className="text-base font-semibold text-gray-900 dark:text-gray-100 leading-snug mb-2">
             {content.title || 'Untitled Blog'}
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-3">
+          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-1 mb-3">
             {content.description || 'No description available'}
           </p>
           <p className="text-xs text-gray-700 dark:text-gray-400 font-medium">{createdTime}</p>

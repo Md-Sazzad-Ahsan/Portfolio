@@ -41,9 +41,7 @@ const LatestBlogGrid: React.FC = async () => {
   
   try {
     // Get the base URL more reliably
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 
-                   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                   "http://localhost:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL ;
     
     const res = await fetch(`${baseUrl}/api/blogs`, {
       cache: "no-store",
@@ -84,11 +82,11 @@ const LatestBlogGrid: React.FC = async () => {
   const secondaryBlogs = sortedBlogs.slice(1, 3);
 
   return (
-    <main className="max-w-6xl mx-auto py-8">
+    <main className="max-w-6xl mx-auto py-8 px-4 md:px-0">
       <section className="grid gap-8 md:grid-cols-3">
         {/* Main Blog */}
         <article className="md:col-span-2 bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-          <div className="relative h-80 md:h-[420px] w-full">
+          <div className="relative h-64 md:h-[280px] w-full">
             <Image
               src={mainBlog.thumbnail || "/images/TempImage.jpg"}
               alt={mainBlog.content?.en?.title || "Blog Image"}
@@ -96,27 +94,27 @@ const LatestBlogGrid: React.FC = async () => {
               style={{ objectFit: "cover" }}
               priority
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <div className="flex flex-wrap gap-2 mb-2">
+          </div>
+
+          <div className="p-6">
+            <div className="flex justify-between items-center mb-3">
+              <div className="flex flex-wrap gap-2">
                 {Array.isArray(mainBlog.category)
                   ? mainBlog.category.map((cat, i) => (
                       <span
                         key={i}
-                        className="bg-cyan-600 text-white text-xs font-semibold px-2 py-1 rounded"
+                        className="bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100 text-xs font-semibold px-2 py-1 rounded"
                       >
                         {cat}
                       </span>
                     ))
                   : (
-                    <span className="bg-cyan-600 text-white text-xs font-semibold px-2 py-1 rounded">
+                    <span className="bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-100 text-xs font-semibold px-2 py-1 rounded">
                       {mainBlog.category}
                     </span>
                   )}
               </div>
-              <h2 className="text-white text-3xl font-extrabold leading-tight line-clamp-2">
-                {mainBlog.content?.en?.title || mainBlog.content?.bn?.title}
-              </h2>
-              <p className="text-sm text-gray-300 mt-1">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
                 {new Date(mainBlog.createdAt).toLocaleDateString("en-US", {
                   day: "2-digit",
                   month: "short",
@@ -124,9 +122,9 @@ const LatestBlogGrid: React.FC = async () => {
                 })}
               </p>
             </div>
-          </div>
-
-          <div className="p-6">
+            <h2 className="text-gray-900 dark:text-gray-50 text-3xl font-extrabold leading-tight line-clamp-2 mb-4 mt-2">
+              {mainBlog.content?.en?.title || mainBlog.content?.bn?.title}
+            </h2>
             <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
               {mainBlog.content?.en?.description || mainBlog.content?.bn?.description}
             </p>
@@ -137,9 +135,9 @@ const LatestBlogGrid: React.FC = async () => {
               </ReactMarkdown>
             </div>
 
-            <div className="flex justify-between items-center">
-              <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">{mainBlog.author}</p>
-              <Link href={`/blog/${mainBlog.slug}`} className="text-gray-500 dark:text-gray-100 font-bold hover:underline">Read Article →</Link>
+            <div className="">
+              {/* <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">{mainBlog.author}</p> */}
+              <Link href={`/blog/${mainBlog.slug}`} className="text-gray-500 dark:text-gray-100 font-bold pt-2 hover:underline">Read Article →</Link>
             </div>
           </div>
         </article>
@@ -165,13 +163,13 @@ const LatestBlogGrid: React.FC = async () => {
                       ? blog.category.map((cat, idx) => (
                           <span
                             key={idx}
-                            className="bg-cyan-600 text-white text-xs px-1 rounded-sm"
+                            className="bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-gray-100 text-xs px-2 rounded-sm"
                           >
                             {cat}
                           </span>
                         ))
                       : (
-                        <span className="bg-cyan-600 text-white text-xs px-1 rounded-sm">
+                        <span className="bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-gray-100 text-xs px-2 rounded-sm">
                           {blog.category}
                         </span>
                       )}
@@ -193,8 +191,8 @@ const LatestBlogGrid: React.FC = async () => {
                 <p className="text-gray-500 dark:text-gray-400 text-sm flex-grow line-clamp-3 mb-4">
                   {blog.content?.en?.description || blog.content?.bn?.description}
                 </p>
-                <div className="mt-auto flex justify-between items-center">
-                  <p className="text-gray-500 dark:text-gray-200 font-medium text-sm">{blog.author}</p>
+                <div className="mt-auto">
+                  {/* <p className="text-gray-500 dark:text-gray-200 font-medium text-sm">{blog.author}</p> */}
                   <Link href={`/blog/${blog.slug}`} className="text-gray-500 dark:text-gray-200 font-semibold hover:underline text-sm">Read Article →</Link>
                 </div>
               </div>

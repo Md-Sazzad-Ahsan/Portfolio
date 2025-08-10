@@ -49,7 +49,22 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
     
     try {
       const categoryParam = selectedCategory !== 'All' ? `&category=${encodeURIComponent(selectedCategory)}` : '';
-      const res = await fetch(`/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`);
+      
+      // Create AbortController for request timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+      
+      const res = await fetch(`/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`, {
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Add cache control for better performance
+        cache: 'force-cache',
+        next: { revalidate: 60 } // Revalidate every 60 seconds
+      });
+      
+      clearTimeout(timeoutId);
       
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
@@ -68,8 +83,13 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
         throw new Error("Invalid response format");
       }
     } catch (err: any) {
-      console.error("Failed to load blogs:", err);
-      setError("Failed to load blog posts. Please try again later.");
+      if (err.name === 'AbortError') {
+        console.error("Request timed out");
+        setError("Request timed out. Please try again.");
+      } else {
+        console.error("Failed to load blogs:", err);
+        setError("Failed to load blog posts. Please try again later.");
+      }
     } finally {
       if (isInitialLoad) {
         setLoading(false);
@@ -79,34 +99,43 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
     }
   };
 
-  // Initial load
+  // Initial load with debouncing
   useEffect(() => {
-    fetchBlogs(true, 1);
+    const timeoutId = setTimeout(() => {
+      fetchBlogs(true, 1);
+    }, 100); // Small delay to batch rapid changes
+    
+    return () => clearTimeout(timeoutId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Handle category change
+  // Handle category change with debouncing
   useEffect(() => {
-    setPage(1);
-    fetchBlogs(true, 1);
+    const timeoutId = setTimeout(() => {
+      setPage(1);
+      fetchBlogs(true, 1);
+    }, 300); // Debounce category changes
+    
+    return () => clearTimeout(timeoutId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory]);
 
-  // Logging the data to make sure everything is correct (for debugging)
-  console.log("Blogs Data:", blogsData);
-  console.log("Selected Category:", selectedCategory);
+  // Remove console logs in production for better performance
+  // console.log("Blogs Data:", blogsData);
+  // console.log("Selected Category:", selectedCategory);
 
-  // Filter blogs based on selected category
-  const filteredBlogs = selectedCategory === "All"
-    ? blogsData
-    : blogsData.filter((blog) => {
-        // Convert blog category to lowercase for case-insensitive comparison
-        const blogCategory = blog.category.toLowerCase();
-        const targetCategory = selectedCategory.toLowerCase();
-        
-        // Match on category name
-        return blogCategory === targetCategory || blogCategory.includes(targetCategory);
-      });
+  // Memoize filtered blogs for better performance
+  const filteredBlogs = React.useMemo(() => {
+    if (selectedCategory === "All") {
+      return blogsData;
+    }
+    
+    const targetCategory = selectedCategory.toLowerCase();
+    return blogsData.filter((blog) => {
+      const blogCategory = blog.category.toLowerCase();
+      return blogCategory === targetCategory || blogCategory.includes(targetCategory);
+    });
+  }, [blogsData, selectedCategory]);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
