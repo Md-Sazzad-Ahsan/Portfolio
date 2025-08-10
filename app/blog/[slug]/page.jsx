@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
@@ -42,11 +42,15 @@ const ErrorDisplay = ({ message }) => (
 
 const BlogDetail = () => {
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = params.slug; // Get the slug from the URL
   const [blog, setBlog] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(() => {
+    // Initialize language from URL query parameter, default to 'en'
+    return searchParams.get('lang') || 'en';
+  });
 
   useEffect(() => {
     const fetchBlogData = async () => {

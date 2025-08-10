@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import CategoryButtons from "@/components/GlobalComponents/CategoriesButton";
 import Link from "next/link";
 import BlogCard from "@/components/BlogCard";
@@ -37,105 +37,63 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [language, setLanguage] = useState<'en' | 'bn'>('en');
+  const [language] = useState<'en' | 'bn'>('en');
+  const [showCards, setShowCards] = useState<boolean>(true);
 
-  const fetchBlogs = async (isInitialLoad: boolean = false, currentPage: number = 1) => {
-    if (isInitialLoad) {
-      setLoading(true);
-    } else {
-      setLoadingMore(true);
-    }
+  const fetchBlogs = async (isInitialLoad = false, currentPage = 1) => {
+    if (isInitialLoad) setLoading(true);
+    else setLoadingMore(true);
+
     setError(null);
-    
+
     try {
       const categoryParam = selectedCategory !== 'All' ? `&category=${encodeURIComponent(selectedCategory)}` : '';
-      
-      // Create AbortController for request timeout
+
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-      
-      const res = await fetch(`/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`, {
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // Add cache control for better performance
-        cache: 'force-cache',
-        next: { revalidate: 60 } // Revalidate every 60 seconds
-      });
-      
-      clearTimeout(timeoutId);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      
-      const result = await res.json();
-      
-      if (result.success && Array.isArray(result.data)) {
-        if (isInitialLoad) {
-          setBlogsData(result.data);
-        } else {
-          setBlogsData(prev => [...prev, ...result.data]);
+      const timeoutId = setTimeout(() => controller.abort(), 7000); // Faster timeout
+
+      const res = await fetch(
+        `/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`,
+        {
+          signal: controller.signal,
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store'
         }
+      );
+
+      clearTimeout(timeoutId);
+
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+
+      const result = await res.json();
+
+      if (result.success && Array.isArray(result.data)) {
+        setBlogsData(prev => isInitialLoad ? result.data : [...prev, ...result.data]);
         setHasMore(result.pagination.page < result.pagination.totalPages);
       } else {
         throw new Error("Invalid response format");
       }
     } catch (err: any) {
-      if (err.name === 'AbortError') {
-        console.error("Request timed out");
-        setError("Request timed out. Please try again.");
-      } else {
-        console.error("Failed to load blogs:", err);
-        setError("Failed to load blog posts. Please try again later.");
-      }
+      setError(err.name === 'AbortError'
+        ? "Request timed out. Please try again."
+        : "Failed to load blog posts. Please try again later."
+      );
     } finally {
-      if (isInitialLoad) {
-        setLoading(false);
-      } else {
-        setLoadingMore(false);
-      }
+      setLoading(false);
+      setLoadingMore(false);
     }
   };
 
-  // Initial load with debouncing
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchBlogs(true, 1);
-    }, 100); // Small delay to batch rapid changes
-    
-    return () => clearTimeout(timeoutId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchBlogs(true, 1);
   }, []);
 
-  // Handle category change with debouncing
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setPage(1);
-      fetchBlogs(true, 1);
-    }, 300); // Debounce category changes
-    
-    return () => clearTimeout(timeoutId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setPage(1);
+    fetchBlogs(true, 1);
   }, [selectedCategory]);
 
-  // Remove console logs in production for better performance
-  // console.log("Blogs Data:", blogsData);
-  // console.log("Selected Category:", selectedCategory);
-
-  // Memoize filtered blogs for better performance
-  const filteredBlogs = React.useMemo(() => {
-    if (selectedCategory === "All") {
-      return blogsData;
-    }
-    
-    const targetCategory = selectedCategory.toLowerCase();
-    return blogsData.filter((blog) => {
-      const blogCategory = blog.category.toLowerCase();
-      return blogCategory === targetCategory || blogCategory.includes(targetCategory);
-    });
-  }, [blogsData, selectedCategory]);
+  const filteredBlogs = useMemo(() => blogsData, [blogsData]);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -147,11 +105,11 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
     fetchBlogs(false, nextPage);
   };
 
-  if (loading) {
+  if (loading && !loadingMore && blogsData.length === 0) {
     return <BlogGridSkeleton count={initialCardCount} />;
   }
 
-  if (error) {
+  if (error && blogsData.length === 0) {
     return <div className="px-5 sm:px-16 md:px-28 lg:px-56 flex justify-center text-red-600 dark:text-red-400">{error}</div>;
   }
 
@@ -165,15 +123,15 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
 
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {filteredBlogs.map((blog, i) => (
-          <li key={`${blog._id}-${i}`}>
-            <BlogCard 
-              blog={blog} 
-              language={language}
-            />
+          <li
+            key={`${blog._id}-${i}`}
+            className={`transform transition-all duration-500 ease-out ${showCards ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}
+            style={{ transitionDelay: `${i * 60}ms` }}
+          >
+            <BlogCard blog={blog} language={language} />
           </li>
         ))}
-        
-        {/* Show skeleton cards while loading more */}
+
         {loadingMore && Array.from({ length: initialCardCount }).map((_, i) => (
           <li key={`skeleton-${i}`}>
             <BlogCardSkeleton />
@@ -184,19 +142,25 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
       <div className="flex justify-center mt-8">
         {hasMore && !loading && !loadingMore && (
           buttonType === "viewMore" ? (
-            <Link 
-              href="/blog" 
-              className="inline-block cursor-pointer bg-cyan-600 dark:bg-cyan-700 text-white px-5 sm:px-8 py-2 rounded-full hover:bg-cyan-700 dark:hover:bg-cyan-800 transition-colors shadow-sm"
+            <Link
+              href="/blog"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-700 dark:to-blue-700 text-white px-6 sm:px-10 py-3 rounded-lg hover:from-cyan-700 hover:to-blue-700 dark:hover:from-cyan-800 dark:hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium mb-4"
             >
-              View All
+              <span>View All Articles</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
           ) : (
             <button
               onClick={loadMoreCards}
               disabled={loadingMore}
-              className="cursor-pointer bg-cyan-600 dark:bg-cyan-700 text-white px-5 sm:px-8 py-2 rounded-full hover:bg-cyan-700 dark:hover:bg-cyan-800 transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-700 dark:to-blue-700 text-white px-6 sm:px-10 py-3 rounded-lg hover:from-cyan-700 hover:to-blue-700 dark:hover:from-cyan-800 dark:hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium disabled:opacity-50 disabled:cursor-not-allowed mb-4"
             >
-              Show more
+              <span>Load More Articles</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
             </button>
           )
         )}

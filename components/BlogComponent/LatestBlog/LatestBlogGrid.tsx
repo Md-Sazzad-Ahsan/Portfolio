@@ -85,8 +85,8 @@ const LatestBlogGrid: React.FC = async () => {
     <main className="max-w-6xl mx-auto py-8 px-4 md:px-0">
       <section className="grid gap-8 md:grid-cols-3">
         {/* Main Blog */}
-        <article className="md:col-span-2 bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-          <div className="relative h-64 md:h-[280px] w-full">
+        <article className="md:col-span-2 bg-white dark:bg-gray-700 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col">
+          <div className="relative h-64 md:h-[300px] w-full">
             <Image
               src={mainBlog.thumbnail || "/images/TempImage.jpg"}
               alt={mainBlog.content?.en?.title || "Blog Image"}
@@ -96,7 +96,7 @@ const LatestBlogGrid: React.FC = async () => {
             />
           </div>
 
-          <div className="p-6">
+          <div className="p-6 flex flex-col flex-grow">
             <div className="flex justify-between items-center mb-3">
               <div className="flex flex-wrap gap-2">
                 {Array.isArray(mainBlog.category)
@@ -125,18 +125,17 @@ const LatestBlogGrid: React.FC = async () => {
             <h2 className="text-gray-900 dark:text-gray-50 text-3xl font-extrabold leading-tight line-clamp-2 mb-4 mt-2">
               {mainBlog.content?.en?.title || mainBlog.content?.bn?.title}
             </h2>
-            <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-3">
+            <p className="text-gray-700 dark:text-gray-300 mb-4 line-clamp-2 md:line-clamp-3">
               {mainBlog.content?.en?.description || mainBlog.content?.bn?.description}
             </p>
 
-            <div className="prose max-w-none dark:prose-invert line-clamp-5 mb-6">
+            <div className="prose max-w-none dark:prose-invert line-clamp-5 mb-6 flex-grow">
               <ReactMarkdown>
                 {mainBlog.content?.en?.body || mainBlog.content?.bn?.body || ""}
               </ReactMarkdown>
             </div>
 
-            <div className="">
-              {/* <p className="text-sm text-gray-500 dark:text-gray-200 font-semibold">{mainBlog.author}</p> */}
+            <div className="mt-auto">
               <Link href={`/blog/${mainBlog.slug}`} className="text-gray-500 dark:text-gray-100 font-bold pt-2 hover:underline">Read Article →</Link>
             </div>
           </div>
@@ -149,7 +148,7 @@ const LatestBlogGrid: React.FC = async () => {
               key={i}
               className="flex flex-col bg-white dark:bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
             >
-              <div className="relative h-40 w-full">
+              <div className="relative h-48 md:h-40 w-full">
                 <Image
                   src={blog.thumbnail || "/images/TempImage.jpg"}
                   alt={blog.content?.en?.title || "Blog Image"}
@@ -188,12 +187,11 @@ const LatestBlogGrid: React.FC = async () => {
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50 mb-1 line-clamp-2">
                   {blog.content?.en?.title || blog.content?.bn?.title}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 text-sm flex-grow line-clamp-3 mb-4">
+                <p className="text-gray-500 dark:text-gray-400 text-sm flex-grow line-clamp-1 mb-4">
                   {blog.content?.en?.description || blog.content?.bn?.description}
                 </p>
                 <div className="mt-auto">
-                  {/* <p className="text-gray-500 dark:text-gray-200 font-medium text-sm">{blog.author}</p> */}
-                  <Link href={`/blog/${blog.slug}`} className="text-gray-500 dark:text-gray-200 font-semibold hover:underline text-sm">Read Article →</Link>
+                  <Link href={`/blog/${blog.slug}`} className="text-gray-500 dark:text-gray-100 font-bold hover:underline text-sm">Read Article →</Link>
                 </div>
               </div>
             </article>
