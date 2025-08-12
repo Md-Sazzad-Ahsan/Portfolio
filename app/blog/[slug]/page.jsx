@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
+import { FaCalendarAlt, FaUser, FaTag, FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
@@ -55,6 +55,9 @@ const BlogDetail = () => {
   });
   const [showLangToggle, setShowLangToggle] = useState(true);
   const [toggleIn, setToggleIn] = useState(false);
+  const [readProgress, setReadProgress] = useState(0);
+  const contentRef = useRef(null);
+  const [shareUrl, setShareUrl] = useState('');
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -113,6 +116,37 @@ const BlogDetail = () => {
     }
   }, [showLangToggle]);
 
+  // Init share URL (client-side)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setShareUrl(window.location.href);
+    }
+  }, []);
+
+  // Reading progress based on article content
+  useEffect(() => {
+    const onScroll = () => {
+      const el = contentRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const viewportH = window.innerHeight || 0;
+      const total = rect.height - viewportH;
+      let progress = 0;
+      if (total > 0) {
+        const scrolled = Math.min(Math.max(-rect.top, 0), total);
+        progress = (scrolled / total) * 100;
+      }
+      setReadProgress(Math.max(0, Math.min(100, progress)));
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [contentRef]);
+
   // Auto-hide toggle after 5 seconds (reset on show or language change)
   useEffect(() => {
     if (!showLangToggle) return;
@@ -145,6 +179,13 @@ const BlogDetail = () => {
 
   return (
     <div className="container mx-auto px-4 py-8 mt-16 md:mt-20 max-w-6xl text-gray-900 dark:text-gray-100">
+      {/* Reading progress bar */}
+      <div className="fixed top-0 left-0 right-0 h-1 z-[60] bg-transparent">
+        <div
+          className="h-full bg-blue-600 dark:bg-blue-500 transition-[width] duration-150"
+          style={{ width: `${readProgress}%` }}
+        />
+      </div>
       {/* Floating Language Toggle */}
       {showLangToggle && (
         <div className={`fixed bottom-4 right-4 z-50 will-change-transform will-change-opacity transition-all duration-300 ease-out transform ${toggleIn ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
@@ -179,39 +220,30 @@ const BlogDetail = () => {
         </div>
       )}
       
+      {/* Breadcrumb */}
+      <nav className="text-sm text-gray-600 dark:text-gray-400 mb-4" aria-label="Breadcrumb">
+        <ol className="flex items-center gap-2">
+          <li><Link href="/" className="hover:underline">Home</Link></li>
+          <li>/</li>
+          <li><Link href="/blog" className="hover:underline">Blog</Link></li>
+          <li>/</li>
+          <li className="truncate max-w-[60vw] line-clamp-1" title={title}>{title}</li>
+        </ol>
+      </nav>
+
       {/* Blog header */}
-      <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">{title}</h1>
+      <h1 className="text-3xl md:text-4xl font-extrabold leading-tight mb-3 text-gray-900 dark:text-gray-100">{title}</h1>
 
       {/* Blog description */}
       {description && (
-        <div className="mb-8 text-lg text-gray-700 dark:text-gray-300">
+        <div className="mb-8 text-lg text-gray-700 dark:text-gray-300 max-w-4xl pr-3 md:pr-0">
           {description}
         </div>
       )}
       
-      {/* Blog meta information */}
-      <div className="flex flex-wrap gap-4 text-gray-600 dark:text-gray-400 mb-6">
-        <div className="flex items-center">
-          <FaCalendarAlt className="mr-2" />
-          <span>{new Date(blog.createdAt).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}</span>
-        </div>
-        <div className="flex items-center">
-          <FaUser className="mr-2" />
-          <span>{blog.author}</span>
-        </div>
-        <div className="flex items-center">
-          <FaTag className="mr-2" />
-          <span className="capitalize">{blog.category}</span>
-        </div>
-      </div>
-      
-      {/* Blog thumbnail if available */}
+      {/* Blog thumbnail (Hero) */}
       {blog.thumbnail && (
-        <div className="relative w-full h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
+        <div className="relative w-full h-[320px] md:h-[460px] mb-8 rounded-2xl overflow-hidden">
           {/* Use an unoptimized image as a workaround for domain issues */}
           <Image 
             src={blog.thumbnail} 
@@ -227,12 +259,30 @@ const BlogDetail = () => {
               e.target.src = "/images/TempImage.jpg";
             }}
           />
+          {/* gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+          {/* overlay info */}
+          <div className="absolute bottom-0 left-0 right-0 p-2 sm:p-4 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 text-xs">
+            <div className="flex items-center gap-3 flex-wrap">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur text-white capitalize border border-white/30">
+                {blog.category}
+              </span>
+              <span className="inline-flex items-center text-xs text-white/90">
+                <FaCalendarAlt className="mr-2" />
+                {new Date(blog.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
+              <span className="inline-flex items-center text-xs text-white/90">
+                <FaUser className="mr-2" /> {blog.author}
+              </span>
+            </div>
+            {/* share moved below content */}
+          </div>
         </div>
       )}
       
       
       {/* Blog content (Markdown) */}
-      <div className="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 mx-auto max-w-6xl prose-pre:bg-transparent prose-pre:p-0 prose-code:before:content-none prose-code:after:content-none prose-pre:text-gray-800 dark:prose-pre:text-gray-100 prose-code:text-gray-800 dark:prose-code:text-gray-700">
+      <div ref={contentRef} className="prose prose-lg dark:prose-invert prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-gray-700 dark:prose-a:text-gray-100 mx-auto max-w-3xl md:max-w-4xl lg:max-w-5xl prose-pre:bg-transparent prose-pre:p-0 prose-code:before:content-none prose-code:after:content-none prose-pre:text-gray-800 dark:prose-pre:text-gray-100 prose-code:text-gray-800 dark:prose-code:text-gray-700">
         <ReactMarkdown
           // Support GitHub flavored markdown
           remarkPlugins={[remarkGfm]}
@@ -293,6 +343,23 @@ const BlogDetail = () => {
         >
           {body || ''}
         </ReactMarkdown>
+      </div>
+      {/* Social share at end */}
+      <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700 max-w-3xl md:max-w-4xl lg:max-w-6xl mx-auto">
+        <div className="flex items-center justify-between flex-wrap gap-3">
+          <span className="text-sm text-gray-600 dark:text-gray-400">Share this article</span>
+          <div className="flex items-center gap-2">
+            <a aria-label="Share on Facebook" href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+              <FaFacebookF size={14} />
+            </a>
+            <a aria-label="Share on Twitter" href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title || '')}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+              <FaTwitter size={14} />
+            </a>
+            <a aria-label="Share on LinkedIn" href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`} target="_blank" rel="noopener noreferrer" className="w-9 h-9 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+              <FaLinkedinIn size={14} />
+            </a>
+          </div>
+        </div>
       </div>
       
       {/* Back to blog list link */}
