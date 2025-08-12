@@ -19,7 +19,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
             <div className="w-full md:w-1/2 md:pr-8">
               <div className="mb-6 inline-flex items-center px-3 py-1 border-l-4 border-cyan-500 text-sm font-medium text-cyan-600 dark:text-cyan-400">
-                Web Developer & Designer
+                Full Stack Web & Software Developer
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
