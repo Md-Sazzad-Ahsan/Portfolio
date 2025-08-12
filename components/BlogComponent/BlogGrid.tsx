@@ -41,43 +41,53 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   const [showCards, setShowCards] = useState<boolean>(true);
 
   const fetchBlogs = useCallback(async (isInitialLoad: boolean, currentPage: number) => {
-    if (isInitialLoad) setLoading(true);
-    else setLoadingMore(true);
-
+    if (isInitialLoad) setLoading(true); else setLoadingMore(true);
     setError(null);
 
-    try {
-      const categoryParam = selectedCategory !== 'All' ? `&category=${encodeURIComponent(selectedCategory)}` : '';
+    const categoryParam = selectedCategory !== 'All' ? `&category=${encodeURIComponent(selectedCategory)}` : '';
+    const url = `/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`;
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 7000); // Faster timeout
-
-      const res = await fetch(
-        `/api/blogs?page=${currentPage}&limit=${initialCardCount}${categoryParam}`,
-        {
-          signal: controller.signal,
+    const attempt = async (useTimeout: boolean) => {
+      const controller = useTimeout ? new AbortController() : undefined;
+      const timeoutId = useTimeout ? setTimeout(() => controller!.abort(), 15000) : undefined; // longer timeout
+      try {
+        const res = await fetch(url, {
+          signal: controller?.signal,
           headers: { 'Content-Type': 'application/json' },
-          cache: 'no-store'
+          cache: 'no-store',
+        });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const result = await res.json();
+        if (result.success && Array.isArray(result.data)) {
+          setBlogsData(prev => isInitialLoad ? result.data : [...prev, ...result.data]);
+          const totalPages: number | undefined = result?.pagination?.totalPages;
+          const currentPg: number = result?.pagination?.page ?? currentPage;
+          const fallbackHasMore = result.data.length === initialCardCount;
+          setHasMore(typeof totalPages === 'number' ? currentPg < totalPages : fallbackHasMore);
+          return true;
         }
-      );
-
-      clearTimeout(timeoutId);
-
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-
-      const result = await res.json();
-
-      if (result.success && Array.isArray(result.data)) {
-        setBlogsData(prev => isInitialLoad ? result.data : [...prev, ...result.data]);
-        setHasMore(result.pagination.page < result.pagination.totalPages);
-      } else {
-        throw new Error("Invalid response format");
+        throw new Error('Invalid response format');
+      } finally {
+        if (timeoutId) clearTimeout(timeoutId);
       }
+    };
+
+    try {
+      // First attempt with timeout
+      const ok = await attempt(true);
+      if (!ok) throw new Error('Unknown error');
     } catch (err: any) {
-      setError(err.name === 'AbortError'
-        ? "Request timed out. Please try again."
-        : "Failed to load blog posts. Please try again later."
-      );
+      if (err?.name === 'AbortError') {
+        // Retry immediately without timeout to ensure we fetch if DB is available
+        try {
+          await attempt(false);
+        } catch (e: any) {
+          // Only show a generic error if no data is present; otherwise keep existing data visible
+          if (blogsData.length === 0) setError('Failed to load blog posts. Please try again later.');
+        }
+      } else {
+        if (blogsData.length === 0) setError('Failed to load blog posts. Please try again later.');
+      }
     } finally {
       setLoading(false);
       setLoadingMore(false);
@@ -85,13 +95,9 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   }, [selectedCategory, initialCardCount]);
 
   useEffect(() => {
-    fetchBlogs(true, 1);
-  }, [fetchBlogs, initialCardCount, selectedCategory]);
-
-  useEffect(() => {
     setPage(1);
     fetchBlogs(true, 1);
-  }, [selectedCategory, initialCardCount]);
+  }, [fetchBlogs, selectedCategory, initialCardCount]);
 
   const filteredBlogs = useMemo(() => blogsData, [blogsData]);
 
@@ -100,13 +106,14 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
   };
 
   const loadMoreCards = () => {
+    if (loadingMore || !hasMore) return;
     const nextPage = page + 1;
     setPage(nextPage);
     fetchBlogs(false, nextPage);
   };
 
   if (loading && !loadingMore && blogsData.length === 0) {
-    return <BlogGridSkeleton count={initialCardCount} />;
+    return <BlogGridSkeleton count={3} />;
   }
 
   if (error && blogsData.length === 0) {
@@ -132,7 +139,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
           </li>
         ))}
 
-        {loadingMore && Array.from({ length: initialCardCount }).map((_, i) => (
+        {loadingMore && Array.from({ length: 3 }).map((_, i) => (
           <li key={`skeleton-${i}`}>
             <BlogCardSkeleton />
           </li>
@@ -154,7 +161,7 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
           ) : (
             <button
               onClick={loadMoreCards}
-              disabled={loadingMore}
+              disabled={loadingMore || !hasMore}
               className="group inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-700 dark:to-blue-700 text-white px-6 sm:px-10 py-3 rounded-lg hover:from-cyan-700 hover:to-blue-700 dark:hover:from-cyan-800 dark:hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium disabled:opacity-50 disabled:cursor-not-allowed mb-4"
             >
               <span>Load More Articles</span>

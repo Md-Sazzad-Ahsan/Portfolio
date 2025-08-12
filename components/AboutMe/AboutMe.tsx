@@ -99,7 +99,7 @@ export default function AboutMe() {
                   className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
                   variants={itemVariants}
                 >
-                  A passionate <span className="font-semibold text-cyan-600 dark:text-cyan-400">Computer Engineer</span> with a B.Sc. in CSE from Daffodil Institute of IT (DIIT), Dhaka. I specialize in programming, web development, mobile app development, software engineering, content writing, and cybersecurity. With a strong focus on building innovative, user-friendly, and high-performance software solutions, I&apos;m dedicated to delivering impactful websites, applications, and digital products. Always eager to learn and adapt to emerging technologies, I thrive on transforming ideas into reality through creative problem-solving and technical expertise.
+                  A passionate full stack <span className="font-semibold text-cyan-600 dark:text-cyan-400">Software Developer</span> with a B.Sc. in CSE from Daffodil Institute of IT (DIIT), Dhaka. I specialize in software development, application development, web & cross-platform application development, mobile app development, content writing. With a strong focus on building innovative, user-friendly, and high-performance software solutions, I&apos;m dedicated to delivering impactful software,websites, applications, and digital products. Always eager to learn and adapt to emerging technologies, I thrive on transforming ideas into reality through creative problem-solving and technical expertise.
                 </motion.p>
 
                 <motion.div 

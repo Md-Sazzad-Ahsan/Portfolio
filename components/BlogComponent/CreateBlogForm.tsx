@@ -132,6 +132,7 @@ const ContentTab = memo(function ContentTab({
           ) : field.id === 'body' ? (
             <div className="mt-2">
               <TextEditor
+                key={`editor-${lang}`}
                 value={field.value}
                 onChange={(value) => {
                   // Update the form data directly since we're using controlled components
@@ -792,6 +793,7 @@ const handleDelete = useCallback(async () => {
               <div>
                 {activeTab === 'en' ? (
                   <ContentTab
+                    key="en"
                     lang="en"
                     content={formData.content.en}
                     handleChange={handleChange}
@@ -799,6 +801,7 @@ const handleDelete = useCallback(async () => {
                   />
                 ) : (
                   <ContentTab
+                    key="bn"
                     lang="bn"
                     content={formData.content.bn}
                     handleChange={handleChange}

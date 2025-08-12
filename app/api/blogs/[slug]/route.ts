@@ -27,7 +27,9 @@ export async function GET(
       );
     }
 
-    const blog = await Blog.findOne({ slug: String(slug) });
+    const blog = await Blog.findOne({ slug: String(slug) })
+      .select('-__v')
+      .lean();
 
     if (!blog) {
       return NextResponse.json(
@@ -67,54 +69,57 @@ export async function PUT(
 
     const body = await request.json();
 
-    if (body.slug && body.slug !== originalSlug) {
-      const existingBlog = await Blog.findOne({ slug: body.slug });
-      if (existingBlog) {
-        return NextResponse.json(
-          { success: false, error: 'A blog with this slug already exists' },
-          { status: 400 }
-        );
-      }
-    }
+    // Load document to leverage pre-save hook validations
+    const blog = await Blog.findOne({ slug: String(originalSlug) });
 
-    const updatedBlogData = {
-      ...body,
-      updatedAt: new Date()
-    };
-
-    const hasEnglishContent = updatedBlogData.content?.en?.title && updatedBlogData.content?.en?.body;
-    const hasBanglaContent = updatedBlogData.content?.bn?.title && updatedBlogData.content?.bn?.body;
-
-    if (!hasEnglishContent && !hasBanglaContent) {
-      return NextResponse.json(
-        { error: 'Please provide content in at least one language (English or Bangla)' },
-        { status: 400 }
-      );
-    }
-
-    const updatedBlog = await Blog.findOneAndUpdate(
-      { slug: String(originalSlug) },
-      updatedBlogData,
-      { new: true, runValidators: true }
-    );
-
-    if (!updatedBlog) {
+    if (!blog) {
       return NextResponse.json(
         { success: false, error: 'Blog post not found' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({
-      success: true,
-      data: updatedBlog
-    });
+    // Apply incoming fields
+    if (typeof body.slug === 'string') blog.slug = body.slug;
+    if (typeof body.author === 'string') blog.author = body.author;
+    if (typeof body.thumbnail === 'string') blog.thumbnail = body.thumbnail;
+    if (typeof body.category === 'string') blog.category = body.category.toLowerCase();
+    if (body.content && typeof body.content === 'object') {
+      blog.content = {
+        en: {
+          title: body.content.en?.title ?? blog.content?.en?.title,
+          description: body.content.en?.description ?? blog.content?.en?.description,
+          body: body.content.en?.body ?? blog.content?.en?.body,
+        },
+        bn: {
+          title: body.content.bn?.title ?? blog.content?.bn?.title,
+          description: body.content.bn?.description ?? blog.content?.bn?.description,
+          body: body.content.bn?.body ?? blog.content?.bn?.body,
+        }
+      } as any;
+    }
+
+    const saved = await blog.save();
+
+    return NextResponse.json({ success: true, data: saved });
   } catch (error) {
     console.error('Error updating blog post:', error);
-    return NextResponse.json(
-      { success: false, error: 'Failed to update blog post' },
-      { status: 500 }
-    );
+    // Duplicate key (e.g., slug changed to an existing one)
+    if ((error as any)?.code === 11000) {
+      const field = Object.keys((error as any).keyPattern || {})[0] || 'field';
+      return NextResponse.json(
+        { success: false, error: `A blog with this ${field} already exists` },
+        { status: 400 }
+      );
+    }
+    if ((error as any).name === 'ValidationError') {
+      const validationErrors = Object.values((error as any).errors).map((err: any) => err.message);
+      return NextResponse.json(
+        { success: false, error: 'Validation failed', details: validationErrors },
+        { status: 400 }
+      );
+    }
+    return NextResponse.json({ success: false, error: 'Failed to update blog post' }, { status: 500 });
   }
 }
 

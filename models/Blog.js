@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import isURL from 'validator/lib/isURL.js';
 
 const blogSchema = new mongoose.Schema({
   slug: {
@@ -77,14 +76,6 @@ const blogSchema = new mongoose.Schema({
   thumbnail: {
     type: String,
     trim: true,
-    validate: {
-      validator: function (v) {
-        if (!v) return true;
-        if (v.includes('drive.google.com/uc?export=view&id=')) return true;
-        return isURL(v, { protocols: ['http', 'https'], require_protocol: true });
-      },
-      message: (props) => `${props.value} is not a valid URL`,
-    },
   },
   createdAt: {
     type: Date,
@@ -101,10 +92,10 @@ const blogSchema = new mongoose.Schema({
 // Full-text search index
 blogSchema.index({
   'content.en.title': 'text',
-  'content.en.description': 'text',
   'content.bn.title': 'text',
-  'content.bn.description': 'text',
 });
+
+blogSchema.index({ category: 1, createdAt: -1 }); 
 
 // Middleware to ensure at least one language has title + body
 blogSchema.pre('save', function (next) {
@@ -126,12 +117,5 @@ blogSchema.virtual('formattedDate').get(function () {
     day: 'numeric',
   });
 });
-
-// Custom method to check if post is new
-blogSchema.methods.isRecentlyCreated = function () {
-  const oneWeekAgo = new Date();
-  oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  return this.createdAt > oneWeekAgo;
-};
 
 export default mongoose.models.Blog || mongoose.model('Blog', blogSchema);
