@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarAlt, FaUser, FaTag } from 'react-icons/fa';
@@ -13,7 +13,7 @@ import rehypeRaw from 'rehype-raw';
 
 // Loading skeleton component
 const LoadingSkeleton = () => (
-  <div className="container mx-auto px-4 py-8 animate-pulse max-w-6xl">
+  <div className="container mx-auto mt-20 px-4 py-8 animate-pulse max-w-6xl">
     <div className="bg-gray-200 dark:bg-gray-700 h-10 w-3/4 mb-4 rounded"></div>
     <div className="flex space-x-4 mb-6">
       <div className="bg-gray-200 dark:bg-gray-700 h-4 w-20 rounded"></div>
@@ -43,6 +43,8 @@ const ErrorDisplay = ({ message }) => (
 const BlogDetail = () => {
   const params = useParams();
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const slug = params.slug; // Get the slug from the URL
   const [blog, setBlog] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +53,8 @@ const BlogDetail = () => {
     // Initialize language from URL query parameter, default to 'en'
     return searchParams.get('lang') || 'en';
   });
+  const [showLangToggle, setShowLangToggle] = useState(true);
+  const [toggleIn, setToggleIn] = useState(false);
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -89,32 +93,91 @@ const BlogDetail = () => {
     }
   }, [slug]);
 
+  useEffect(() => {
+    // Keep local state in sync with URL changes
+    const qp = searchParams.get('lang');
+    if ((qp || 'en') !== language) {
+      setLanguage(qp || 'en');
+    }
+  }, [searchParams, language]);
+
+  // Simple Tailwind-based enter animation: start hidden, then flip to visible
+  useEffect(() => {
+    if (showLangToggle) {
+      setToggleIn(false);
+      // allow initial hidden render, then enable
+      const t = setTimeout(() => setToggleIn(true), 0);
+      return () => clearTimeout(t);
+    } else {
+      setToggleIn(false);
+    }
+  }, [showLangToggle]);
+
+  // Auto-hide toggle after 5 seconds (reset on show or language change)
+  useEffect(() => {
+    if (!showLangToggle) return;
+    const timer = setTimeout(() => {
+      setToggleIn(false);
+      setTimeout(() => setShowLangToggle(false), 250);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [showLangToggle, language]);
+  const updateLangInUrl = (nextLang) => {
+    // Preserve other query params while updating lang
+    const params = new URLSearchParams(Array.from(searchParams.entries()));
+    if (nextLang === 'en') params.delete('lang'); else params.set('lang', nextLang);
+    router.replace(`${pathname}?${params.toString()}`);
+    setLanguage(nextLang);
+  };
+
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'bn' : 'en');
+    const next = language === 'en' ? 'bn' : 'en';
+    updateLangInUrl(next);
   };
 
   if (isLoading) return <LoadingSkeleton />;
   if (error) return <ErrorDisplay message={error} />;
   
-  // Check if the selected language content exists, otherwise fallback to the other language
-  const hasSelectedLanguageContent = blog?.content?.[language]?.title && blog?.content?.[language]?.body;
-  const activeLanguage = hasSelectedLanguageContent ? language : (language === 'en' ? 'bn' : 'en');
-  
-  const title = blog?.content?.[activeLanguage]?.title;
-  const body = blog?.content?.[activeLanguage]?.body;
-  const description = blog?.content?.[activeLanguage]?.description;
+  // Only show the selected language; do not fallback to the other language
+  const title = blog?.content?.[language]?.title;
+  const body = blog?.content?.[language]?.body;
+  const description = blog?.content?.[language]?.description;
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl text-gray-900 dark:text-gray-100">
-      {/* Language toggle */}
-      <div className="flex justify-end mb-4">
-        <button 
-          onClick={toggleLanguage}
-          className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition"
-        >
-          {language === 'en' ? 'বাংলা' : 'English'}
-        </button>
-      </div>
+    <div className="container mx-auto px-4 py-8 mt-16 md:mt-20 max-w-6xl text-gray-900 dark:text-gray-100">
+      {/* Floating Language Toggle */}
+      {showLangToggle && (
+        <div className={`fixed bottom-4 right-4 z-50 will-change-transform will-change-opacity transition-all duration-300 ease-out transform ${toggleIn ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}`}>
+          <div className="backdrop-blur bg-transparent border border-gray-200 dark:border-gray-700 shadow-xl rounded-lg p-1 flex items-center gap-1">
+            {language === 'en' ? (
+              <button
+                onClick={() => updateLangInUrl('bn')}
+                className="px-2 py-1 rounded-md text-xs transition text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+              >
+                বাংলা
+              </button>
+            ) : (
+              <button
+                onClick={() => updateLangInUrl('en')}
+                className="px-2 py-1 rounded-md text-xs transition text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
+              >
+                English
+              </button>
+            )}
+            <button
+              aria-label="Hide language toggle"
+              onClick={() => {
+                setToggleIn(false);
+                setTimeout(() => setShowLangToggle(false), 250);
+              }}
+              className="ml-1 inline-flex items-center justify-center w-6 h-6 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600 transition"
+              title="Hide"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Blog header */}
       <h1 className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">{title}</h1>
