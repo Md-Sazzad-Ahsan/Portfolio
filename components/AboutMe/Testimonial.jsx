@@ -60,7 +60,7 @@ export default function TestimonialsBlock() {
 
   return (
     <section className="bg-gray-50 dark:bg-darkBg">
-      <div className="container px-5 md:px-0 py-10 mx-auto max-w-6xl">
+      <div className="container py-10 mx-auto max-w-6xl">
         <div className="mt-6 md:mt-20 md:flex md:items-center md:justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-gray-500 capitalize lg:text-3xl dark:text-white">

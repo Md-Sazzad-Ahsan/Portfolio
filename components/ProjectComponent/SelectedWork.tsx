@@ -57,7 +57,7 @@ const SelectedWork = () => {
                 Live Preview
               </a>
               <a
-                href="https://github.com/Md-Sazzad-Ahsan/MeetVerse"
+                href="https://github.com/Md-Sazzad-Ahsan/Collab"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 md:px-8 py-2 bg-gray-800 text-white rounded-lg text-center hover:bg-gray-600 transition w-full sm:w-auto"

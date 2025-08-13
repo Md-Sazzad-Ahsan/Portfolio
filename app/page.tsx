@@ -3,7 +3,6 @@ import Link from "next/link";
 import { GoArrowUpRight } from "react-icons/go";
 import VectorImage from "@/public/images/programmingImage.svg"
 import AboutMe from "@/components/AboutMe/AboutMe";
-// import SeparatePages from "@/components/GlobalComponents/SeparatePages";
 import { playfair } from "@/public/fonts/fonts";
 import BlogGrid from "@/components/BlogComponent/BlogGrid";
 import ProjectGrid from "@/components/ProjectComponent/ProjectGrid";
@@ -16,39 +15,32 @@ export default function Home() {
       {/* Hero Section - Simple and Clean */}
       <section id="hero" className="pt-28 pb-20 md:pt-36 md:pb-28 bg-white dark:bg-darkBg">
         <div className="container mx-auto max-w-6xl px-5 md:px-0">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-16">
-            <div className="w-full md:w-1/2 md:pr-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-12">
+            <div className="w-full md:w-3/5 md:pr-8 order-2 sm:order-1">
               <div className="mb-6 inline-flex items-center px-3 py-1 border-l-4 border-cyan-500 text-sm font-medium text-cyan-600 dark:text-cyan-400">
                 Full Stack Web & Software Developer
               </div>
               
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 dark:text-white mb-6">
-                Turning <span className="text-cyan-600 dark:text-cyan-400">ideas</span> into remarkable <span className="text-cyan-600 dark:text-cyan-400">websites</span>
+              Engineering the Future of <span className="text-cyan-600 dark:text-cyan-400">Software</span> Development
               </h1>
               
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                A skilled web developer and designer, crafting user-friendly websites and apps that deliver engaging digital experiences.
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-xl">
+                A skilled web and software developer passionate about building tools that solve problems and make things easier.
               </p>
               
-              <div className="flex flex-wrap gap-4">
-                <Link 
-                  href="/about" 
-                  className="px-6 py-2 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-md transition-colors duration-300 flex items-center"
-                >
-                  Read more
-                  <GoArrowUpRight className="ml-2 h-5 w-5" />
-                </Link>
-                
+              <div className="mt-8 w-full sm:w-auto">
                 <Link 
                   href="/contact" 
-                  className="px-6 py-2 border border-gray-300 dark:border-gray-600 hover:border-cyan-500 dark:hover:border-cyan-500 text-gray-700 dark:text-gray-200 font-medium rounded-md transition-colors duration-300"
+                  className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3 sm:py-2.5 text-sm font-semibold rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 transition-all duration-200 hover:shadow-md hover:shadow-cyan-500/30 hover:-translate-y-0.5"
                 >
                   Contact me
+                  <GoArrowUpRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
                 </Link>
               </div>
             </div>
             
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-2/5 order-1 sm:order-2">
               <div className="relative">
                 <div className="absolute -inset-0.5 bg-cyan-600/20 rounded-lg blur-sm dark:bg-cyan-500/20"></div>
                 <div className="relative bg-white dark:bg-gray-800 rounded-lg p-2 shadow-md">
@@ -77,7 +69,7 @@ export default function Home() {
               <div className="h-px w-8 bg-cyan-500 ml-4"></div>
             </div>
             <h3 className="text-3xl md:text-4xl font-bold text-center text-gray-800 dark:text-white mb-2">Who I Am</h3>
-            <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Get to know more about my skills, experience, and passion for creating exceptional digital experiences.</p>
+            <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Explore my experience, expertise, and dedication to developing software and applications that deliver real impact.</p>
           </div>
           
         </div>

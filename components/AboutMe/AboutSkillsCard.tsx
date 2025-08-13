@@ -15,7 +15,7 @@ function AboutSkillsCard() {
   };
   const item = {
     hidden: { opacity: 0, y: 24 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'ease-in-out' } },
+    show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeIn' } },
   };
   return (
     <main>
@@ -24,11 +24,11 @@ function AboutSkillsCard() {
         whileInView="show"
         viewport={{ once: true, amount: 0.2 }}
         variants={container}
-        className="dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 mt-20 md:mt-24 pb-10 px-5 sm:px-0"
+        className="dark:bg-darkBg grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 sm:gap-2 mt-20 md:mt-24 pb-10"
       >
         <motion.div
           variants={item}
-          className="text-3xl text-cyan-600 dark:text-gray-50 font-bold text-center p-5 sm:p-0 col-span-full uppercase py-5 md:pt-10 md:pb-5"
+          className="text-3xl text-cyan-600 dark:text-gray-50 font-bold text-center col-span-full uppercase py-5 md:pt-10 md:pb-5"
         >
           Expertise
         </motion.div>
