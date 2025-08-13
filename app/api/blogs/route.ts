@@ -66,8 +66,28 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    // Create and save new blog (schema handles validation, casing, enums, and timestamps)
-    const blog = new Blog(body);
+    // Build payload explicitly to prevent accidental reference reuse or malformed input
+    const payload = {
+      slug: body?.slug,
+      author: body?.author,
+      thumbnail: body?.thumbnail ?? '',
+      category: typeof body?.category === 'string' ? body.category.toLowerCase() : body?.category,
+      content: {
+        en: {
+          title: body?.content?.en?.title ?? '',
+          description: body?.content?.en?.description ?? '',
+          body: body?.content?.en?.body ?? '',
+        },
+        bn: {
+          title: body?.content?.bn?.title ?? '',
+          description: body?.content?.bn?.description ?? '',
+          body: body?.content?.bn?.body ?? '',
+        },
+      },
+    } as any;
+
+    // Create and save new blog (schema handles validation, enums, and timestamps)
+    const blog = new Blog(payload);
     const savedBlog = await blog.save();
 
     return NextResponse.json(

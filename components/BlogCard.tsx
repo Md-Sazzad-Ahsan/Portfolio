@@ -10,6 +10,8 @@ interface Blog {
   _id: string;
   slug: string;
   thumbnail?: string;
+  category?: string;
+  author?: string;
   createdAt: string;
   content: {
     en: BlogContent;
@@ -40,19 +42,27 @@ const BlogCard = ({ blog, language }: BlogCardProps) => {
   return (
     <Link href={`/blog/${blog.slug}?lang=${language}`} className="block max-w-md">
       <div className="rounded-lg overflow-hidden bg-white dark:bg-darkBg border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md transition-all duration-200 hover:translate-y-[-4px]">
-        <div className="w-full h-52 relative overflow-hidden">
+        <div className="w-full h-52 relative overflow-hidden group">
           <Image
             src={blog.thumbnail || "/images/TempImage.jpg"}
             alt={getTitle()}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform hover:scale-105 duration-300"
+            className="object-cover transition-transform group-hover:scale-105 duration-300"
             unoptimized={true}
             onError={(e) => {
               // Fallback to default image if thumbnail fails to load
               e.currentTarget.src = "/images/TempImage.jpg";
             }}
           />
+          {/* Category Badge - Top Left */}
+          {blog.category && (
+            <span className="absolute top-1 left-1 inline-flex items-center px-2 py-1 rounded-sm text-xs bg-gray-100 dark:bg-gray-600 text-gray-900 opacity-70 dark:text-white capitalize">
+              {blog.category}
+            </span>
+          )}
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
 
         <div className="p-4">
@@ -66,7 +76,9 @@ const BlogCard = ({ blog, language }: BlogCardProps) => {
             <button className="text-xs text-gray-600 dark:text-gray-100 hover:underline hover:cursor-pointer py-1 rounded-md transition-colors duration-200 font-bold">
               Read article →
             </button>
-            <p className="text-xs text-gray-600 dark:text-gray-400 font-medium">{createdTime}</p>
+            <span className="text-xs text-gray-500 dark:text-gray-400">
+              {createdTime}
+            </span>
           </div>
         </div>
       </div>

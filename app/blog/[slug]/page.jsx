@@ -4,13 +4,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useSearchParams, useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCalendarAlt, FaUser, FaTag, FaFacebookF, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import { FaCalendarAlt, FaUser, FaTag, FaFacebookF, FaTwitter, FaLinkedinIn, FaBookOpen } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeRaw from 'rehype-raw';
-
+import BlogCard from '@/components/BlogCard';
 // Loading skeleton component
 const LoadingSkeleton = () => (
   <div className="container mx-auto mt-20 px-4 py-8 animate-pulse max-w-6xl">
@@ -58,6 +58,8 @@ const BlogDetail = () => {
   const [readProgress, setReadProgress] = useState(0);
   const contentRef = useRef(null);
   const [shareUrl, setShareUrl] = useState('');
+  const [similarBlogs, setSimilarBlogs] = useState([]);
+  const [isLoadingSimilar, setIsLoadingSimilar] = useState(false);
 
   useEffect(() => {
     const fetchBlogData = async () => {
@@ -83,6 +85,11 @@ const BlogDetail = () => {
         console.log('Blog data fetched successfully:', data.data);
         setBlog(data.data);
         setError(null);
+        
+        // Fetch similar blogs after setting the current blog
+        if (data.data?.category) {
+          fetchSimilarBlogs(data.data.category, data.data._id);
+        }
       } catch (err) {
         console.error('Error fetching blog:', err);
         setError(err.message);
@@ -116,6 +123,32 @@ const BlogDetail = () => {
     }
   }, [showLangToggle]);
 
+  // Fetch similar blogs by category
+  const fetchSimilarBlogs = async (category, currentBlogId) => {
+    try {
+      setIsLoadingSimilar(true);
+      const response = await fetch(`/api/blogs?category=${encodeURIComponent(category)}`);
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch similar blogs');
+      }
+      
+      const data = await response.json();
+      if (data.success) {
+        // Filter out the current blog and limit to 3 similar blogs
+        const filteredBlogs = data.data
+          .filter(blog => blog._id !== currentBlogId)
+          .slice(0, 3);
+        setSimilarBlogs(filteredBlogs);
+      }
+    } catch (err) {
+      console.error('Error fetching similar blogs:', err);
+      // Don't show error to user for similar blogs
+    } finally {
+      setIsLoadingSimilar(false);
+    }
+  };
+
   // Init share URL (client-side)
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -147,13 +180,13 @@ const BlogDetail = () => {
     };
   }, [contentRef]);
 
-  // Auto-hide toggle after 5 seconds (reset on show or language change)
+  // Auto-hide toggle after 10 seconds (reset on show or language change)
   useEffect(() => {
     if (!showLangToggle) return;
     const timer = setTimeout(() => {
       setToggleIn(false);
       setTimeout(() => setShowLangToggle(false), 250);
-    }, 5000);
+    }, 10000);
     return () => clearTimeout(timer);
   }, [showLangToggle, language]);
   const updateLangInUrl = (nextLang) => {
@@ -362,6 +395,20 @@ const BlogDetail = () => {
         </div>
       </div>
       
+      {/* Similar Blogs */}
+      {similarBlogs.length > 0 && (
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold mb-6 uppercase">
+            Similar Articles
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {similarBlogs.map((blog) => (
+              <BlogCard key={blog._id} blog={blog} language={language} />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Back to blog list link */}
       <div className="mt-12">
         <Link href="/blog" className="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white px-6 py-2 rounded transition">
