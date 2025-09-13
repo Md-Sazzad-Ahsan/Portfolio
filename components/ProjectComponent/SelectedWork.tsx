@@ -73,7 +73,7 @@ const SelectedWork = () => {
               Most Recent
             </p>
             <Image
-              src="/projectImages/CollabEnterancePage.png"
+              src="/projectImages/CollabEnterancePage.jpeg"
               alt="Whiteboard Screenshot"
               width={600}
               height={300}
