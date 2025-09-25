@@ -78,13 +78,15 @@ export default function Admin() {
           </div>
         </div>
 
-        {/* Recent Activity */}
-        <div className="bg-card p-6 rounded-lg border border-border shadow-sm">
-          <h2 className="text-xl font-semibold mb-4">Recent Activity</h2>
-          <p className="text-muted-foreground">
-            Your recent activity will appear here.
-          </p>
-        </div>
+        {/* Projects Card */}
+        <Link href="/admin/project" className="block group">
+          <div className="bg-card p-6 rounded-lg border border-border shadow-sm transition-colors group-hover:bg-accent/50">
+            <h2 className="text-xl font-semibold mb-4">Projects</h2>
+            <p className="text-muted-foreground">
+              Create or manage Project.
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );
