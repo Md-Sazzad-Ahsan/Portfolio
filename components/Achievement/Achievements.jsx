@@ -2,9 +2,9 @@
 import Image from 'next/image'
 
 const galleryItems = [
-  { id: 1, src: '/achievements/RCDCCertifyGroupPhoto.jpg', title: 'Best Contributor' },
-  { id: 2, src: '/achievements/RCDCProject.jpg', title: 'Contributed to RCDC web app' },
-  { id: 3, src: '/achievements/RCDCCertifyGroupPhoto.jpg', title: 'Best Contributor' },
+  { id: 1, src: '/achievements/RCDCCertifyGroupPhoto.jpg', title: 'Best Contributor in Web Development' },
+  { id: 2, src: '/achievements/RCDCProject.jpg', title: 'Contributed to RCDC Web-Application' },
+  { id: 3, src: '/achievements/AchievementCertificate.jpg', title: 'Award - Bangladesh Competetion Commission' },
 //   { id: 4, src: '/projectImages/APIImage.jpg', title: 'Architecture' },
 //   { id: 5, src: '/projectImages/APIImage.jpg', title: 'Ocean Breeze' },
 //   { id: 6, src: '/projectImages/APIImage.jpg', title: 'Urban Design' },
@@ -12,7 +12,7 @@ const galleryItems = [
 
 export default function BentoGallery() {
   return (
-    <div className="max-w-6xl mx-auto p-5 md:p-0 mt-20">
+    <div className="max-w-6xl mx-auto p-5 md:p-0 mt-20 mb-8">
         <span>
         <h1 className='text-3xl text-center md:text-start font-bold text-darkBg dark:text-gray-50'>Achievements</h1>
         <h2 className='text-sm md:text-md text-center md:text-start text-gray-500 dark:text-gray-50 py-1'>Highlights of My Professional and Academic Achievements</h2>
