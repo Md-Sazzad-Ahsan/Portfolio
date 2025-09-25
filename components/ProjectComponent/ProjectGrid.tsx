@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 import ProjectCardTemplate from "@/components/ProjectComponent/ProjectCardTemplate"; // Adjust the path as necessary
-import CategoryButtons from "@/components/GlobalComponents/CategoriesButton"; // Adjust the path as necessary
 import { ProjectData } from "@/components/ProjectComponent/ProjectData"; // Adjust the path to where BlogData.tsx is located
 import Link from 'next/link'; // Import Link from Next.js
 
@@ -11,24 +11,16 @@ interface BlogGridProps {
 }
 
 const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
+  const router = useRouter();
   const [visibleCardCount, setVisibleCardCount] = useState<number>(initialCardCount); // State to manage visible cards
 
-  // Filtered data based on selected category
-  const filteredProjects = selectedCategory === "All"
-    ? ProjectData // Show all cards when "All" is selected
-    : ProjectData.filter((project) => project.displayInto.includes(selectedCategory)); // Filter based on exact category match
+  // All projects (categories removed)
+  const filteredProjects = ProjectData;
 
-  // Handler for category change
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategory(category);
-    setVisibleCardCount(initialCardCount); // Reset visible cards when category changes
-  };
-
-  // Reset visibleCardCount if the category changes
+  // Reset visibleCardCount if the initial count prop changes
   useEffect(() => {
     setVisibleCardCount(initialCardCount);
-  }, [initialCardCount, selectedCategory]);
+  }, [initialCardCount]);
 
   // Load more cards function
   const loadMoreCards = () => {
@@ -37,20 +29,12 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
 
   return (
     <div className="">
-      {/* Category Selection Buttons */}
-      <CategoryButtons
-        categories={["All", "App", "UI/UX", "Software", "Website", "E-commerce", "AI", "Games", "Personal"]}
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-
       {/* Grid of Cards - show only visibleCardCount cards */}
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
         {filteredProjects.slice(0, visibleCardCount).map((project) => (
           <ProjectCardTemplate
             key={project.headline}
             imageSrc={project.imageSrc}
-            category={project.category}
             headline={project.headline}
             description={project.description}
             link={project.link}
@@ -61,18 +45,29 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
       {/* Conditional Button Rendering */}
       <div className="flex justify-center mt-4">
         {buttonType === 'viewMore' ? (
-          filteredProjects.length > visibleCardCount && ( // Show "View More" if there are more cards to show
-            <Link href="/portfolio">
-              <div className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-2 rounded-lg hover:bg-cyan-700 transition">View more</div>
+          filteredProjects.length > visibleCardCount && (
+            <Link
+              href="/portfolio"
+              aria-label="View more projects"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-700 dark:to-blue-700 text-white px-6 sm:px-10 py-3 mt-5 rounded-lg hover:from-cyan-700 hover:to-blue-700 dark:hover:from-cyan-800 dark:hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium mb-4 pointer-events-auto relative z-20"
+              onClick={(e) => { e.preventDefault(); router.push('/portfolio'); }}
+            >
+              <span>View All Projects</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </Link>
           )
         ) : (
-          filteredProjects.length > visibleCardCount && ( // Show "Load More" if there are more cards to load
+          filteredProjects.length > visibleCardCount && (
             <button
               onClick={loadMoreCards}
-              className="bg-cyan-600 text-white text-sm md:text-md px-5 sm:px-8 py-1 sm:py-2 rounded-lg hover:bg-cyan-700 transition"
+              className="group inline-flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-700 dark:to-blue-700 text-white px-6 sm:px-10 py-3 mt-5 rounded-lg hover:from-cyan-700 hover:to-blue-700 dark:hover:from-cyan-800 dark:hover:to-blue-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium mb-4"
             >
-              Show more
+              <span>Load More Project</span>
+              <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
             </button>
           )
         )}

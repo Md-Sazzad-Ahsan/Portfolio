@@ -77,7 +77,7 @@ export default function Home() {
       </section>
       
       {/* Projects Section with visual enhancements */}
-      <section className="relative bg-gray-50 dark:bg-darkBg py-24">
+      <section className="relative bg-gray-50 dark:bg-darkBg py-20">
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
         <div className="container mx-auto max-w-6xl px-5 md:px-0">
           <div className="flex flex-col items-center mb-16">
@@ -94,7 +94,11 @@ export default function Home() {
             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 rounded-xl blur-xl opacity-30 dark:opacity-40 -z-10"></div>
             <SelectedWork/>
           </div>
-          
+          <div className="flex items-center justify-center mb-4">
+              <div className="h-px w-8 bg-cyan-500 mr-4"></div>
+              <h2 className={`text-lg font-medium text-cyan-600 dark:text-cyan-400 ${playfair.className}`}>Other Projects_</h2>
+              <div className="h-px w-8 bg-cyan-500 ml-4"></div>
+            </div>
           <div className="mt-16">
             <ProjectGrid buttonType="viewMore" initialCardCount={3} />
           </div>
@@ -141,11 +145,11 @@ export default function Home() {
       </section>
       
       {/* Contact CTA Section */}
-      <section className="relative bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 dark:from-gray-700 dark:via-gray-800 dark:to-gray-700 dark:bg-darkBg py-20">
+      <section className="relative bg-transparent py-20 border-t">
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-10"></div>
-        <div className="container mx-auto max-w-4xl px-5 md:px-0 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-6">Ready to Start Your Next Project?</h2>
-          <p className="text-gray-700 dark:text-gray-100 mb-8 max-w-2xl mx-auto">Let&apos;s collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
+        <div className="container mx-auto max-w-4xl px-5 pt-5 md:px-0 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">Ready to Start Your Next Project?</h2>
+          <p className="text-gray-700 dark:text-gray-100 mb-8 max-w-xl mx-auto">Let&apos;s collaborate to bring your ideas to life with a beautiful, functional website that stands out.</p>
           <Link href="/contact" className="inline-flex items-center px-8 py-3 bg-gray-900 dark:bg-white text-gray-100 dark:text-gray-600 font-medium rounded-md hover:bg-gray-700 hover:dark:bg-gray-50 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             Get in Touch
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

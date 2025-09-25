@@ -24,14 +24,7 @@ const SelectedWork = () => {
               Collab - AI Powered Meeting Room
             </h2>
             <p className="text-base text-gray-600 dark:text-gray-300">
-              <strong>An innovative virtual conference platform</strong> enhancing online
-              collaboration with smart features. It includes interactive
-              whiteboards, drag-and-drop file sharing, and real-time translation
-              in 133 languages. An integrated AI assistant offers live support
-              and resources, while voice recognition enables hands-free control.
-              Features like screen sharing, video sharing, and live polls boost
-              engagement. Collab customizable UI ensures a seamless and
-              productive meeting experience for global users.
+            <strong>An innovative virtual conference platform</strong> with smart collaboration features like interactive whiteboards, drag-and-drop file sharing, and real-time translation in 133 languages. An AI assistant provides live support, while voice recognition enables hands-free control. With screen sharing, video sharing, live polls, and a customizable UI, Collab ensures a seamless and productive meeting experience for global users.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               <span className="bg-transparent text-black dark:text-gray-50 text-xs md:text-md font-bold px-3 py-1 rounded-full">
@@ -68,7 +61,7 @@ const SelectedWork = () => {
           </div>
 
           {/* Image Stack */}
-          <div className="w-full md:w-1/3 space-y-2 order-1 md:order-2">
+          <div className="w-full md:w-1/3 space-y-2 order-1 md:order-2 md:mt-7">
           <p className="uppercase md:hidden text-sm text-gray-500 dark:text-gray-400 font-semibold text-center sm:text-start">
               Most Recent
             </p>
