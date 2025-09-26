@@ -12,6 +12,13 @@ const projectSchema = new mongoose.Schema({
     trim: true,
     maxlength: [100, 'Title cannot be more than 100 characters']
   },
+  slug: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true,
+  },
   subTitle: {
     type: String,
     required: [true, 'Subtitle is required'],
@@ -22,6 +29,11 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Description is required'],
     trim: true
+  },
+  features: {
+    type: [String],
+    default: [],
+    set: (vals) => Array.isArray(vals) ? vals.map(v => String(v).trim()).filter(Boolean) : []
   },
   gitHub: {
     type: String,
@@ -34,5 +46,9 @@ const projectSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
+
+// Text index to support search by title or slug
+// Usage: db.projects.find({ $text: { $search: "query" } })
+projectSchema.index({ title: 'text', slug: 'text' });
 
 export default mongoose.models.Project || mongoose.model('Project', projectSchema);

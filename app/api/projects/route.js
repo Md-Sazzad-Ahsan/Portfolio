@@ -9,7 +9,14 @@ export async function POST(request) {
     await connect();
 
     const body = await request.json();
-    const { thumbnail, title, subTitle, description, gitHub, web } = body || {};
+    const { thumbnail, title, subTitle, description, gitHub, web, features, slug: incomingSlug } = body || {};
+
+    // Helper to slugify title if slug not provided
+    const slugify = (s) => String(s)
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
 
     // Basic required field checks aligned with the schema
     if (!thumbnail || !title || !subTitle || !description) {
@@ -19,7 +26,9 @@ export async function POST(request) {
       );
     }
 
-    const doc = await Project.create({ thumbnail, title, subTitle, description, gitHub, web });
+    const slug = incomingSlug && incomingSlug.length ? incomingSlug : slugify(title);
+
+    const doc = await Project.create({ thumbnail, title, subTitle, description, gitHub, web, slug, features });
 
     return NextResponse.json({ success: true, data: doc }, { status: 201 });
   } catch (error) {

@@ -7,17 +7,24 @@ interface ProjectCardTemplateProps {
   imageSrc: string;
   headline: string;
   description: string;
-  link: string;
 }
 
 const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({
   imageSrc,
   headline,
   description,
-  link,
 }) => {
+  // Build slug from headline and construct canonical portfolio path
+  const slugify = (s: string) => s
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-") // replace non-alphanumerics with dashes
+    .replace(/^-+|-+$/g, "");    // trim leading/trailing dashes
+
+  const href = `/portfolio/${slugify(headline)}`;
+
   return (
-    <Link href={link} className="block h-full group" aria-label={`View project: ${headline}`}>
+    <Link href={href} className="block h-full group" aria-label={`View project: ${headline}`}>
       <motion.div 
         className="h-full flex flex-col bg-white dark:bg-darkBg rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700"
         whileHover={{ scale: 1.02 }}

@@ -106,7 +106,7 @@ export default function Home() {
       </section>
       
       {/* Blog Section with improved visual hierarchy */}
-      <section className="relative bg-white dark:bg-darkBg py-24">
+      <section className="relative bg-white dark:bg-darkBg py-20 md:px-5 lg:px-0">
         <div className="absolute inset-0 bg-[url('/images/grid.svg')] bg-center opacity-5"></div>
         <div className="container mx-auto max-w-6xl px-5 md:px-0">
           <div className="flex flex-col items-center mb-16">
@@ -119,7 +119,17 @@ export default function Home() {
             <p className="text-gray-600 dark:text-gray-300 text-center max-w-2xl">Insights, tutorials, and thoughts on web development and design.</p>
           </div>
           
-          <BlogGrid buttonType={"viewMore"} initialCardCount={6} />
+          {/* 3 cards on small and large, 4 cards on medium */}
+          <div>
+            {/* Small and Large screens: 3 */}
+            <div className="block md:hidden lg:block">
+              <BlogGrid buttonType={"viewMore"} initialCardCount={3} />
+            </div>
+            {/* Medium screens: 4 */}
+            <div className="hidden md:block lg:hidden">
+              <BlogGrid buttonType={"viewMore"} initialCardCount={4} />
+            </div>
+          </div>
         </div>
       </section>
       

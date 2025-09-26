@@ -37,7 +37,6 @@ const BlogGrid: React.FC<BlogGridProps> = ({ initialCardCount = 6, buttonType })
             imageSrc={project.imageSrc}
             headline={project.headline}
             description={project.description}
-            link={project.link}
           />
         ))}
       </ul>
