@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const SelectedWork = () => {
   return (
-    <section className="w-full py-20 bg-white dark:bg-darkBg">
+    <section className="w-full py-16 md:py-20 bg-gray-50 dark:bg-darkBg">
       <div className="max-w-7xl mx-auto">
 
         <motion.div
@@ -45,7 +45,7 @@ const SelectedWork = () => {
                 href="/portfolio/404"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 md:px-8 py-2 bg-cyan-700 text-white rounded-lg text-center hover:bg-cyan-500 transition w-full sm:w-auto"
+                className="px-5 md:px-10 py-4 md:py-2.5 bg-cyan-700 text-white rounded-lg text-center hover:bg-cyan-500 transition w-full sm:w-auto"
               >
                 Live Preview
               </a>
@@ -53,7 +53,7 @@ const SelectedWork = () => {
                 href="https://github.com/Md-Sazzad-Ahsan/Collab"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 md:px-8 py-2 bg-gray-800 text-white rounded-lg text-center hover:bg-gray-600 transition w-full sm:w-auto"
+                className="px-5 md:px-10 py-4 md:py-2.5 bg-gray-800 text-white rounded-lg text-center hover:bg-gray-600 transition w-full sm:w-auto"
               >
                 GitHub Code
               </a>

@@ -76,7 +76,7 @@ function AboutSkillsCard() {
         <motion.div variants={item} className="col-span-full text-center pt-5 sm:pt-8 md:pt-10">
           <a
             href="/about/skills"
-            className="bg-cyan-700 px-8 py-2 text-lg sm:text-md md:text-lg text-gray-50 font-semibold rounded-lg shadow-lg hover:shadow-lg hover:bg-cyan-900 transition-colors duration-300"
+            className="bg-cyan-700 px-8 py-4 md:py-3 z-10 text-md md:text-lg text-gray-50 font-semibold rounded-lg shadow-lg hover:shadow-lg hover:bg-cyan-900 transition-colors duration-300"
           >
             View Details
           </a>

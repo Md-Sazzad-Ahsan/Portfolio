@@ -35,9 +35,9 @@ export default function AboutMe() {
 
   return (
     <main className="min-h-screen bg-white dark:bg-darkBg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-16 sm:py-24">
         <motion.section 
-          className="bg-white dark:bg-darkBg rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700"
+          className="bg-white dark:bg-darkBg rounded-2xl sm:shadow-xl overflow-hidden sm:border border-gray-100 dark:border-gray-700"
           initial="hidden"
           animate="visible"
           variants={containerVariants}
@@ -48,7 +48,7 @@ export default function AboutMe() {
               className="relative group"
               variants={itemVariants}
             >
-              <div className="relative w-full h-0 pb-[125%] rounded-xl overflow-hidden shadow-lg border-4 border-white dark:border-gray-700 transform transition-transform duration-300 group-hover:scale-[1.02]">
+              <div className="relative w-full h-0 pb-[125%] rounded-xl overflow-hidden shadow-sm border-4 border-white dark:border-gray-700 transform transition-transform duration-300 group-hover:scale-[1.02]">
                 <Image
                   src="/images/profilePhoto.jpg"
                   alt="Md. Sazzad Ahsan"
@@ -96,16 +96,17 @@ export default function AboutMe() {
                 </motion.div>
 
                 <motion.p 
-                  className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
+                  className="text-md text-gray-600 dark:text-gray-300 leading-relaxed"
                   variants={itemVariants}
                 >
                   A passionate full stack <span className="font-semibold text-cyan-600 dark:text-cyan-400">Software Developer</span> with a B.Sc. in CSE from Daffodil Institute of IT (DIIT), Dhaka. I specialize in software development, application development, web & cross-platform application development, mobile app development, content writing. With a strong focus on building innovative, user-friendly, and high-performance software solutions, I&apos;m dedicated to delivering impactful software,websites, applications, and digital products. Always eager to learn and adapt to emerging technologies, I thrive on transforming ideas into reality through creative problem-solving and technical expertise.
                 </motion.p>
 
                 <motion.div 
-                  className="pt-4 flex flex-wrap gap-4"
+                  className="pt-4 flex flex-nowrap gap-3 sm:flex-wrap"
                   variants={itemVariants}
                 >
+                  {/* singleButton */}
                   {isAboutPage ? (
                     <Button
                       href="/ResumeMDSazzadAhsan.pdf"
@@ -115,16 +116,17 @@ export default function AboutMe() {
                     />
                   ) : (
                     <>
+                    {/* doubleButton */}
                       <Button
                         href="/about"
-                        buttonText="More About Me"
-                        className="px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-md shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+                        buttonText="More about me"
+                        className="px-5 w-1/2 sm:w-auto py-3.5 sm:py-2.5 text-center bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                       />
                       <Button
                         href="/ResumeMDSazzadAhsan.pdf"
                         download="MDSazzadAhsan.pdf"
                         buttonText="View Resume"
-                        className="px-6 py-2.5 border border-cyan-600 bg-transparent text-cyan-600 hover:bg-cyan-50 dark:hover:bg-gray-700 font-medium rounded-md shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+                        className="px-5 w-1/2 sm:w-auto py-3.5 sm:py-2.5 border border-cyan-600 bg-transparent text-cyan-600 hover:bg-cyan-50 dark:hover:bg-gray-700 font-medium text-center rounded-lg shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
                       />
                     </>
                   )}

@@ -32,7 +32,7 @@ export default function Home() {
               <div className="mt-8 w-full sm:w-auto">
                 <Link 
                   href="/contact" 
-                  className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-3 sm:py-2.5 text-sm font-semibold rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 transition-all duration-200 hover:shadow-md hover:shadow-cyan-500/30 hover:-translate-y-0.5"
+                  className="w-full sm:w-auto inline-flex justify-center items-center px-6 py-4 sm:py-2.5 text-md font-semibold rounded-lg text-white bg-cyan-600 hover:bg-cyan-500 transition-all duration-200 hover:shadow-md hover:shadow-cyan-500/30 hover:-translate-y-0.5"
                 >
                   Contact me
                   <GoArrowUpRight className="ml-1.5 h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />

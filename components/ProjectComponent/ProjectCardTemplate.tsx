@@ -29,7 +29,7 @@ const ProjectCardTemplate: React.FC<ProjectCardTemplateProps> = ({
         className="h-full flex flex-col bg-white dark:bg-darkBg rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 dark:border-gray-700"
         whileHover={{ scale: 1.02 }}
       >
-        <div className="relative w-full h-48 overflow-hidden">
+        <div className="relative w-full h-56 md:h-52 overflow-hidden">
           <div className="relative w-full h-full">
             <Image 
               src={imageSrc} 

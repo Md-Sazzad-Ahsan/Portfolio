@@ -148,7 +148,7 @@ const LatestBlogGrid: React.FC = async () => {
               key={i}
               className="flex flex-col bg-white dark:bg-gray-700 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
             >
-              <div className="relative h-48 md:h-40 w-full">
+              <div className="relative h-48 md:h-44 w-full">
                 <Image
                   src={blog.thumbnail || "/images/TempImage.jpg"}
                   alt={blog.content?.en?.title || "Blog Image"}
